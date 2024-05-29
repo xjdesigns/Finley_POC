@@ -1,11 +1,13 @@
 const DARK_GRAY = '#222';
 const LIGHT_GRAY = '#F3F3F3';
+const MEDIUM_GRAY = '#797979';
 
 export const COLORS = {
   white: '#fff',
   black: '#000',
   primary: '#1b6635',
   blue: '#007aff',
+  mediumgray: MEDIUM_GRAY,
   lighttheme: {
     lightgray: '#F3F3F3',
     darkgray: '#222',
@@ -16,6 +18,8 @@ export const COLORS = {
     inputText: '#000',
     inputBackground: '#fff',
     inputBorderFocus: '#4fa2ee',
+    numBtnBackground: '#c5c5c5',
+    numText: '#5d5d5d',
   },
   darktheme: {
     lightgray: '#F3F3F3',
@@ -27,5 +31,7 @@ export const COLORS = {
     inputText: '#fff',
     inputBackground: '#000',
     inputBorderFocus: '#4fa2ee',
+    numBtnBackground: '#5d5d5d',
+    numText: '#c5c5c5',
   },
 };

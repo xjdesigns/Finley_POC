@@ -3,6 +3,7 @@ import {
   StyleSheet,
   ScrollView,
   View,
+  Text,
   SafeAreaView,
   useColorScheme,
 } from 'react-native';
@@ -46,17 +47,12 @@ const GettingStarted = () => {
   };
 
   const handleSubmit = () => {
-    // console.warn('userData', userData);
-    // setTimeout();
     navigation.navigate(CONNECT_MAILBOX_ROUTE);
   };
 
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={backgroundStyle}>
-        {/* <View>
-          <Text>{JSON.stringify(user, null, ' ')}</Text>
-        </View> */}
         <View style={innerView}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             <FnText text="Create Your Account" fnTextStyles={styles.title} />
@@ -66,6 +62,7 @@ const GettingStarted = () => {
               placeholder="First Name"
               value={userData?.firstName}
               onChangeText={val => handleChange('firstName', val)}
+              fnStyles={styles.fnInputStyle}
             />
 
             <FnTextInput
@@ -73,6 +70,7 @@ const GettingStarted = () => {
               placeholder="Last Name"
               value={userData?.lastName}
               onChangeText={val => handleChange('lastName', val)}
+              fnStyles={styles.fnInputStyle}
             />
 
             <FnTextInput
@@ -81,6 +79,7 @@ const GettingStarted = () => {
               value={userData?.email}
               onChangeText={val => handleChange('email', val)}
               inputMode="email"
+              fnStyles={styles.fnInputStyle}
             />
 
             <FnTextInput
@@ -90,6 +89,15 @@ const GettingStarted = () => {
               value={userData?.password}
               onChangeText={val => handleChange('password', val)}
             />
+            <View>
+              {/* // This could become a Flat List made as a FN component */}
+              <Text style={styles.list}>• Uppercase letters (A-Z)</Text>
+              <Text style={styles.list}>• Lowercase letters (a-z)</Text>
+              <Text style={styles.list}>• Numbers (0-9)</Text>
+              <Text style={styles.list}>
+                • Special characters (!, @, #, $, etc.)
+              </Text>
+            </View>
           </ScrollView>
         </View>
       </SafeAreaView>
@@ -110,8 +118,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 24,
   },
-  // TODO: Make this a generic style
-  bottomBar: createBottomBarStyles(),
+  fnInputStyle: {
+    marginBottom: 24,
+  },
+  list: {
+    marginLeft: 6,
+    marginTop: 6,
+    color: COLORS.mediumgray,
+  },
+  bottomBar: createBottomBarStyles({needsMinHeight: false}),
 });
 
 export default GettingStarted;

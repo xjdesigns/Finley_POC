@@ -1,6 +1,5 @@
+import React, {useEffect} from 'react';
 import {StatusBar} from 'expo-status-bar';
-// import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {useColorScheme} from 'react-native';
@@ -12,20 +11,29 @@ import {COLORS} from './utils/Colors';
 import HomePage from './finley/homepage';
 import GettingStarted from './finley/getting-started';
 import ConnectMailbox from './finley/connect-mailbox.jsx';
-import SearchingMailbox from './finley/searching-mailbox.jsx';
+import ConnectedMailbox from './finley/connected-mailbox.jsx';
+import CreatePinCode from './finley/create-pin-code.jsx';
 import {
   HOME_ROUTE,
   GETTING_STARTED_ROUTE,
   CONNECT_MAILBOX_ROUTE,
-  SEARCHING_FOR_MAILBOX_ROUTE,
+  CONNECTED_MAILBOX_ROUTE,
+  CREATE_PIN_CODE_ROUTE,
 } from './constants/routes.js';
-import Menu from './components/Menu.jsx';
+
+// import {BleManager} from 'react-native-ble-plx';
+// export const manager = new BleManager();
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  // useEffect(() => {
+  //   const instance = new BleManager();
+  //   console.warn('instance', instance)
+  // }, [])
 
   return (
     <Provider store={store}>
@@ -59,15 +67,22 @@ export default function App() {
             }}
           />
           <Stack.Screen
-            name={SEARCHING_FOR_MAILBOX_ROUTE}
-            component={SearchingMailbox}
+            name={CONNECTED_MAILBOX_ROUTE}
+            component={ConnectedMailbox}
+            options={{
+              title: '',
+              headerBackTitle: 'Back',
+            }}
+          />
+          <Stack.Screen
+            name={CREATE_PIN_CODE_ROUTE}
+            component={CreatePinCode}
             options={{
               title: '',
               headerBackTitle: 'Back',
             }}
           />
         </Stack.Navigator>
-        <Menu />
       </NavigationContainer>
       <StatusBar style="auto" />
     </Provider>
