@@ -1,19 +1,10 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  SafeAreaView,
-  useColorScheme,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
 import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {COLORS} from '../../utils/Colors';
 
 const More = () => {
-  const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
@@ -38,10 +29,6 @@ const More = () => {
 
   const linkView = {
     ...baseInner,
-  };
-
-  const handleTest = () => {
-    navigation.navigate('Test');
   };
 
   return (
