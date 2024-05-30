@@ -15,7 +15,7 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import {logoImage, mailboxImage, finleyBackgroundImage} from '../utils/Images';
 import {createBottomBarStyles} from '../utils/BottomBar';
-import {GETTING_STARTED_ROUTE} from '../constants/routes';
+import {GETTING_STARTED_ROUTE, LOGIN_ROUTE} from '../constants/routes';
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -23,13 +23,16 @@ const HomePage = () => {
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const bgImg = {uri: finleyBackgroundImage};
 
-  const handleOnPress = () => {
+  const handleGettingStarted = () => {
     navigation.navigate(GETTING_STARTED_ROUTE);
+  };
+
+  const handleLogin = () => {
+    navigation.navigate(LOGIN_ROUTE);
   };
 
   const baseStyle = {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   };
 
@@ -65,10 +68,10 @@ const HomePage = () => {
         <View style={styles.bottomBar}>
           <FnPressable
             text="Getting Started"
-            onPress={handleOnPress}
+            onPress={handleGettingStarted}
             disableDarkTheme={true}
           />
-          <Pressable style={styles.login}>
+          <Pressable style={styles.login} onPress={handleLogin}>
             <Text style={styles.login}>Log in</Text>
           </Pressable>
         </View>
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     color: '#b0b0b0',
     marginBottom: 30,
   },
-  // TODO: Make this a generic style to use
+  // TODO: Use flex for this to avoid the Android push issue with absolute positioning
   bottomBar: createBottomBarStyles(),
   mailbox: {
     width: 300,

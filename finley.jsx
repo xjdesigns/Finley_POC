@@ -103,13 +103,13 @@ export default function Finley() {
                 headerShadowVisible: false,
               }}>
               <Stack.Screen
-                name={LOGIN_ROUTE}
-                component={Login}
+                name={HOME_ROUTE}
+                component={HomePage}
                 options={{headerShown: false}}
               />
               <Stack.Screen
-                name={HOME_ROUTE}
-                component={HomePage}
+                name={LOGIN_ROUTE}
+                component={Login}
                 options={{headerShown: false}}
               />
               <Stack.Screen
