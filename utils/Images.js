@@ -1,5 +1,6 @@
 import {Image} from 'react-native';
 import LogoImage from '../assets/finley_logo.png';
+import LogoIconImage from '../assets/finley_icon_logo.png';
 import MailboxImage from '../assets/mailbox.png';
 import FinleyBackground from '../assets/finley_background.jpg';
 import MailboxesImage from '../assets/mailboxes.png';
@@ -7,6 +8,7 @@ import MailboxPadImage from '../assets/mailbox_pad.png';
 import MailboxOpenImage from '../assets/mailbox_open.png';
 
 export const logoImage = Image.resolveAssetSource(LogoImage).uri;
+export const logoIconImage = Image.resolveAssetSource(LogoIconImage).uri;
 export const mailboxImage = Image.resolveAssetSource(MailboxImage).uri;
 export const finleyBackgroundImage =
   Image.resolveAssetSource(FinleyBackground).uri;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,8 +16,6 @@ import FnPressable from '../components/FnPressable';
 import {logoImage, mailboxImage, finleyBackgroundImage} from '../utils/Images';
 import {createBottomBarStyles} from '../utils/BottomBar';
 import {GETTING_STARTED_ROUTE} from '../constants/routes';
-import FnNumPad from '../components/FnNumPad';
-import FnValueDisplay from '../components/FnValueDisplay';
 
 const HomePage = () => {
   const navigation = useNavigation();
@@ -44,23 +42,8 @@ const HomePage = () => {
     ...baseStyle,
   };
 
-  const [numVal, setNumVal] = useState('');
-  const handleNumPress = val => {
-    setNumVal(prevState => {
-      let newVal = '';
-      if (val === 'backspace' && prevState.length > 0) {
-        newVal = prevState.slice(0, -1);
-      } else if (val !== 'backspace') {
-        newVal = prevState + val;
-      }
-      return newVal;
-    });
-  };
-
   return (
     <View style={backgroundStyle}>
-      {/* <FnValueDisplay value={numVal} />
-      <FnNumPad onPress={handleNumPress} /> */}
       <ImageBackground
         source={bgImg}
         resizeMode="cover"

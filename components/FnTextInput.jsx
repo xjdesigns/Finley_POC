@@ -9,6 +9,7 @@ const FnTextInput = ({
   inputMode = 'text',
   onChangeText = () => {},
   secureTextEntry = false,
+  editable = true,
   fnStyles = {},
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,6 +17,7 @@ const FnTextInput = ({
   const [isFocused, setIsFocused] = useState(false);
 
   const labelStyles = {
+    textAlign: 'left',
     fontSize: 14,
     marginBottom: 3,
     color: theme.inputText,
@@ -41,6 +43,7 @@ const FnTextInput = ({
         placeholder={placeholder}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
+        editable={editable}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
