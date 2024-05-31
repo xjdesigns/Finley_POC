@@ -47,7 +47,11 @@ const Home = () => {
             resizeMode="contain"
           />
         </View>
-        <FnNavButton text="Set up your Digital Mailbox" path="More" />
+        <FnNavButton
+          text="Set up your Digital Mailbox"
+          path="More"
+          borderTop={true}
+        />
       </SafeAreaView>
       {/* <Menu /> */}
     </View>

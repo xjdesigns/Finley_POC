@@ -1,13 +1,6 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Pressable,
-  SafeAreaView,
-  useColorScheme,
-  Image,
-} from 'react-native';
+import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
+import FnText from '../../components/FnText';
 import {COLORS} from '../../utils/Colors';
 
 const Mail = () => {
@@ -23,7 +16,7 @@ const Mail = () => {
     ...baseStyle,
   };
 
-  const f = {
+  const innerView = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -32,12 +25,24 @@ const Mail = () => {
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={backgroundStyle}>
-        <View style={f}>
-          <Text>Mail</Text>
+        <View style={innerView}>
+          <FnText
+            text="Nothing to see here, yet."
+            fnTextStyles={styles.title}
+          />
+          <FnText text="Next time mail is delivered it will show up here." />
         </View>
       </SafeAreaView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  title: {
+    marginBottom: 8,
+    fontSize: 28,
+    fontWeight: 700,
+  },
+});
 
 export default Mail;

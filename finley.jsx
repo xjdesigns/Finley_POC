@@ -20,6 +20,7 @@ import {FnTabMenu} from './components/FnTabMenu.jsx';
 import Home from './finley/app/home.jsx';
 import Mail from './finley/app/mail.jsx';
 import More from './finley/app/more.jsx';
+import NotificationPreferences from './finley/app/notification-preferences.jsx';
 import {
   LOGIN_ROUTE,
   HOME_ROUTE,
@@ -30,22 +31,22 @@ import {
   CONNECTED_MAILBOX_ROUTE,
   CREATE_PIN_CODE_ROUTE,
   SETTINGS_MORE_ROUTE,
+  NOTIFICATIONS_PREF_ROUTE,
+  YOUR_MAIL_ROUTE,
 } from './constants/routes.js';
 
+// TODO: This needs a full build and tested on a physical device
 // import {BleManager} from 'react-native-ble-plx';
 // export const manager = new BleManager();
 
 const Stack = createNativeStackNavigator();
 const MoreStack = createNativeStackNavigator();
+const MailStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const TestView = () => {
-  return (
-    <View>
-      <Text>Another More</Text>
-    </View>
-  );
-};
+function FnTabMenuWrapper(props) {
+  return <FnTabMenu {...props} />;
+}
 
 function MoreStackScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -64,11 +65,31 @@ function MoreStackScreen() {
         options={{headerShown: false}}
       />
       <MoreStack.Screen
-        name="Test"
-        component={TestView}
+        name={NOTIFICATIONS_PREF_ROUTE}
+        component={NotificationPreferences}
         options={{headerBackTitleVisible: false}}
       />
     </MoreStack.Navigator>
+  );
+}
+
+function MailStackScreen() {
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  return (
+    <MailStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.background,
+        },
+        headerShadowVisible: false,
+      }}>
+      <MailStack.Screen
+        name={YOUR_MAIL_ROUTE}
+        component={Mail}
+        options={{headerShown: false}}
+      />
+    </MailStack.Navigator>
   );
 }
 
@@ -90,9 +111,16 @@ export default function Finley() {
   //   console.warn('userToken', userToken);
   // }, [userToken]);
 
+  const NavTheme = {
+    dark: false,
+    colors: {
+      ...theme,
+    },
+  };
+
   return (
     <View style={baseStyle}>
-      <NavigationContainer>
+      <NavigationContainer theme={NavTheme}>
         <>
           {userToken === '' ? (
             <Stack.Navigator
@@ -146,7 +174,7 @@ export default function Finley() {
               />
             </Stack.Navigator>
           ) : (
-            <Tab.Navigator tabBar={FnTabMenu}>
+            <Tab.Navigator tabBar={FnTabMenuWrapper}>
               <Tab.Screen
                 name={HOME_ROUTE}
                 component={Home}
@@ -154,7 +182,7 @@ export default function Finley() {
               />
               <Tab.Screen
                 name={MAIL_ROUTE}
-                component={Mail}
+                component={MailStackScreen}
                 options={{headerShown: false}}
               />
               <Tab.Screen

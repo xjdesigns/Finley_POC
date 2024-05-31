@@ -6,6 +6,8 @@ import {
   Text,
   SafeAreaView,
   useColorScheme,
+  KeyboardAvoidingView,
+  Platform,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -51,7 +53,9 @@ const GettingStarted = () => {
   };
 
   return (
-    <View style={backgroundStyle}>
+    <KeyboardAvoidingView
+      style={backgroundStyle}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={backgroundStyle}>
         <View style={innerView}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
@@ -108,7 +112,7 @@ const GettingStarted = () => {
           disableDarkTheme={true}
         />
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 

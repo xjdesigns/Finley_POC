@@ -3,12 +3,41 @@ import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../utils/Colors';
+import {useTheme} from '@react-navigation/native';
 
 export const FnTabMenu = ({state, descriptors, navigation}) => {
+  const {colors} = useTheme();
+  const theme = colors;
+
+  const navBar = {
+    backgroundColor: theme.background,
+    flexDirection: 'row',
+    paddingBottom: 20,
+    borderTopColor: COLORS.borderGray,
+    borderTopWidth: 1,
+  };
+
+  const navIcon = {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 30,
+    height: 30,
+    borderRadius: 30,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    marginBottom: 4,
+  };
+
+  const navText = {
+    textAlign: 'center',
+    fontSize: 10,
+    color: theme.text,
+  };
+
   const getIcon = (name, isFocused) => {
     const styleProps = {
       size: 24,
-      color: isFocused ? COLORS.black : COLORS.mediumgray,
+      color: isFocused ? theme.text : COLORS.mediumgray,
     };
 
     if (name === 'Home') {
@@ -25,7 +54,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
   };
 
   return (
-    <View style={styles.navBar}>
+    <View style={navBar}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label =
@@ -68,8 +97,8 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.navAction}>
-            <View style={styles.navIcon}>{icon}</View>
-            <Text style={styles.navText}>{label}</Text>
+            <View style={navIcon}>{icon}</View>
+            <Text style={navText}>{label}</Text>
           </TouchableOpacity>
         );
       })}
@@ -104,15 +133,5 @@ const styles = StyleSheet.create({
   navText: {
     textAlign: 'center',
     fontSize: 10,
-  },
-  navKeyless: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 44,
-    height: 44,
-    backgroundColor: 'black',
-    borderRadius: 44,
-    marginLeft: 'auto',
-    marginRight: 'auto',
   },
 });

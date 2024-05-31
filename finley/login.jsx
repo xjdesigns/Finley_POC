@@ -1,5 +1,12 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView, useColorScheme, Image} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  useColorScheme,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
@@ -63,7 +70,9 @@ const Login = () => {
   };
 
   return (
-    <View style={backgroundStyle}>
+    <KeyboardAvoidingView
+      style={backgroundStyle}
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={backgroundStyle}>
         <View style={loginViewStyle}>
           <View style={inputView}>
@@ -95,7 +104,7 @@ const Login = () => {
           </View>
         </View>
       </SafeAreaView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
