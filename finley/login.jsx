@@ -6,16 +6,21 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
+  Pressable,
+  Text,
 } from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
 import FnPressable from '../components/FnPressable';
 import {logoIconImage} from '../utils/Images';
+import {GETTING_STARTED_ROUTE} from '../constants/routes';
 import {COLORS} from '../utils/Colors';
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const [email, setEmail] = useState('');
@@ -61,12 +66,28 @@ const Login = () => {
     borderRadius: 8,
   };
 
+  const setupBtn = {
+    marginTop: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+  };
+
+  const setupText = {
+    color: theme.text,
+    fontSize: 18,
+    textAlign: 'center',
+  };
+
   const handleSubmit = () => {
     setLoading(true);
     setTimeout(() => {
       dispatch(setUserToken({token: 'token'}));
       setLoading(true);
     }, 2000);
+  };
+
+  const handleSetup = () => {
+    navigation.navigate(GETTING_STARTED_ROUTE);
   };
 
   return (
@@ -101,6 +122,9 @@ const Login = () => {
               onPress={handleSubmit}
               loading={loading}
             />
+            <Pressable style={setupBtn} onPress={handleSetup}>
+              <Text style={setupText}>Setup</Text>
+            </Pressable>
           </View>
         </View>
       </SafeAreaView>

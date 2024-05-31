@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 54,
-    marginBottom: 24,
+    marginVertical: 24,
   },
   subtext: {
     width: 273,

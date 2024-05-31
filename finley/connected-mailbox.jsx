@@ -59,7 +59,7 @@ const ConnectedMailbox = () => {
       <View style={styles.bottomBar}>
         {status === LOADING_STATUS ? (
           <View style={styles.loadingView}>
-            <ActivityIndicator size="large" color={theme.text} />
+            <ActivityIndicator size="large" color={COLORS.black} />
             <FnText text="Connecting" fnTextStyles={styles.loadingText} />
           </View>
         ) : (

@@ -183,7 +183,7 @@ export default function Finley() {
               <Tab.Screen
                 name={MAIL_ROUTE}
                 component={MailStackScreen}
-                options={{headerShown: false}}
+                options={{headerShown: false, tabBarBadge: 3}}
               />
               <Tab.Screen
                 name={MORE_ROUTE}

@@ -10,6 +10,7 @@ import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {mailboxesImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
+import FIcon5 from 'react-native-vector-icons/FontAwesome6';
 import Menu from '../../components/Menu';
 
 const Home = () => {
@@ -21,7 +22,7 @@ const Home = () => {
   };
 
   const backgroundStyle = {
-    backgroundColor: theme.appBackground,
+    backgroundColor: theme.background,
     ...baseStyle,
   };
 
@@ -30,13 +31,40 @@ const Home = () => {
     alignItems: 'center',
   };
 
+  const weatherViewStyles = {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 4,
+    // backgroundColor: COLORS.black,
+    // borderWidth: 1,
+    // borderRadius: 50,
+    marginBottom: 18,
+  };
+
+  const weatherIcon = {
+    width: 20,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 50,
+    marginRight: 10,
+    backgroundColor: '#ffedbd',
+  };
+
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={backgroundStyle}>
         <View style={mainStyle}>
           <FnText text="Connected" fnTextStyles={styles.connected} />
           <FnText text="Monday, May 27" fnTextStyles={styles.date} />
-          <FnText text="85° Sunny" fnTextStyles={styles.temp} />
+          <View style={weatherViewStyles}>
+            <View style={weatherIcon}>
+              {/* <FIcon5 name="sun" color={'#000'} /> */}
+            </View>
+            <View>
+              <FnText text="85° Sunny" fnTextStyles={styles.temp} />
+            </View>
+          </View>
           <FnText
             text="Your mail usually arrives between 3:17-3:57pm"
             fnTextStyles={styles.mailDetails}
@@ -68,8 +96,8 @@ const styles = StyleSheet.create({
     fontSize: 28,
   },
   temp: {
-    marginBottom: 18,
     fontSize: 12,
+    // color: COLORS.black,
   },
   mailDetails: {
     marginBottom: 18,

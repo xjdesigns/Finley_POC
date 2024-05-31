@@ -28,6 +28,7 @@ const FnPressable = ({
   const loadingStyle = {
     fontSize: 18,
     color: theme.buttonText,
+    paddingTop: 1, // Small padding to avoid the jump on iOS
   };
 
   return (

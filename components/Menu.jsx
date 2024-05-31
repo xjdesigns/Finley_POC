@@ -5,6 +5,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import FIcon5 from 'react-native-vector-icons/FontAwesome5';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 
+// This file is meant to demo out the FnTabMenu as it is based off this...
+// Very easy to test out styles since the bottomNav requires a full reload
 const Menu = () => {
   const navigation = useNavigation();
 

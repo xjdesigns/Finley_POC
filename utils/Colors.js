@@ -10,6 +10,7 @@ export const COLORS = {
   blue: '#007aff',
   mediumgray: MEDIUM_GRAY,
   borderGray: '#d8d8d8',
+  danger: '#fb2625',
   lighttheme: {
     lightgray: '#F3F3F3',
     darkgray: '#222',

@@ -63,6 +63,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             : options.title !== undefined
             ? options.title
             : route.name;
+        const tabBarBadge = options?.tabBarBadge;
 
         const isFocused = state.index === index;
 
@@ -97,7 +98,15 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             onPress={onPress}
             onLongPress={onLongPress}
             style={styles.navAction}>
-            <View style={navIcon}>{icon}</View>
+            <View style={navIcon}>
+              {icon}
+
+              {tabBarBadge && (
+                <View style={styles.indicator}>
+                  <Text style={styles.indicatorText}>{tabBarBadge}</Text>
+                </View>
+              )}
+            </View>
             <Text style={navText}>{label}</Text>
           </TouchableOpacity>
         );
@@ -133,5 +142,21 @@ const styles = StyleSheet.create({
   navText: {
     textAlign: 'center',
     fontSize: 10,
+  },
+  indicator: {
+    position: 'absolute',
+    top: -6,
+    right: -6,
+    width: 20,
+    height: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.danger,
+    borderRadius: 50,
+  },
+  indicatorText: {
+    fontSize: 12,
+    color: '#fff',
+    fontWeight: 800,
   },
 });
