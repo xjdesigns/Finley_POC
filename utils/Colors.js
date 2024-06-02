@@ -27,6 +27,8 @@ export const COLORS = {
     switchTrackActive: '#47673b',
     switchTrackInactive: '#cfcfcf',
     switchThumb: '#000',
+    radioColor: MEDIUM_GRAY,
+    radioColorActive: '#007aff',
   },
   darktheme: {
     lightgray: '#F3F3F3',
@@ -44,5 +46,7 @@ export const COLORS = {
     switchTrackActive: '#6ab150',
     switchTrackInactive: '#cfcfcf',
     switchThumb: '#000',
+    radioColor: '#fff',
+    radioColorActive: '#007aff',
   },
 };

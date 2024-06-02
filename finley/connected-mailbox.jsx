@@ -26,6 +26,7 @@ const ConnectedMailbox = () => {
   const {status} = useSelector(state => state.mailbox);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
@@ -49,6 +50,8 @@ const ConnectedMailbox = () => {
         <View style={innerView}>
           <FnText text="Finley Box 1.0" fnTextStyles={styles.title} />
           <FnText text="X1K7B9Z3L6" fnTextStyles={styles.subtext} />
+        </View>
+        <View style={styles.imageView}>
           <Image
             src={mailboxesImage}
             style={styles.mailboxesImage}
@@ -89,6 +92,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 64,
   },
+  imageView: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
   loadingView: {
     flex: 1,
     justifyContent: 'center',
@@ -102,7 +110,6 @@ const styles = StyleSheet.create({
     width: 300,
     height: 500,
     padding: 20,
-    marginBottom: 30,
   },
   notMailbox: {
     color: COLORS.blue,

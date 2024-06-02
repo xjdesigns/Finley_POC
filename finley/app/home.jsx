@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,6 +7,7 @@ import {
   Image,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+// import * as Location from 'expo-location';
 import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {mailboxesImage} from '../../utils/Images';
@@ -18,6 +19,22 @@ const Home = () => {
   const {status} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  // TODO: Actual handle of this...
+  // useEffect(() => {
+  //   (async () => {
+  //     let {status} = await Location.requestForegroundPermissionsAsync();
+  //     if (status !== 'granted') {
+  //       // setErrorMsg('Permission to access location was denied');
+  //       console.warn('Permission not granted');
+  //       return;
+  //     }
+
+  //     let location = await Location.getCurrentPositionAsync({});
+  //     // setLocation(location);
+  //     console.warn('location', location);
+  //   })();
+  // }, []);
 
   const baseStyle = {
     flex: 1,
@@ -66,11 +83,13 @@ const Home = () => {
             text="Your mail usually arrives between 3:17-3:57pm"
             fnTextStyles={styles.mailDetails}
           />
-          <Image
-            src={mailboxesImage}
-            style={styles.mailbox}
-            resizeMode="contain"
-          />
+          <View style={styles.imageView}>
+            <Image
+              src={mailboxesImage}
+              style={styles.mailbox}
+              resizeMode="contain"
+            />
+          </View>
         </View>
         {status === NOT_CONNECTED_STATUS && (
           <FnNavButton
@@ -89,6 +108,10 @@ const styles = StyleSheet.create({
   connected: {
     marginTop: 24,
     marginBottom: 18,
+  },
+  imageView: {
+    flex: 1,
+    justifyContent: 'flex-end',
   },
   date: {
     marginBottom: 18,

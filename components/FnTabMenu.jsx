@@ -12,6 +12,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
   const navBar = {
     backgroundColor: theme.background,
     flexDirection: 'row',
+    justifyContent: 'space-around',
     paddingBottom: 20,
     borderTopColor: COLORS.borderGray,
     borderTopWidth: 1,
@@ -120,7 +121,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
 
 const styles = StyleSheet.create({
   navAction: {
-    flex: 1,
+    // flex: 1,
     textAlign: 'center',
     padding: 10,
   },

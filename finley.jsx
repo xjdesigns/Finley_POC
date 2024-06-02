@@ -6,21 +6,22 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useColorScheme, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {COLORS} from './utils/Colors';
-import Login from './finley/login.jsx';
+import Login from './finley/login';
+import DevOptions from './finley/dev-options';
 
 // Finley Gettting Started
 import HomePage from './finley/homepage';
 import GettingStarted from './finley/getting-started';
-import ConnectMailbox from './finley/connect-mailbox.jsx';
-import ConnectedMailbox from './finley/connected-mailbox.jsx';
-import CreatePinCode from './finley/create-pin-code.jsx';
-import {FnTabMenu} from './components/FnTabMenu.jsx';
+import ConnectMailbox from './finley/connect-mailbox';
+import ConnectedMailbox from './finley/connected-mailbox';
+import CreatePinCode from './finley/create-pin-code';
+import {FnTabMenu} from './components/FnTabMenu';
 
 // Finley App
-import Home from './finley/app/home.jsx';
-import Mail from './finley/app/mail.jsx';
-import More from './finley/app/more.jsx';
-import NotificationPreferences from './finley/app/notification-preferences.jsx';
+import Home from './finley/app/home';
+import Mail from './finley/app/mail';
+import More from './finley/app/more';
+import NotificationPreferences from './finley/app/notification-preferences';
 import {
   LOGIN_ROUTE,
   HOME_ROUTE,
@@ -33,6 +34,7 @@ import {
   SETTINGS_MORE_ROUTE,
   NOTIFICATIONS_PREF_ROUTE,
   YOUR_MAIL_ROUTE,
+  DEV_OPTIONS_ROUTE,
 } from './constants/routes.js';
 
 // TODO: This needs a full build and tested on a physical device
@@ -167,6 +169,14 @@ export default function Finley() {
               <Stack.Screen
                 name={CREATE_PIN_CODE_ROUTE}
                 component={CreatePinCode}
+                options={{
+                  title: '',
+                  headerBackTitle: 'Back',
+                }}
+              />
+              <Stack.Screen
+                name={DEV_OPTIONS_ROUTE}
+                component={DevOptions}
                 options={{
                   title: '',
                   headerBackTitle: 'Back',

@@ -70,7 +70,7 @@ const Mail = () => {
       <SafeAreaView style={backgroundStyle}>
         <View style={actionView}>
           <Pressable onPress={handleSearchToggle}>
-            <FIcon5 name="search" size="18" />
+            <FIcon5 name="search" size="18" color={theme.text} />
           </Pressable>
         </View>
         {isSearching && (

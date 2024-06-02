@@ -15,7 +15,7 @@ import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
 import FnPressable from '../components/FnPressable';
 import {logoIconImage} from '../utils/Images';
-import {GETTING_STARTED_ROUTE} from '../constants/routes';
+import {GETTING_STARTED_ROUTE, DEV_OPTIONS_ROUTE} from '../constants/routes';
 import {COLORS} from '../utils/Colors';
 
 const Login = () => {
@@ -26,6 +26,7 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [devClick, setDevClick] = useState(0);
 
   const baseStyle = {
     flex: 1,
@@ -90,6 +91,17 @@ const Login = () => {
     navigation.navigate(GETTING_STARTED_ROUTE);
   };
 
+  const handleDev = () => {
+    if (devClick === 5) {
+      navigation.navigate(DEV_OPTIONS_ROUTE);
+      setDevClick(0);
+    } else {
+      setDevClick(prevState => {
+        return prevState + 1;
+      });
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       style={backgroundStyle}
@@ -97,13 +109,15 @@ const Login = () => {
       <SafeAreaView style={backgroundStyle}>
         <View style={loginViewStyle}>
           <View style={inputView}>
-            <View style={iconView}>
-              <Image
-                src={logoIconImage}
-                style={logoIcon}
-                resizeMode="contain"
-              />
-            </View>
+            <Pressable onPress={handleDev}>
+              <View style={iconView}>
+                <Image
+                  src={logoIconImage}
+                  style={logoIcon}
+                  resizeMode="contain"
+                />
+              </View>
+            </Pressable>
             <FnTextInput
               label="Email"
               fnStyles={inputStyle}
