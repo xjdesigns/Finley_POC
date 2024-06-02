@@ -3,7 +3,7 @@ import {StatusBar} from 'expo-status-bar';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {useColorScheme, View, Text} from 'react-native';
+import {useColorScheme, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {COLORS} from './utils/Colors';
 import Login from './finley/login.jsx';

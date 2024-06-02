@@ -34,6 +34,7 @@ const FnNavButton = ({
   };
 
   const navArrow = {
+    fontSize: 18,
     color: theme.text,
   };
 

@@ -6,14 +6,16 @@ import {
   useColorScheme,
   Image,
 } from 'react-native';
+import {useSelector} from 'react-redux';
 import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {mailboxesImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
-import FIcon5 from 'react-native-vector-icons/FontAwesome6';
-import Menu from '../../components/Menu';
+import {NOT_CONNECTED_STATUS} from '../../constants/status';
+// import Menu from '../../components/Menu';
 
 const Home = () => {
+  const {status} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
@@ -35,9 +37,6 @@ const Home = () => {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 4,
-    // backgroundColor: COLORS.black,
-    // borderWidth: 1,
-    // borderRadius: 50,
     marginBottom: 18,
   };
 
@@ -58,9 +57,7 @@ const Home = () => {
           <FnText text="Connected" fnTextStyles={styles.connected} />
           <FnText text="Monday, May 27" fnTextStyles={styles.date} />
           <View style={weatherViewStyles}>
-            <View style={weatherIcon}>
-              {/* <FIcon5 name="sun" color={'#000'} /> */}
-            </View>
+            <View style={weatherIcon} />
             <View>
               <FnText text="85° Sunny" fnTextStyles={styles.temp} />
             </View>
@@ -75,11 +72,13 @@ const Home = () => {
             resizeMode="contain"
           />
         </View>
-        <FnNavButton
-          text="Set up your Digital Mailbox"
-          path="More"
-          borderTop={true}
-        />
+        {status === NOT_CONNECTED_STATUS && (
+          <FnNavButton
+            text="Set up your Digital Mailbox"
+            path="Mail"
+            borderTop={true}
+          />
+        )}
       </SafeAreaView>
       {/* <Menu /> */}
     </View>
@@ -97,7 +96,6 @@ const styles = StyleSheet.create({
   },
   temp: {
     fontSize: 12,
-    // color: COLORS.black,
   },
   mailDetails: {
     marginBottom: 18,

@@ -41,7 +41,7 @@ export const COLORS = {
     inputBorderFocus: '#4fa2ee',
     numBtnBackground: '#5d5d5d',
     numText: '#c5c5c5',
-    switchTrackActive: '#47673b',
+    switchTrackActive: '#6ab150',
     switchTrackInactive: '#cfcfcf',
     switchThumb: '#000',
   },

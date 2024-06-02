@@ -28,12 +28,6 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
     marginBottom: 4,
   };
 
-  const navText = {
-    textAlign: 'center',
-    fontSize: 10,
-    color: theme.text,
-  };
-
   const getIcon = (name, isFocused) => {
     const styleProps = {
       size: 24,
@@ -51,6 +45,14 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
     if (name === 'More') {
       return <Icon name="ellipsis-h" {...styleProps} />;
     }
+  };
+
+  const getTextStyle = (isFocused = false) => {
+    return {
+      textAlign: 'center',
+      fontSize: 10,
+      color: isFocused ? theme.text : COLORS.mediumgray,
+    };
   };
 
   return (
@@ -87,6 +89,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
         };
 
         const icon = getIcon(route.name, isFocused);
+        const navText = getTextStyle(isFocused);
 
         return (
           <TouchableOpacity
@@ -116,32 +119,10 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  navBar: {
-    backgroundColor: '#fff',
-    flexDirection: 'row',
-    paddingBottom: 20,
-    borderTopColor: COLORS.borderGray,
-    borderTopWidth: 1,
-  },
-  navIcon: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 30,
-    height: 30,
-    backgroundColor: '#fff',
-    borderRadius: 30,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    marginBottom: 4,
-  },
   navAction: {
     flex: 1,
     textAlign: 'center',
     padding: 10,
-  },
-  navText: {
-    textAlign: 'center',
-    fontSize: 10,
   },
   indicator: {
     position: 'absolute',
