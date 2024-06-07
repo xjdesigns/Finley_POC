@@ -6,24 +6,30 @@ import {
   useColorScheme,
   StyleSheet,
 } from 'react-native';
+import * as Application from 'expo-application';
+import FnText from '../components/FnText';
 import FnRadio from '../components/FnRadio';
 import {COLORS} from '../utils/Colors';
 
 const RADIO_OPTIONS = [
   {
-    label: 'Radio1',
-    value: 'Radio1',
+    label: 'Dev',
+    value: 'Dev',
   },
   {
-    label: 'Radio2',
-    value: 'Radio2',
+    label: 'Stage',
+    value: 'Stage',
+  },
+  {
+    label: 'Prod',
+    value: 'Prod',
   },
 ];
 
 const DevOptions = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const [selectedValue, setSelectedValue] = useState('');
+  const [selectedValue, setSelectedValue] = useState('Dev');
 
   const handleChange = val => {
     setSelectedValue(val);
@@ -42,48 +48,46 @@ const DevOptions = () => {
     padding: 20,
   };
 
-  const radioView = {
-    flexDirection: 'row',
-    alignItems: 'center',
-  };
-
-  const radioBtn = {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginRight: 8,
-    width: 30,
-    height: 30,
-    borderWidth: 2,
-    borderColor: COLORS.mediumgray,
-    borderRadius: 50,
-  };
-
-  const radioBtnSelected = {
-    width: 18,
-    height: 18,
-    backgroundColor: COLORS.mediumgray,
-    borderRadius: 50,
-  };
-
-  const radioLabel = {
-    fontSize: 16,
-  };
-
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={backgroundStyle}>
         <View style={innerView}>
-          {/* <View style={radioView}>
-            <View style={radioBtn}>
-              <View style={radioBtnSelected} />
-            </View>
-            <Text style={radioLabel}>Radio Option</Text>
-          </View> */}
+          <FnText
+            text="Select Environment"
+            fnTextStyles={styles.environmentText}
+          />
           <FnRadio
             options={RADIO_OPTIONS}
             value={selectedValue}
             onChange={handleChange}
           />
+
+          <View style={styles.appView}>
+            <FnText
+              text="Application Name"
+              fnTextStyles={styles.detailsTitle}
+            />
+            <FnText
+              text={Application.applicationName}
+              fnTextStyles={styles.detailsText}
+            />
+            <FnText
+              text="Native App Version"
+              fnTextStyles={styles.detailsTitle}
+            />
+            <FnText
+              text={Application.nativeApplicationVersion}
+              fnTextStyles={styles.detailsText}
+            />
+            <FnText
+              text="Native Build Version"
+              fnTextStyles={styles.detailsTitle}
+            />
+            <FnText
+              text={Application.nativeBuildVersion}
+              fnTextStyles={styles.detailsText}
+            />
+          </View>
         </View>
       </SafeAreaView>
     </View>
@@ -91,9 +95,18 @@ const DevOptions = () => {
 };
 
 const styles = StyleSheet.create({
-  connected: {
+  appView: {
     marginTop: 24,
-    marginBottom: 18,
+  },
+  environmentText: {
+    marginBottom: 8,
+  },
+  detailsTitle: {
+    fontSize: 12,
+    marginBottom: 4,
+  },
+  detailsText: {
+    marginBottom: 4,
   },
 });
 
