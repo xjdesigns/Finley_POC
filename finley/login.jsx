@@ -18,6 +18,32 @@ import {logoIconImage} from '../utils/Images';
 import {GETTING_STARTED_ROUTE, DEV_OPTIONS_ROUTE} from '../constants/routes';
 import {COLORS} from '../utils/Colors';
 
+// import axios from 'axios'
+// import { XBLEManager } from 'xble_mimic_api'
+
+// let manager = new XBLEManager()
+// setTimeout(() => {
+//   manager.startDeviceScan(null, null, (error, device) => {
+//     console.warn('error', error)
+//     console.warn('device', device)
+//     // manager.stopDeviceScan()
+//     device
+//       .connect()
+//       .then((device) => {
+//         return device.discoverAllServicesAndCharacteristics()
+//       })
+//       .then((res) => {
+//         console.warn('Next Device', res)
+//         const { device, service, characteristics } = res
+//         const suuid = service[0].uuid
+//         const cuuid = characteristics[0].uuid
+//         manager.readCharacteristicForDevice(device.id, suuid, cuuid).then((c) => {
+//           console.warn('HELLO', c)
+//         })
+//       })
+//   })
+// }, 3000)
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
