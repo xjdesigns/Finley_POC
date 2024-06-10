@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
+import {useBLEContext} from '../context/BLEContext';
 import {setConnection} from '../store/bluetooth';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
@@ -20,6 +21,8 @@ import {createBottomBarStyles} from '../utils/BottomBar';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
 
 const ConnectMailbox = () => {
+  const [bleState] = useBLEContext();
+  const {manager} = bleState;
   const dispatch = useDispatch();
   const {isBluetoothConnected} = useSelector(state => state.bluetooth);
   const navigation = useNavigation();
@@ -32,8 +35,49 @@ const ConnectMailbox = () => {
       setTimeout(() => {
         showAlert();
       }, 3000);
+      manager.startDeviceScan(null, null, (error, device) => {
+        console.warn('error', error);
+        console.warn('device', device);
+        // manager.stopDeviceScan()
+        // Returns back devices as they get scanned
+        // Check against the name to connect
+        // Once we have that we could store the device on the context for use again, just store IDS
+        // to then call off the manager methods which are currently built. Could change it.
+        // We cannot use redux because you cannot serialize it...
+        device
+          .connect()
+          .then(deviceRes => {
+            return deviceRes.discoverAllServicesAndCharacteristics();
+          })
+          .then(res => {
+            console.warn('Next Device', res);
+            const {device, service, characteristics} = res;
+            const suuid = service[0].uuid;
+            const cuuid = characteristics[0].uuid;
+
+            manager
+              .readCharacteristicForDevice(device.id, suuid, cuuid)
+              .then(c => {
+                console.warn('HELLO', c);
+              });
+
+            manager.servicesForDevice(device.id, suuid).then(services => {
+              console.warn('Services', services);
+            });
+
+            manager
+              .descriptorsForDevice(device.id, suuid, cuuid)
+              .then(descriptors => {
+                console.warn('descriptors', descriptors);
+              });
+
+            manager.isDeviceConnected(device.id).then(isConnected => {
+              console.warn('isConnected', isConnected);
+            });
+          });
+      });
     }
-  }, [readyToConnect, isBluetoothConnected, showAlert]);
+  }, [readyToConnect, isBluetoothConnected, showAlert, manager]);
 
   const showAlert = useCallback(() => {
     Alert.alert(

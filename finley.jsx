@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useColorScheme, View} from 'react-native';
 import {useSelector} from 'react-redux';
+import {useBLEContext, SET_MANAGER_TYPE} from './context/BLEContext.jsx';
 import {COLORS} from './utils/Colors';
 import Login from './finley/login';
 import DevOptions from './finley/dev-options';
@@ -38,8 +39,10 @@ import {
 } from './constants/routes.js';
 
 // TODO: This needs a full build and tested on a physical device
-// import {BleManager} from 'react-native-ble-plx';
-// export const manager = new BleManager();
+const isLocal = process.env.EXPO_PUBLIC_ENV;
+import {BleManager} from 'react-native-ble-plx';
+import {XBLEManager} from 'xble_mimic_api';
+export const manager = isLocal ? new XBLEManager() : new BleManager();
 
 const Stack = createNativeStackNavigator();
 const MoreStack = createNativeStackNavigator();
@@ -96,6 +99,7 @@ function MailStackScreen() {
 }
 
 export default function Finley() {
+  const [, bleDispatch] = useBLEContext();
   const {userToken} = useSelector(state => state.user);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
@@ -104,10 +108,9 @@ export default function Finley() {
     flex: 1,
   };
 
-  // useEffect(() => {
-  //   const instance = new BleManager();
-  //   console.warn('instance', instance)
-  // }, [])
+  useEffect(() => {
+    bleDispatch({type: SET_MANAGER_TYPE, payload: {manager}});
+  }, [bleDispatch]);
 
   // useEffect(() => {
   //   console.warn('userToken', userToken);
