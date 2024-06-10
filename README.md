@@ -12,6 +12,8 @@ To develop on your mobile device download the Expo Go app. After running the sta
 
 > NOTE: To see light/dark mode follow the command prompt and switch to Expo Go before running.
 
+Make sure you create a `.env.local` file and copy the contents from the env file.
+
 ## Tech Stack
 The following frameworks/tools are being used to create the POC experience.
 

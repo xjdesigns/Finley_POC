@@ -39,7 +39,7 @@ import {
 } from './constants/routes.js';
 
 // TODO: This needs a full build and tested on a physical device
-const isLocal = process.env.EXPO_PUBLIC_ENV;
+const isLocal = process.env.EXPO_PUBLIC_ENV !== 'production';
 import {BleManager} from 'react-native-ble-plx';
 import {XBLEManager} from 'xble_mimic_api';
 export const manager = isLocal ? new XBLEManager() : new BleManager();
