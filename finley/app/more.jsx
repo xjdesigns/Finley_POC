@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../../store/user';
 import FnText from '../../components/FnText';
@@ -12,8 +13,13 @@ const More = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
-  const handleLogout = () => {
-    dispatch(setUserToken({token: ''}));
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.removeItem('token');
+      dispatch(setUserToken({token: ''}));
+    } catch (e) {
+      console.error('Error removing token', e);
+    }
   };
 
   const baseStyle = {

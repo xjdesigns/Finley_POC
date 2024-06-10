@@ -10,7 +10,9 @@ import {
   Text,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
+// import axios from 'axios';
 import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
 import FnPressable from '../components/FnPressable';
@@ -81,9 +83,14 @@ const Login = () => {
 
   const handleSubmit = () => {
     setLoading(true);
-    setTimeout(() => {
-      dispatch(setUserToken({token: 'token'}));
-      setLoading(true);
+    setTimeout(async () => {
+      try {
+        await AsyncStorage.setItem('token', 'token');
+        dispatch(setUserToken({token: 'token'}));
+        setLoading(false);
+      } catch (e) {
+        console.error('e', e);
+      }
     }, 2000);
   };
 

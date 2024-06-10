@@ -1,11 +1,5 @@
 import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  SafeAreaView,
-  useColorScheme,
-  StyleSheet,
-} from 'react-native';
+import {View, SafeAreaView, useColorScheme, StyleSheet} from 'react-native';
 import * as Application from 'expo-application';
 import FnText from '../components/FnText';
 import FnRadio from '../components/FnRadio';
@@ -30,6 +24,7 @@ const DevOptions = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const [selectedValue, setSelectedValue] = useState('Dev');
+  const appEnv = process.env.EXPO_PUBLIC_ENV;
 
   const handleChange = val => {
     setSelectedValue(val);
@@ -87,6 +82,8 @@ const DevOptions = () => {
               text={Application.nativeBuildVersion}
               fnTextStyles={styles.detailsText}
             />
+            <FnText text="App Environment" fnTextStyles={styles.detailsTitle} />
+            <FnText text={appEnv} fnTextStyles={styles.detailsText} />
           </View>
         </View>
       </SafeAreaView>
