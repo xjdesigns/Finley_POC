@@ -3,6 +3,7 @@ import {StatusBar} from 'expo-status-bar';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import * as Linking from 'expo-linking';
 import {useColorScheme, View} from 'react-native';
 import {useSelector} from 'react-redux';
 import {COLORS} from './utils/Colors';
@@ -95,10 +96,16 @@ function MailStackScreen() {
   );
 }
 
+// NOTE: Required for deep linking
+const prefix = Linking.createURL('/');
+
 export default function Finley() {
   const {userToken} = useSelector(state => state.user);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const linking = {
+    prefixes: [prefix],
+  };
 
   const baseStyle = {
     flex: 1,
@@ -122,7 +129,7 @@ export default function Finley() {
 
   return (
     <View style={baseStyle}>
-      <NavigationContainer theme={NavTheme}>
+      <NavigationContainer theme={NavTheme} linking={linking}>
         <>
           {userToken === '' ? (
             <Stack.Navigator

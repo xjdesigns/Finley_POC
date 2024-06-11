@@ -3,6 +3,7 @@
     "name": "Finley",
     "slug": "Finley",
     "version": "1.0.0",
+    "scheme": "finley",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "automatic",
