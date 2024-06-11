@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {
   View,
   SafeAreaView,
@@ -12,13 +12,13 @@ import {
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
-// import axios from 'axios';
 import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
 import FnPressable from '../components/FnPressable';
 import {logoIconImage} from '../utils/Images';
 import {GETTING_STARTED_ROUTE, DEV_OPTIONS_ROUTE} from '../constants/routes';
 import {COLORS} from '../utils/Colors';
+import {useAuthHook} from '../hooks/auth-hook';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -29,6 +29,14 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [devClick, setDevClick] = useState(0);
+  const {authLogin} = useAuthHook();
+
+  const canLogin = useMemo(() => {
+    if (email && password) {
+      return true;
+    }
+    return false;
+  }, [email, password]);
 
   const baseStyle = {
     flex: 1,
@@ -81,7 +89,7 @@ const Login = () => {
     textAlign: 'center',
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setLoading(true);
     setTimeout(async () => {
       try {
@@ -92,6 +100,18 @@ const Login = () => {
         console.error('e', e);
       }
     }, 2000);
+
+    // authLogin(email.toLowerCase(), password)
+    //   .then(async ({data}) => {
+    //     await AsyncStorage.setItem('accessToken', data.accessToken);
+    //     dispatch(setUserToken({token: data.accessToken}));
+    //     setLoading(false);
+    //   })
+    //   .catch(err => {
+    //     // TODO: Need to handle the error
+    //     console.error('Err', err);
+    //     setLoading(false);
+    //   });
   };
 
   const handleSetup = () => {
@@ -142,6 +162,7 @@ const Login = () => {
               text="Login"
               onPress={handleSubmit}
               loading={loading}
+              disabled={!canLogin}
             />
             <Pressable style={setupBtn} onPress={handleSetup}>
               <Text style={setupText}>Setup</Text>

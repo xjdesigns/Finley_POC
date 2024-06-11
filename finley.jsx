@@ -6,7 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useColorScheme, View, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {setUserToken, setStatus} from './store/user.js';
+import {setUserToken, setStatus, updateEnv} from './store/user.js';
 import {COLORS} from './utils/Colors';
 import Login from './finley/login';
 import DevOptions from './finley/dev-options';
@@ -108,6 +108,27 @@ export default function Finley() {
   //   const instance = new BleManager();
   //   console.warn('instance', instance)
   // }, [])
+
+  useEffect(() => {
+    const getEnv = async () => {
+      try {
+        const value = await AsyncStorage.getItem('env');
+        if (value !== null) {
+          // Check token is valid or refresh
+          dispatch(updateEnv({env: value}));
+        } else {
+          const env = process.env.EXPO_PUBLIC_ENV;
+          dispatch(updateEnv({env}));
+        }
+      } catch (e) {
+        const env = process.env.EXPO_PUBLIC_ENV;
+        dispatch(updateEnv({env}));
+      }
+    };
+    getEnv();
+    // const env = process.env.EXPO_PUBLIC_ENV;
+    // dispatch(updateEnv({env}));
+  }, [dispatch]);
 
   useEffect(() => {
     if (!userToken) {

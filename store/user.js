@@ -12,6 +12,7 @@ const userSlice = createSlice({
       lastName: '',
       email: '',
     },
+    env: 'dev',
   },
   reducers: {
     initializeUser: (state, action) => {
@@ -26,8 +27,13 @@ const userSlice = createSlice({
       const {status} = action.payload;
       return {...state, status};
     },
+    updateEnv: (state, action) => {
+      const {env} = action.payload;
+      return {...state, env};
+    },
   },
 });
 
-export const {initializeUser, setUserToken, setStatus} = userSlice.actions;
+export const {initializeUser, setUserToken, setStatus, updateEnv} =
+  userSlice.actions;
 export default userSlice.reducer;
