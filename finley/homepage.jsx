@@ -58,7 +58,7 @@ const HomePage = () => {
             backgroundColor={backgroundStyle.backgroundColor}
           />
           <Image src={logoImage} style={styles.logo} resizeMode="contain" />
-          <Text style={styles.subtext}>Deliveries Made Smarter</Text>
+          <Text style={styles.subtext}>Hi Tyler you rock</Text>
           <Image
             src={mailboxImage}
             style={styles.mailbox}
