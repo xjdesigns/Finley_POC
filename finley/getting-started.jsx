@@ -82,8 +82,8 @@ const GettingStarted = () => {
               placeholder="test@email.com"
               value={userData?.email}
               onChangeText={val => handleChange('email', val)}
-              inputMode="email"
               fnStyles={styles.fnInputStyle}
+              inputMode="email"
             />
 
             <FnTextInput

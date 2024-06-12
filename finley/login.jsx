@@ -115,6 +115,7 @@ const Login = () => {
               fnStyles={styles.inputStyle}
               value={email}
               onChangeText={val => setEmail(val)}
+              inputMode="email"
             />
             <FnTextInput
               label="Password"
