@@ -1,5 +1,6 @@
 import React, {useState, useMemo} from 'react';
 import {
+  StyleSheet,
   View,
   SafeAreaView,
   useColorScheme,
@@ -45,42 +46,6 @@ const Login = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
-  };
-
-  const loginViewStyle = {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  };
-
-  const inputView = {
-    width: '80%',
-  };
-
-  const inputStyle = {
-    marginBottom: 24,
-  };
-
-  const logoIcon = {
-    width: 13,
-    height: 21,
-  };
-
-  const iconView = {
-    width: 40,
-    height: 40,
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: COLORS.white,
-    borderRadius: 8,
-  };
-
-  const setupBtn = {
-    marginTop: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 20,
   };
 
   const setupText = {
@@ -134,27 +99,27 @@ const Login = () => {
       style={backgroundStyle}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <SafeAreaView style={backgroundStyle}>
-        <View style={loginViewStyle}>
-          <View style={inputView}>
+        <View style={styles.loginViewStyle}>
+          <View style={styles.inputView}>
             <Pressable onPress={handleDev}>
-              <View style={iconView}>
+              <View style={styles.iconView}>
                 <Image
                   src={logoIconImage}
-                  style={logoIcon}
+                  style={styles.logoIcon}
                   resizeMode="contain"
                 />
               </View>
             </Pressable>
             <FnTextInput
               label="Email"
-              fnStyles={inputStyle}
+              fnStyles={styles.inputStyle}
               value={email}
               onChangeText={val => setEmail(val)}
             />
             <FnTextInput
               label="Password"
               secureTextEntry={true}
-              fnStyles={inputStyle}
+              fnStyles={styles.inputStyle}
               value={password}
               onChangeText={val => setPassword(val)}
             />
@@ -164,7 +129,7 @@ const Login = () => {
               loading={loading}
               disabled={!canLogin}
             />
-            <Pressable style={setupBtn} onPress={handleSetup}>
+            <Pressable style={styles.setupBtn} onPress={handleSetup}>
               <Text style={setupText}>Setup</Text>
             </Pressable>
           </View>
@@ -173,5 +138,38 @@ const Login = () => {
     </KeyboardAvoidingView>
   );
 };
+
+const styles = StyleSheet.create({
+  loginViewStyle: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputView: {
+    width: '80%',
+  },
+  inputStyle: {
+    marginBottom: 24,
+  },
+  logoIcon: {
+    width: 13,
+    height: 21,
+  },
+  iconView: {
+    width: 40,
+    height: 40,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: COLORS.white,
+    borderRadius: 8,
+  },
+  setupBtn: {
+    marginTop: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+  },
+});
 
 export default Login;
