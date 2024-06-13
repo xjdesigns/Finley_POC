@@ -16,11 +16,11 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/BottomBar';
-import {finleyFlagImage} from '../utils/Images';
+import {notificationsImage} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
-import {NOTIFICATIONS_ROUTE} from '../constants/routes';
+import {CONNECT_USPS_ROUTE} from '../constants/routes';
 
-const ConnectedMailbox = () => {
+const Notifications = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {status} = useSelector(state => state.mailbox);
@@ -28,7 +28,7 @@ const ConnectedMailbox = () => {
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
   const backgroundStyle = {
-    backgroundColor: theme.lightBlueBackground,
+    backgroundColor: theme.background,
     flex: 1,
   };
   const innerView = {
@@ -40,7 +40,7 @@ const ConnectedMailbox = () => {
     dispatch(setStatus({status: LOADING_STATUS}));
     setTimeout(() => {
       dispatch(setStatus({status: LOADED_STATUS}));
-      navigation.navigate(NOTIFICATIONS_ROUTE);
+      navigation.navigate(CONNECT_USPS_ROUTE);
     }, 2000);
   };
 
@@ -48,12 +48,16 @@ const ConnectedMailbox = () => {
     <View style={backgroundStyle}>
       <SafeAreaView style={backgroundStyle}>
         <View style={innerView}>
-          <FnText text="Finley Flag 1.0" fnTextStyles={styles.title} />
-          <FnText text="X1K7B9Z3L6" fnTextStyles={styles.subtext} />
-        </View>
-        <View style={styles.imageView}>
+          <FnText
+            text="Finley wants to send you notifications"
+            fnTextStyles={styles.title}
+          />
+          <FnText
+            text="Finley's notifications will let you know when your outgoing mail was picked up and incoming mail is dropped off."
+            fnTextStyles={styles.subtext}
+          />
           <Image
-            src={finleyFlagImage}
+            src={notificationsImage}
             style={styles.finleyFlagImage}
             resizeMode="contain"
           />
@@ -68,12 +72,12 @@ const ConnectedMailbox = () => {
         ) : (
           <View>
             <FnPressable
-              text="Connect"
+              text="Allow Notifications"
               onPress={handleConnecting}
               disableDarkTheme={true}
             />
-            <Pressable style={styles.notMailbox}>
-              <Text style={styles.notMailbox}>This is not my mailbox</Text>
+            <Pressable style={styles.skipForNow}>
+              <Text style={styles.skipForNow}>Skip for now</Text>
             </Pressable>
           </View>
         )}
@@ -90,7 +94,7 @@ const styles = StyleSheet.create({
   },
   subtext: {
     textAlign: 'center',
-    marginBottom: 64,
+    marginBottom: 48,
   },
   imageView: {
     flex: 1,
@@ -110,7 +114,7 @@ const styles = StyleSheet.create({
     width: '100%',
     aspectRatio: 1,
   },
-  notMailbox: {
+  skipForNow: {
     color: COLORS.blue,
     fontSize: 18,
     textAlign: 'center',
@@ -120,4 +124,4 @@ const styles = StyleSheet.create({
   bottomBar: createBottomBarStyles({needsMinHeight: true}),
 });
 
-export default ConnectedMailbox;
+export default Notifications;

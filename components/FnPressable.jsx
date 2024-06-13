@@ -9,6 +9,7 @@ const FnPressable = ({
   loading = false,
   inverted = false,
   disableDarkTheme = false,
+  fnBtnStyles,
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme =
@@ -19,6 +20,7 @@ const FnPressable = ({
     paddingHorizontal: 32,
     borderRadius: 40,
     opacity: disabled ? 0.7 : 1,
+    ...fnBtnStyles,
   };
   const btnText = {
     color: theme.buttonText,

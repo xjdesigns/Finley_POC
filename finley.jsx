@@ -6,6 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useColorScheme, View, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
+import {FnTabMenu} from './components/FnTabMenu';
 import {setUserToken, setStatus, updateEnv} from './store/user.js';
 import {COLORS} from './utils/Colors';
 import Login from './finley/login';
@@ -18,7 +19,9 @@ import GettingStarted from './finley/getting-started';
 import ConnectMailbox from './finley/connect-mailbox';
 import ConnectedMailbox from './finley/connected-mailbox';
 import CreatePinCode from './finley/create-pin-code';
-import {FnTabMenu} from './components/FnTabMenu';
+import Notifications from './finley/notifications.jsx';
+import ConnectUSPS from './finley/connect-usps.jsx';
+import CompletedUSPS from './finley/completed-usps.jsx';
 
 // Finley App
 import Home from './finley/app/home';
@@ -34,6 +37,9 @@ import {
   CONNECT_MAILBOX_ROUTE,
   CONNECTED_MAILBOX_ROUTE,
   CREATE_PIN_CODE_ROUTE,
+  NOTIFICATIONS_ROUTE,
+  CONNECT_USPS_ROUTE,
+  COMPLETED_USPS_ROUTE,
   SETTINGS_MORE_ROUTE,
   NOTIFICATIONS_PREF_ROUTE,
   YOUR_MAIL_ROUTE,
@@ -126,8 +132,6 @@ export default function Finley() {
       }
     };
     getEnv();
-    // const env = process.env.EXPO_PUBLIC_ENV;
-    // dispatch(updateEnv({env}));
   }, [dispatch]);
 
   useEffect(() => {
@@ -189,6 +193,7 @@ export default function Finley() {
                   <Stack.Screen
                     name={HOME_ROUTE}
                     component={HomePage}
+                    // component={ConnectUSPS}
                     options={{headerShown: false}}
                   />
                   <Stack.Screen
@@ -200,32 +205,49 @@ export default function Finley() {
                     name={GETTING_STARTED_ROUTE}
                     component={GettingStarted}
                     options={{
-                      title: '',
-                      headerBackTitle: 'Back',
+                      headerShown: false,
                     }}
                   />
                   <Stack.Screen
                     name={CONNECT_MAILBOX_ROUTE}
                     component={ConnectMailbox}
                     options={{
-                      title: '',
-                      headerBackTitle: 'Back',
+                      headerShown: false,
                     }}
                   />
                   <Stack.Screen
                     name={CONNECTED_MAILBOX_ROUTE}
                     component={ConnectedMailbox}
                     options={{
-                      title: '',
-                      headerBackTitle: 'Back',
+                      headerShown: false,
                     }}
                   />
                   <Stack.Screen
                     name={CREATE_PIN_CODE_ROUTE}
                     component={CreatePinCode}
                     options={{
-                      title: '',
-                      headerBackTitle: 'Back',
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name={NOTIFICATIONS_ROUTE}
+                    component={Notifications}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name={CONNECT_USPS_ROUTE}
+                    component={ConnectUSPS}
+                    options={{
+                      headerShown: false,
+                    }}
+                  />
+                  <Stack.Screen
+                    name={COMPLETED_USPS_ROUTE}
+                    component={CompletedUSPS}
+                    options={{
+                      headerShown: false,
                     }}
                   />
                   <Stack.Screen

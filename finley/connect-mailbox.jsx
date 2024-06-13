@@ -5,6 +5,7 @@ import {
   View,
   Pressable,
   Text,
+  Image,
   SafeAreaView,
   useColorScheme,
   ActivityIndicator,
@@ -17,6 +18,7 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/BottomBar';
+import {finleyFlagImage} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
 
 const ConnectMailbox = () => {
@@ -60,13 +62,17 @@ const ConnectMailbox = () => {
   }, [navigation, dispatch]);
 
   const backgroundStyle = {
-    backgroundColor: theme.background,
+    backgroundColor: theme.lightBlueBackground,
     flex: 1,
   };
 
   const innerView = {
     padding: 20,
+  };
+
+  const innerFlagImage = {
     flex: 1,
+    justifyContent: 'flex-end',
   };
 
   const innerLoadingView = {
@@ -89,7 +95,7 @@ const ConnectMailbox = () => {
           <View style={innerLoadingView}>
             <ScrollView contentInsetAdjustmentBehavior="automatic">
               <FnText
-                text="Searching for your mailbox..."
+                text="Searching for your device..."
                 fnTextStyles={styles.title}
               />
             </ScrollView>
@@ -98,28 +104,36 @@ const ConnectMailbox = () => {
             <ActivityIndicator size="large" color={theme.text} />
           </View>
           <Pressable style={styles.troubleConnecting}>
-            <Text style={styles.troubleConnecting}>Trouble connecting?</Text>
+            <FnText
+              text="Trouble connecting?"
+              fnTextStyles={styles.troubleConnecting}
+            />
           </Pressable>
         </SafeAreaView>
       ) : (
         <SafeAreaView style={backgroundStyle}>
           <View style={innerView}>
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-              <FnText text="Connect Your Mailbox" fnTextStyles={styles.title} />
-              <FnText text={subText} fnTextStyles={styles.subtext} />
-            </ScrollView>
+            <FnText text="Connect Your Flag" fnTextStyles={styles.title} />
+            <FnText text={subText} fnTextStyles={styles.subtext} />
+          </View>
+          <View style={innerFlagImage}>
+            <Image
+              src={finleyFlagImage}
+              style={styles.finleyFlagImage}
+              resizeMode="contain"
+            />
           </View>
         </SafeAreaView>
       )}
       {(!readyToConnect || isBluetoothConnected) && (
         <View style={styles.bottomBar}>
           <FnPressable
-            text="Connect Mailbox"
+            text="Connect"
             onPress={handleConnect}
             disableDarkTheme={true}
           />
           <Pressable style={styles.noMailbox}>
-            <Text style={styles.noMailbox}>Don't have a mailbox?</Text>
+            <Text style={styles.noMailbox}>This is not my flag</Text>
           </Pressable>
         </View>
       )}
@@ -130,12 +144,17 @@ const ConnectMailbox = () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
+    fontWeight: 700,
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: 16,
   },
   subtext: {
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: 28,
+  },
+  finleyFlagImage: {
+    width: '100%',
+    aspectRatio: 1,
   },
   noMailbox: {
     color: COLORS.blue,
@@ -145,7 +164,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   troubleConnecting: {
-    color: COLORS.black,
     fontSize: 18,
     textAlign: 'center',
     paddingVertical: 8,

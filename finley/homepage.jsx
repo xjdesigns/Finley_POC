@@ -1,19 +1,18 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View,
   Pressable,
   SafeAreaView,
   useColorScheme,
   StatusBar,
   Image,
-  ImageBackground,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
-import {logoImage, mailboxImage, finleyBackgroundImage} from '../utils/Images';
+import FnText from '../components/FnText';
+import {logoImage, lettersImage} from '../utils/Images';
 import {createBottomBarStyles} from '../utils/BottomBar';
 import {GETTING_STARTED_ROUTE, LOGIN_ROUTE} from '../constants/routes';
 
@@ -21,7 +20,6 @@ const HomePage = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const bgImg = {uri: finleyBackgroundImage};
 
   const handleGettingStarted = () => {
     navigation.navigate(GETTING_STARTED_ROUTE);
@@ -37,7 +35,7 @@ const HomePage = () => {
   };
 
   const backgroundStyle = {
-    backgroundColor: theme.background,
+    backgroundColor: theme.lightBlueBackground,
     ...baseStyle,
   };
 
@@ -45,37 +43,36 @@ const HomePage = () => {
     ...baseStyle,
   };
 
+  const startedAction = {
+    width: '100%',
+  };
+
   return (
     <View style={backgroundStyle}>
-      <ImageBackground
-        source={bgImg}
-        resizeMode="cover"
-        style={styles.bgImage}
-        imageStyle={styles.bgImageStyle}>
-        <SafeAreaView style={innerViewStyle}>
-          <StatusBar
-            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-            backgroundColor={backgroundStyle.backgroundColor}
-          />
-          <Image src={logoImage} style={styles.logo} resizeMode="contain" />
-          <Text style={styles.subtext}>Deliveries Made Smarter</Text>
-          <Image
-            src={mailboxImage}
-            style={styles.mailbox}
-            resizeMode="contain"
-          />
-        </SafeAreaView>
-        <View style={styles.bottomBar}>
-          <FnPressable
-            text="Getting Started"
-            onPress={handleGettingStarted}
-            disableDarkTheme={true}
-          />
-          <Pressable style={styles.login} onPress={handleLogin}>
-            <Text style={styles.login}>Log in</Text>
-          </Pressable>
-        </View>
-      </ImageBackground>
+      <SafeAreaView style={innerViewStyle}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={backgroundStyle.backgroundColor}
+        />
+        <Image src={logoImage} style={styles.logo} resizeMode="contain" />
+        <FnText text="Deliveries Made Smarter" fnTextStyles={styles.subtext} />
+        <Image
+          src={lettersImage}
+          style={styles.mailLetters}
+          resizeMode="contain"
+        />
+      </SafeAreaView>
+      <View style={styles.bottomBar}>
+        <FnPressable
+          text="Get Started"
+          onPress={handleGettingStarted}
+          disableDarkTheme={true}
+          fnBtnStyles={startedAction}
+        />
+        <Pressable style={styles.login} onPress={handleLogin}>
+          <FnText text="Log in" fnTextStyles={styles.loginText} />
+        </Pressable>
+      </View>
     </View>
   );
 };
@@ -92,22 +89,18 @@ const styles = StyleSheet.create({
   logo: {
     width: 200,
     height: 54,
-    marginVertical: 24,
+    marginVertical: 32,
   },
   subtext: {
     width: 273,
     fontSize: 36,
     textAlign: 'center',
-    color: '#b0b0b0',
     marginBottom: 30,
   },
-  // TODO: Use flex for this to avoid the Android push issue with absolute positioning
-  bottomBar: createBottomBarStyles(),
-  mailbox: {
-    width: 300,
-    height: 500,
-    padding: 20,
-    marginBottom: 30,
+  bottomBar: createBottomBarStyles({fullWidth: true, noBackground: true}),
+  mailLetters: {
+    width: '100%',
+    aspectRatio: 1,
   },
   gettingStarted: {
     color: COLORS.white,
@@ -117,7 +110,10 @@ const styles = StyleSheet.create({
     borderRadius: 24,
   },
   login: {
-    color: COLORS.black,
+    paddingVertical: 8,
+    paddingHorizontal: 20,
+  },
+  loginText: {
     fontSize: 18,
     textAlign: 'center',
     paddingVertical: 8,
