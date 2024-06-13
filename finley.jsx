@@ -174,6 +174,14 @@ export default function Finley() {
     },
   };
 
+  const baseOptions = {
+    title: '',
+    headerBackTitle: 'Back',
+    headerStyle: {
+      backgroundColor: theme.background,
+    },
+  };
+
   return (
     <>
       {status === LOADING_STATUS && (
@@ -188,26 +196,29 @@ export default function Finley() {
               {userToken === '' ? (
                 <Stack.Navigator
                   screenOptions={{
-                    headerStyle: {
-                      backgroundColor: theme.background,
-                    },
                     headerShadowVisible: false,
                   }}>
                   <Stack.Screen
                     name={HOME_ROUTE}
                     component={HomePage}
-                    options={{headerShown: false}}
+                    options={{
+                      headerShown: false,
+                    }}
                   />
                   <Stack.Screen
                     name={LOGIN_ROUTE}
                     component={Login}
-                    options={{headerShown: false}}
+                    options={{
+                      headerShown: false,
+                      // ...baseOptions,
+                    }}
                   />
                   <Stack.Screen
                     name={GETTING_STARTED_ROUTE}
                     component={GettingStarted}
                     options={{
-                      headerShown: false,
+                      // headerShown: false,
+                      ...baseOptions,
                     }}
                   />
                   <Stack.Screen
