@@ -66,7 +66,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             : options.title !== undefined
             ? options.title
             : route.name;
-        const tabBarBadge = options?.tabBarBadge;
+        // const tabBarBadge = options?.tabBarBadge;
 
         const isFocused = state.index === index;
 
@@ -105,11 +105,11 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             <View style={navIcon}>
               {icon}
 
-              {tabBarBadge && (
+              {/* {tabBarBadge && (
                 <View style={styles.indicator}>
                   <Text style={styles.indicatorText}>{tabBarBadge}</Text>
                 </View>
-              )}
+              )} */}
             </View>
             <Text style={navText}>{label}</Text>
           </TouchableOpacity>

@@ -3,7 +3,7 @@ import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 
 const CompletedUSPS = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -12,14 +12,20 @@ const CompletedUSPS = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
+    ...getAndroidPadding,
   };
+
+  const safeView = {
+    flex: 1,
+  };
+
   const innerView = {
     padding: 20,
   };
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText text="You're all set" fnTextStyles={styles.title} />
           <FnText

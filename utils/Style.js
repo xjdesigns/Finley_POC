@@ -1,3 +1,4 @@
+import {Platform, StatusBar} from 'react-native';
 import {COLORS} from './Colors';
 
 export function createBottomBarStyles({
@@ -30,3 +31,8 @@ export function createBottomBarStyles({
     return baseStyle;
   }
 }
+
+// NOTE: If there is no navigation header this needs to be applied to the backgroundStyle
+export const getAndroidPadding = {
+  paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
+};

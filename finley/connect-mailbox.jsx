@@ -17,7 +17,7 @@ import {setConnection} from '../store/bluetooth';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 import {finleyFlagImage} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
 
@@ -64,6 +64,11 @@ const ConnectMailbox = () => {
   const backgroundStyle = {
     backgroundColor: theme.lightBlueBackground,
     flex: 1,
+    ...getAndroidPadding,
+  };
+
+  const safeView = {
+    flex: 1,
   };
 
   const innerView = {
@@ -91,7 +96,7 @@ const ConnectMailbox = () => {
   return (
     <View style={backgroundStyle}>
       {readyToConnect && !isBluetoothConnected ? (
-        <SafeAreaView style={backgroundStyle}>
+        <SafeAreaView style={safeView}>
           <View style={innerLoadingView}>
             <ScrollView contentInsetAdjustmentBehavior="automatic">
               <FnText
@@ -111,7 +116,7 @@ const ConnectMailbox = () => {
           </Pressable>
         </SafeAreaView>
       ) : (
-        <SafeAreaView style={backgroundStyle}>
+        <SafeAreaView style={safeView}>
           <View style={innerView}>
             <FnText text="Connect Your Flag" fnTextStyles={styles.title} />
             <FnText text={subText} fnTextStyles={styles.subtext} />

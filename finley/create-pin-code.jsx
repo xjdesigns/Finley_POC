@@ -7,7 +7,7 @@ import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import FnNumPad from '../components/FnNumPad';
 import FnValueDisplay from '../components/FnValueDisplay';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 
 const CreatePinCode = () => {
   const dispatch = useDispatch();
@@ -16,6 +16,11 @@ const CreatePinCode = () => {
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const backgroundStyle = {
     backgroundColor: theme.background,
+    flex: 1,
+    ...getAndroidPadding,
+  };
+
+  const safeView = {
     flex: 1,
   };
 
@@ -48,7 +53,7 @@ const CreatePinCode = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText
             text="Create A Pin Code for Your Mailbox"

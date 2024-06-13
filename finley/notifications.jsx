@@ -15,7 +15,7 @@ import {setStatus} from '../store/mailbox';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 import {notificationsImage} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
 import {CONNECT_USPS_ROUTE} from '../constants/routes';
@@ -30,7 +30,13 @@ const Notifications = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
+    ...getAndroidPadding,
   };
+
+  const safeView = {
+    flex: 1,
+  };
+
   const innerView = {
     padding: 20,
     paddingHorizontal: 46,
@@ -46,7 +52,7 @@ const Notifications = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText
             text="Finley wants to send you notifications"

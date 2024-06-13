@@ -16,7 +16,7 @@ import OctIcon from 'react-native-vector-icons/Octicons';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 import {COMPLETED_USPS_ROUTE} from '../constants/routes';
 
 const ConnectUSPS = () => {
@@ -29,7 +29,13 @@ const ConnectUSPS = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
+    ...getAndroidPadding,
   };
+
+  const safeView = {
+    flex: 1,
+  };
+
   const innerView = {
     padding: 20,
   };
@@ -83,7 +89,7 @@ const ConnectUSPS = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             <FnText

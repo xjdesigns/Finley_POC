@@ -15,7 +15,7 @@ import {setStatus} from '../store/mailbox';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 import {finleyFlagImage} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
 import {NOTIFICATIONS_ROUTE} from '../constants/routes';
@@ -30,7 +30,13 @@ const ConnectedMailbox = () => {
   const backgroundStyle = {
     backgroundColor: theme.lightBlueBackground,
     flex: 1,
+    ...getAndroidPadding,
   };
+
+  const safeView = {
+    flex: 1,
+  };
+
   const innerView = {
     padding: 20,
     paddingHorizontal: 46,
@@ -46,7 +52,7 @@ const ConnectedMailbox = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText text="Finley Flag 1.0" fnTextStyles={styles.title} />
           <FnText text="X1K7B9Z3L6" fnTextStyles={styles.subtext} />

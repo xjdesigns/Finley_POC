@@ -1,15 +1,6 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  Switch,
-  SafeAreaView,
-  useColorScheme,
-} from 'react-native';
-import FnText from '../../components/FnText';
+import {View, SafeAreaView, useColorScheme} from 'react-native';
 import FnListSwitch from '../../components/FnListSwtich';
-import FnSwitch from '../../components/FnSwitch';
 import {COLORS} from '../../utils/Colors';
 
 const NotificationPreferences = () => {
@@ -28,22 +19,13 @@ const NotificationPreferences = () => {
     ...baseStyle,
   };
 
-  const listView = {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.borderGray,
-  };
-
-  const listTitle = {
+  const safeView = {
     flex: 1,
-    marginRight: 14,
   };
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <FnListSwitch
           text="Notify me when mail Arrives"
           value={mailArrives}

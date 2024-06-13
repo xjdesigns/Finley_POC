@@ -130,6 +130,8 @@ export default function Finley() {
         const env = process.env.EXPO_PUBLIC_ENV;
         dispatch(updateEnv({env}));
       }
+      const env = process.env.EXPO_PUBLIC_ENV;
+      dispatch(updateEnv({env}));
     };
     getEnv();
   }, [dispatch]);
@@ -149,6 +151,7 @@ export default function Finley() {
           // error reading value
           dispatch(setStatus({status: LOADED_STATUS}));
         }
+        dispatch(setStatus({status: LOADED_STATUS}));
       };
       getData();
     }
@@ -193,7 +196,6 @@ export default function Finley() {
                   <Stack.Screen
                     name={HOME_ROUTE}
                     component={HomePage}
-                    // component={ConnectUSPS}
                     options={{headerShown: false}}
                   />
                   <Stack.Screen
@@ -269,7 +271,7 @@ export default function Finley() {
                   <Tab.Screen
                     name={MAIL_ROUTE}
                     component={MailStackScreen}
-                    options={{headerShown: false, tabBarBadge: 3}}
+                    options={{headerShown: false}}
                   />
                   <Tab.Screen
                     name={MORE_ROUTE}

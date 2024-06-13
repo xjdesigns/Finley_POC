@@ -7,6 +7,7 @@ import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {NOTIFICATIONS_PREF_ROUTE} from '../../constants/routes';
 import {COLORS} from '../../utils/Colors';
+import {getAndroidPadding} from '../../utils/Style';
 
 const More = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,11 @@ const More = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
+    ...getAndroidPadding,
+  };
+
+  const safeView = {
+    flex: 1,
   };
 
   const innerView = {
@@ -47,7 +53,7 @@ const More = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText text="Settings & More" fnTextStyles={styles.title} />
         </View>

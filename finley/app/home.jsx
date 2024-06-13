@@ -12,8 +12,8 @@ import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {mailboxesImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
+import {getAndroidPadding} from '../../utils/Style';
 import {NOT_CONNECTED_STATUS} from '../../constants/status';
-// import Menu from '../../components/Menu';
 
 const Home = () => {
   const {status} = useSelector(state => state.mail);
@@ -43,6 +43,11 @@ const Home = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
+    ...getAndroidPadding,
+  };
+
+  const safeView = {
+    flex: 1,
   };
 
   const mainStyle = {
@@ -69,7 +74,7 @@ const Home = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={mainStyle}>
           <FnText text="Connected" fnTextStyles={styles.connected} />
           <FnText text="Monday, May 27" fnTextStyles={styles.date} />
@@ -99,7 +104,6 @@ const Home = () => {
           />
         )}
       </SafeAreaView>
-      {/* <Menu /> */}
     </View>
   );
 };

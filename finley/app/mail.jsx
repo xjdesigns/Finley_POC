@@ -17,6 +17,7 @@ import FnMailCard from '../../components/FnMailCard';
 import FnSearchInput from '../../components/FnSearchInput';
 import {COLORS} from '../../utils/Colors';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
+import {getAndroidPadding} from '../../utils/Style';
 import {MOCK_MAIL} from '../../mock/mock-mail';
 
 const Mail = () => {
@@ -40,6 +41,11 @@ const Mail = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
+    ...getAndroidPadding,
+  };
+
+  const safeView = {
+    flex: 1,
   };
 
   const innerView = {
@@ -67,10 +73,10 @@ const Mail = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={actionView}>
           <Pressable onPress={handleSearchToggle}>
-            <FIcon5 name="search" size="18" color={theme.text} />
+            <FIcon5 name="search" size={18} color={theme.text} />
           </Pressable>
         </View>
         {isSearching && (

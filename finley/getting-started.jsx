@@ -9,18 +9,15 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnTextInput from '../components/FnTextInput';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 import {CONNECT_MAILBOX_ROUTE} from '../constants/routes';
 
 const GettingStarted = () => {
-  const dispatch = useDispatch();
-  const user = useSelector(state => state.user);
   const navigation = useNavigation();
   const [userData, setUserData] = useState({
     firstName: '',
@@ -33,7 +30,13 @@ const GettingStarted = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
+    ...getAndroidPadding,
   };
+
+  const safeview = {
+    flex: 1,
+  };
+
   const innerView = {
     padding: 20,
     flex: 1,
@@ -56,7 +59,7 @@ const GettingStarted = () => {
     <KeyboardAvoidingView
       style={backgroundStyle}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeview}>
         <View style={innerView}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             <FnText text="Create Your Account" fnTextStyles={styles.title} />

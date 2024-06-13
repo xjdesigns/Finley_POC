@@ -13,7 +13,7 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {logoImage, lettersImage} from '../utils/Images';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 import {GETTING_STARTED_ROUTE, LOGIN_ROUTE} from '../constants/routes';
 
 const HomePage = () => {
@@ -41,6 +41,7 @@ const HomePage = () => {
 
   const innerViewStyle = {
     ...baseStyle,
+    ...getAndroidPadding,
   };
 
   const startedAction = {
