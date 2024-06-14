@@ -15,7 +15,7 @@ import {setStatus} from '../store/mailbox';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
+import {createBottomBarStyles} from '../utils/Style';
 import {notificationsImage} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
 import {CONNECT_USPS_ROUTE} from '../constants/routes';
@@ -30,7 +30,6 @@ const Notifications = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
-    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -38,7 +37,6 @@ const Notifications = () => {
   };
 
   const innerView = {
-    padding: 20,
     paddingHorizontal: 46,
   };
 

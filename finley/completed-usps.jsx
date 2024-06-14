@@ -1,18 +1,20 @@
 import React from 'react';
 import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
+import {PREMIUM_EMAIL_ROUTE} from '../constants/routes';
+import {createBottomBarStyles} from '../utils/Style';
 
 const CompletedUSPS = () => {
+  const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
-    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -20,7 +22,11 @@ const CompletedUSPS = () => {
   };
 
   const innerView = {
-    padding: 20,
+    paddingHorizontal: 20,
+  };
+
+  const handleDone = () => {
+    navigation.navigate(PREMIUM_EMAIL_ROUTE);
   };
 
   return (
@@ -35,7 +41,7 @@ const CompletedUSPS = () => {
         </View>
       </SafeAreaView>
       <View style={styles.bottomBar}>
-        <FnPressable text="Done" onPress={() => {}} disableDarkTheme={true} />
+        <FnPressable text="Done" onPress={handleDone} disableDarkTheme={true} />
       </View>
     </View>
   );

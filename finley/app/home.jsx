@@ -12,7 +12,6 @@ import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
 import {mailboxesImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
-import {getAndroidPadding} from '../../utils/Style';
 import {NOT_CONNECTED_STATUS} from '../../constants/status';
 
 const Home = () => {
@@ -43,7 +42,6 @@ const Home = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
-    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -96,6 +94,7 @@ const Home = () => {
             />
           </View>
         </View>
+        {/* // Image moves up when this is added, maybe these use absolute position to overlay */}
         {status === NOT_CONNECTED_STATUS && (
           <FnNavButton
             text="Set up your Digital Mailbox"
@@ -130,9 +129,10 @@ const styles = StyleSheet.create({
   },
   mailbox: {
     width: 300,
-    height: 500,
+    height: 460,
     padding: 20,
     marginTop: 48,
+    overflow: 'hidden',
   },
 });
 

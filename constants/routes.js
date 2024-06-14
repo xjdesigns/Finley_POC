@@ -15,6 +15,8 @@ export const CREATE_PIN_CODE_ROUTE = 'Create Pin Code';
 export const NOTIFICATIONS_ROUTE = 'Notifications';
 export const CONNECT_USPS_ROUTE = 'Connect USPS';
 export const COMPLETED_USPS_ROUTE = 'Completed USPS';
+export const ALL_SET_USPS_ROUTE = 'All Set USPS';
+export const PREMIUM_EMAIL_ROUTE = 'Premium Email';
 
 // Dev Route
 export const DEV_OPTIONS_ROUTE = 'Dev Options';

@@ -3,6 +3,7 @@ import {StatusBar} from 'expo-status-bar';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useColorScheme, View, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -22,6 +23,7 @@ import CreatePinCode from './finley/create-pin-code';
 import Notifications from './finley/notifications.jsx';
 import ConnectUSPS from './finley/connect-usps.jsx';
 import CompletedUSPS from './finley/completed-usps.jsx';
+import PremiumEmail from './finley/premium-email.jsx';
 
 // Finley App
 import Home from './finley/app/home';
@@ -40,6 +42,7 @@ import {
   NOTIFICATIONS_ROUTE,
   CONNECT_USPS_ROUTE,
   COMPLETED_USPS_ROUTE,
+  PREMIUM_EMAIL_ROUTE,
   SETTINGS_MORE_ROUTE,
   NOTIFICATIONS_PREF_ROUTE,
   YOUR_MAIL_ROUTE,
@@ -54,6 +57,7 @@ const Stack = createNativeStackNavigator();
 const MoreStack = createNativeStackNavigator();
 const MailStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
 function FnTabMenuWrapper(props) {
   return <FnTabMenu {...props} />;
@@ -176,10 +180,36 @@ export default function Finley() {
 
   const baseOptions = {
     title: '',
-    headerBackTitle: 'Back',
+    headerBackTitle: '',
     headerStyle: {
       backgroundColor: theme.background,
     },
+    headerTintColor: theme.text,
+  };
+
+  const baseBlueOptions = {
+    title: '',
+    headerBackTitle: '',
+    headerStyle: {
+      backgroundColor: theme.lightBlueBackground,
+    },
+    headerTintColor: theme.text,
+  };
+
+  const drawerBaseOptions = {
+    eaderTitleStyle: {
+      fontWeight: 500,
+      color: theme.text,
+    },
+    headerTitleAlign: 'left',
+    headerTintColor: theme.text,
+    drawerLabelStyle: {
+      color: theme.text,
+    },
+    drawerStyle: {
+      backgroundColor: theme.background,
+    },
+    drawerActiveBackgroundColor: theme.lightBlueBackground,
   };
 
   return (
@@ -197,6 +227,7 @@ export default function Finley() {
                 <Stack.Navigator
                   screenOptions={{
                     headerShadowVisible: false,
+                    headerBackTitleVisible: false,
                   }}>
                   <Stack.Screen
                     name={HOME_ROUTE}
@@ -210,14 +241,12 @@ export default function Finley() {
                     component={Login}
                     options={{
                       headerShown: false,
-                      // ...baseOptions,
                     }}
                   />
                   <Stack.Screen
                     name={GETTING_STARTED_ROUTE}
                     component={GettingStarted}
                     options={{
-                      // headerShown: false,
                       ...baseOptions,
                     }}
                   />
@@ -225,71 +254,107 @@ export default function Finley() {
                     name={CONNECT_MAILBOX_ROUTE}
                     component={ConnectMailbox}
                     options={{
-                      headerShown: false,
+                      ...baseBlueOptions,
                     }}
                   />
                   <Stack.Screen
                     name={CONNECTED_MAILBOX_ROUTE}
                     component={ConnectedMailbox}
                     options={{
-                      headerShown: false,
+                      ...baseBlueOptions,
                     }}
                   />
+                  {/* // NOTE: Leaving in for now, not in flag flow */}
                   <Stack.Screen
                     name={CREATE_PIN_CODE_ROUTE}
                     component={CreatePinCode}
                     options={{
-                      headerShown: false,
+                      ...baseOptions,
                     }}
                   />
                   <Stack.Screen
                     name={NOTIFICATIONS_ROUTE}
                     component={Notifications}
                     options={{
-                      headerShown: false,
+                      ...baseOptions,
                     }}
                   />
                   <Stack.Screen
                     name={CONNECT_USPS_ROUTE}
                     component={ConnectUSPS}
                     options={{
-                      headerShown: false,
+                      ...baseOptions,
                     }}
                   />
                   <Stack.Screen
                     name={COMPLETED_USPS_ROUTE}
                     component={CompletedUSPS}
                     options={{
-                      headerShown: false,
+                      ...baseOptions,
+                    }}
+                  />
+                  <Stack.Screen
+                    name={PREMIUM_EMAIL_ROUTE}
+                    component={PremiumEmail}
+                    options={{
+                      ...baseOptions,
                     }}
                   />
                   <Stack.Screen
                     name={DEV_OPTIONS_ROUTE}
                     component={DevOptions}
                     options={{
-                      title: '',
-                      headerBackTitle: 'Back',
+                      ...baseOptions,
                     }}
                   />
                 </Stack.Navigator>
               ) : (
-                <Tab.Navigator tabBar={FnTabMenuWrapper}>
-                  <Tab.Screen
+                // <Tab.Navigator tabBar={FnTabMenuWrapper}>
+                //   <Tab.Screen
+                //     name={HOME_ROUTE}
+                //     component={Home}
+                //     options={{headerShown: false}}
+                //   />
+                //   <Tab.Screen
+                //     name={MAIL_ROUTE}
+                //     component={MailStackScreen}
+                //     options={{headerShown: false}}
+                //   />
+                //   <Tab.Screen
+                //     name={MORE_ROUTE}
+                //     component={MoreStackScreen}
+                //     options={{headerShown: false}}
+                //   />
+                // </Tab.Navigator>
+                <Drawer.Navigator>
+                  <Drawer.Screen
                     name={HOME_ROUTE}
                     component={Home}
-                    options={{headerShown: false}}
+                    options={{
+                      title: 'Mon, May 27',
+                      drawerLabel: 'Home',
+                      ...drawerBaseOptions,
+                    }}
                   />
-                  <Tab.Screen
+                  <Drawer.Screen
                     name={MAIL_ROUTE}
                     component={MailStackScreen}
-                    options={{headerShown: false}}
+                    options={{
+                      title: 'Mon, May 27',
+                      drawerLabel: 'Mail',
+                      ...drawerBaseOptions,
+                    }}
                   />
-                  <Tab.Screen
+                  <Drawer.Screen
                     name={MORE_ROUTE}
                     component={MoreStackScreen}
-                    options={{headerShown: false}}
+                    options={{
+                      title: 'Mon, May 27',
+                      drawerLabel: 'More',
+                      ...drawerBaseOptions,
+                    }}
                   />
-                </Tab.Navigator>
+                </Drawer.Navigator>
               )}
             </>
           </NavigationContainer>

@@ -30,7 +30,6 @@ const GettingStarted = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
-    ...getAndroidPadding,
   };
 
   const safeview = {
@@ -38,7 +37,7 @@ const GettingStarted = () => {
   };
 
   const innerView = {
-    padding: 20,
+    paddingHorizontal: 20,
     flex: 1,
   };
 

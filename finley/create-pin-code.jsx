@@ -17,7 +17,6 @@ const CreatePinCode = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     flex: 1,
-    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -25,7 +24,6 @@ const CreatePinCode = () => {
   };
 
   const innerView = {
-    padding: 20,
     paddingHorizontal: 12,
   };
 

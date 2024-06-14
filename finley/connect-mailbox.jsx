@@ -17,7 +17,7 @@ import {setConnection} from '../store/bluetooth';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
+import {createBottomBarStyles} from '../utils/Style';
 import {finleyFlagImage} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
 
@@ -64,7 +64,6 @@ const ConnectMailbox = () => {
   const backgroundStyle = {
     backgroundColor: theme.lightBlueBackground,
     flex: 1,
-    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -72,7 +71,7 @@ const ConnectMailbox = () => {
   };
 
   const innerView = {
-    padding: 20,
+    paddingHorizontal: 20,
   };
 
   const innerFlagImage = {

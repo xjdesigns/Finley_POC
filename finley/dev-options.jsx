@@ -38,7 +38,7 @@ const DevOptions = () => {
   };
 
   const innerView = {
-    padding: 20,
+    paddingHorizontal: 20,
   };
 
   return (

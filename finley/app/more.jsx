@@ -35,7 +35,6 @@ const More = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
-    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -44,7 +43,7 @@ const More = () => {
 
   const innerView = {
     alignItems: 'center',
-    padding: 20,
+    paddingHorizontal: 20,
   };
 
   const linkView = {

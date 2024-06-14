@@ -17,7 +17,6 @@ import FnMailCard from '../../components/FnMailCard';
 import FnSearchInput from '../../components/FnSearchInput';
 import {COLORS} from '../../utils/Colors';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
-import {getAndroidPadding} from '../../utils/Style';
 import {MOCK_MAIL} from '../../mock/mock-mail';
 
 const Mail = () => {
@@ -41,7 +40,6 @@ const Mail = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
-    ...getAndroidPadding,
   };
 
   const safeView = {
