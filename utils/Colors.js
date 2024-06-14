@@ -9,6 +9,7 @@ export const COLORS = {
   secondary: '#ffedbd',
   blue: '#007aff',
   mediumgray: MEDIUM_GRAY,
+  darkergray: '#8c8c8c',
   borderGray: '#d8d8d8',
   danger: '#fb2625',
   lighttheme: {
@@ -31,6 +32,8 @@ export const COLORS = {
     radioColor: MEDIUM_GRAY,
     radioColorActive: '#007aff',
     numberBackground: '#fff0a2',
+    mailboxDarkGreen: '#759f31',
+    mailboxLightGreen: '#e1ffb1',
   },
   darktheme: {
     lightgray: '#F3F3F3',
@@ -52,5 +55,7 @@ export const COLORS = {
     radioColor: '#fff',
     radioColorActive: '#007aff',
     numberBackground: '#fff0a2',
+    mailboxDarkGreen: '#759f31',
+    mailboxLightGreen: '#e1ffb1',
   },
 };

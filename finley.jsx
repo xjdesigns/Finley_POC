@@ -28,12 +28,14 @@ import PremiumEmail from './finley/premium-email.jsx';
 // Finley App
 import Home from './finley/app/home';
 import Mail from './finley/app/mail';
+import SearchMail from './finley/app/search-mail.jsx';
 import More from './finley/app/more';
 import NotificationPreferences from './finley/app/notification-preferences';
 import {
   LOGIN_ROUTE,
   HOME_ROUTE,
   MAIL_ROUTE,
+  SEARCH_MAIL_ROUTE,
   MORE_ROUTE,
   GETTING_STARTED_ROUTE,
   CONNECT_MAILBOX_ROUTE,
@@ -66,6 +68,13 @@ function FnTabMenuWrapper(props) {
 function MoreStackScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const baseOptions = {
+    headerStyle: {
+      backgroundColor: theme.background,
+    },
+    headerTintColor: theme.text,
+  };
+
   return (
     <MoreStack.Navigator
       screenOptions={{
@@ -82,7 +91,10 @@ function MoreStackScreen() {
       <MoreStack.Screen
         name={NOTIFICATIONS_PREF_ROUTE}
         component={NotificationPreferences}
-        options={{headerBackTitleVisible: false}}
+        options={{
+          headerBackTitleVisible: false,
+          ...baseOptions,
+        }}
       />
     </MoreStack.Navigator>
   );
@@ -196,21 +208,21 @@ export default function Finley() {
     headerTintColor: theme.text,
   };
 
-  const drawerBaseOptions = {
-    eaderTitleStyle: {
-      fontWeight: 500,
-      color: theme.text,
-    },
-    headerTitleAlign: 'left',
-    headerTintColor: theme.text,
-    drawerLabelStyle: {
-      color: theme.text,
-    },
-    drawerStyle: {
-      backgroundColor: theme.background,
-    },
-    drawerActiveBackgroundColor: theme.lightBlueBackground,
-  };
+  // const drawerBaseOptions = {
+  //   eaderTitleStyle: {
+  //     fontWeight: 500,
+  //     color: theme.text,
+  //   },
+  //   headerTitleAlign: 'left',
+  //   headerTintColor: theme.text,
+  //   drawerLabelStyle: {
+  //     color: theme.text,
+  //   },
+  //   drawerStyle: {
+  //     backgroundColor: theme.background,
+  //   },
+  //   drawerActiveBackgroundColor: theme.lightBlueBackground,
+  // };
 
   return (
     <>
@@ -309,52 +321,59 @@ export default function Finley() {
                   />
                 </Stack.Navigator>
               ) : (
-                // <Tab.Navigator tabBar={FnTabMenuWrapper}>
-                //   <Tab.Screen
-                //     name={HOME_ROUTE}
-                //     component={Home}
-                //     options={{headerShown: false}}
-                //   />
-                //   <Tab.Screen
-                //     name={MAIL_ROUTE}
-                //     component={MailStackScreen}
-                //     options={{headerShown: false}}
-                //   />
-                //   <Tab.Screen
-                //     name={MORE_ROUTE}
-                //     component={MoreStackScreen}
-                //     options={{headerShown: false}}
-                //   />
-                // </Tab.Navigator>
-                <Drawer.Navigator>
-                  <Drawer.Screen
+                <Tab.Navigator tabBar={FnTabMenuWrapper}>
+                  {/* // NOTE: Left here in case it comes back, if not can be deleted */}
+                  {/* <Tab.Screen
                     name={HOME_ROUTE}
                     component={Home}
-                    options={{
-                      title: 'Mon, May 27',
-                      drawerLabel: 'Home',
-                      ...drawerBaseOptions,
-                    }}
-                  />
-                  <Drawer.Screen
+                    options={{headerShown: false}}
+                  /> */}
+                  <Tab.Screen
                     name={MAIL_ROUTE}
                     component={MailStackScreen}
-                    options={{
-                      title: 'Mon, May 27',
-                      drawerLabel: 'Mail',
-                      ...drawerBaseOptions,
-                    }}
+                    // options={{headerShown: false}}
                   />
-                  <Drawer.Screen
+                  <Tab.Screen
+                    name={SEARCH_MAIL_ROUTE}
+                    component={SearchMail}
+                    options={{headerShown: false}}
+                  />
+                  <Tab.Screen
                     name={MORE_ROUTE}
                     component={MoreStackScreen}
-                    options={{
-                      title: 'Mon, May 27',
-                      drawerLabel: 'More',
-                      ...drawerBaseOptions,
-                    }}
+                    options={{headerShown: false}}
                   />
-                </Drawer.Navigator>
+                </Tab.Navigator>
+                // NOTE: Added in then figma changed, leave for now in case
+                // <Drawer.Navigator>
+                //   <Drawer.Screen
+                //     name={HOME_ROUTE}
+                //     component={Home}
+                //     options={{
+                //       title: 'Mon, May 27',
+                //       drawerLabel: 'Home',
+                //       ...drawerBaseOptions,
+                //     }}
+                //   />
+                //   <Drawer.Screen
+                //     name={MAIL_ROUTE}
+                //     component={MailStackScreen}
+                //     options={{
+                //       title: 'Mon, May 27',
+                //       drawerLabel: 'Mail',
+                //       ...drawerBaseOptions,
+                //     }}
+                //   />
+                //   <Drawer.Screen
+                //     name={MORE_ROUTE}
+                //     component={MoreStackScreen}
+                //     options={{
+                //       title: 'Mon, May 27',
+                //       drawerLabel: 'More',
+                //       ...drawerBaseOptions,
+                //     }}
+                //   />
+                // </Drawer.Navigator>
               )}
             </>
           </NavigationContainer>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   View,
@@ -8,30 +8,19 @@ import {
   SafeAreaView,
   useColorScheme,
 } from 'react-native';
-import FIcon5 from 'react-native-vector-icons/FontAwesome5';
-import {useSelector, useDispatch} from 'react-redux';
-import {setIsSearching} from '../../store/mail';
+import {useSelector} from 'react-redux';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
-import FnSearchInput from '../../components/FnSearchInput';
 import {COLORS} from '../../utils/Colors';
+import {getAndroidPadding} from '../../utils/Style';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
 import {MOCK_MAIL} from '../../mock/mock-mail';
 
 const Mail = () => {
-  const dispatch = useDispatch();
-  const {status, mail, isSearching} = useSelector(state => state.mail);
+  const {status, mail} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const [search, setSearch] = useState('');
-
-  const handleSearchToggle = () => {
-    if (isSearching) {
-      setSearch('');
-    }
-    dispatch(setIsSearching({isSearching: !isSearching}));
-  };
 
   const baseStyle = {
     flex: 1,
@@ -40,10 +29,13 @@ const Mail = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
+    ...getAndroidPadding,
   };
 
   const safeView = {
     flex: 1,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.borderGray,
   };
 
   const innerView = {
@@ -56,35 +48,9 @@ const Mail = () => {
     flex: 1,
   };
 
-  const actionView = {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  };
-
-  const searchView = {
-    width: '70%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-  };
-
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
-        <View style={actionView}>
-          <Pressable onPress={handleSearchToggle}>
-            <FIcon5 name="search" size={18} color={theme.text} />
-          </Pressable>
-        </View>
-        {isSearching && (
-          <View style={searchView}>
-            <FnSearchInput
-              value={search}
-              onChangeText={val => setSearch(val)}
-            />
-          </View>
-        )}
         {status === CONNECTED_STATUS && mail.length > 0 && (
           <View style={innerView}>
             <FnText
@@ -147,7 +113,7 @@ const styles = StyleSheet.create({
   mailView: {
     flex: 1,
     width: '100%',
-    padding: 12,
+    paddingTop: 18,
   },
   date: {
     marginBottom: 12,

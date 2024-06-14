@@ -1,39 +1,92 @@
 import React from 'react';
-import {StyleSheet, View, FlatList} from 'react-native';
+import {StyleSheet, View, FlatList, useColorScheme} from 'react-native';
 import FnText from './FnText';
 import {COLORS} from '../utils/Colors';
 
 function MailContent({data = {}}) {
-  const {sender, subject} = data;
+  const {sender, subject, img, mailboxEvent, mailboxTime} = data;
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  const mailboxTimeText = {
+    color: COLORS.darkergray,
+  };
+
+  const mailboxOuterRing = {
+    width: 20,
+    height: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.mailboxLightGreen,
+    borderRadius: 50,
+    marginRight: 8,
+  };
+
+  const mailboxInnerBase = {
+    width: 12,
+    height: 12,
+    borderRadius: 50,
+  };
+
+  const mailboxInnerClosed = {
+    backgroundColor: theme.mailboxDarkGreen,
+    ...mailboxInnerBase,
+  };
+
+  const mailboxInnerOpened = {
+    borderWidth: 1,
+    borderColor: theme.mailboxDarkGreen,
+    ...mailboxInnerBase,
+  };
 
   return (
     <View style={styles.mailContent}>
-      <View style={styles.mailIcon} />
+      {mailboxEvent && (
+        <View style={mailboxOuterRing}>
+          <View
+            style={
+              mailboxEvent === 'opened'
+                ? mailboxInnerOpened
+                : mailboxInnerClosed
+            }
+          />
+        </View>
+      )}
       <View style={styles.mailInfo}>
         <FnText text={sender} fnTextStyles={styles.senderText} />
         <FnText text={subject} fnTextStyles={styles.subjectText} />
       </View>
-      <View style={styles.img} />
+      {img && <View style={styles.img} />}
+      {mailboxTime && (
+        <FnText text={mailboxTime} fnTextStyles={mailboxTimeText} />
+      )}
     </View>
   );
 }
 
 const FnMailCard = ({data = {}}) => {
-  const {datePrimary, dateSecondary, isPrimary, mail} = data;
+  const {datePrimary, dateSecondary, mail} = data;
+
+  const middleBar = {
+    height: 1,
+    flex: 1,
+    backgroundColor: COLORS.borderGray,
+  };
+
+  const endBar = {
+    height: 1,
+    width: 10,
+    backgroundColor: COLORS.borderGray,
+  };
 
   return (
     <>
       <View style={styles.date}>
-        <View style={styles.dateDate}>
-          <FnText
-            text={datePrimary}
-            fnTextStyles={isPrimary ? styles.datePrimary : {}}
-          />
-        </View>
-        <FnText
-          text={dateSecondary}
-          fnTextStyles={isPrimary ? styles.dateSecondary : {}}
-        />
+        <View style={endBar} />
+        <FnText text={datePrimary} fnTextStyles={styles.dateTextView} />
+        <View style={middleBar} />
+        <FnText text={dateSecondary} fnTextStyles={styles.dateTextView} />
+        <View style={endBar} />
       </View>
 
       {mail && mail.length > 0 && (
@@ -51,19 +104,15 @@ const styles = StyleSheet.create({
   date: {
     marginBottom: 18,
     flexDirection: 'row',
+    alignItems: 'center',
   },
-  dateDate: {
-    flex: 1,
-  },
-  datePrimary: {
-    color: COLORS.blue,
-  },
-  dateSecondary: {
-    color: COLORS.blue,
+  dateTextView: {
+    paddingHorizontal: 8,
   },
   mailContent: {
     flexDirection: 'row',
     marginBottom: 18,
+    paddingHorizontal: 20,
   },
   mailIcon: {
     marginTop: 4,
@@ -79,9 +128,11 @@ const styles = StyleSheet.create({
   senderText: {
     fontSize: 18,
     fontWeight: 700,
+    marginBottom: 8,
   },
   subjectText: {
     fontSize: 16,
+    color: COLORS.darkergray,
   },
   img: {
     width: 60,

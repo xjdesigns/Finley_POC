@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/Colors';
 import {useTheme} from '@react-navigation/native';
 
@@ -39,8 +40,12 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
       return <Icon name="home" {...styleProps} />;
     }
 
-    if (name === 'Mail') {
-      return <IonIcon name="mail" {...styleProps} />;
+    if (name === 'Mailbox') {
+      return <MatCIcon name="mailbox-up-outline" {...styleProps} />;
+    }
+
+    if (name === 'Search') {
+      return <IonIcon name="search-outline" {...styleProps} />;
     }
 
     if (name === 'More') {
