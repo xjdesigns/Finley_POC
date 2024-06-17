@@ -4,8 +4,8 @@ export const HOME_ROUTE = 'Home';
 export const MAIL_ROUTE = 'Mailbox';
 export const YOUR_MAIL_ROUTE = 'Your Mail';
 export const SEARCH_MAIL_ROUTE = 'Search';
-export const MORE_ROUTE = 'More';
-export const SETTINGS_MORE_ROUTE = 'Settings & More';
+export const MENU_ROUTE = 'Menu';
+export const SETTINGS_MENU_ROUTE = 'Settings & More';
 export const NOTIFICATIONS_PREF_ROUTE = 'Notification Preferences';
 
 // Getting Started Routes

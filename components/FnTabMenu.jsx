@@ -48,8 +48,8 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
       return <IonIcon name="search-outline" {...styleProps} />;
     }
 
-    if (name === 'More') {
-      return <Icon name="ellipsis-h" {...styleProps} />;
+    if (name === 'Menu') {
+      return <IonIcon name="menu" {...styleProps} />;
     }
   };
 

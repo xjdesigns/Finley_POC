@@ -9,7 +9,7 @@ import {NOTIFICATIONS_PREF_ROUTE} from '../../constants/routes';
 import {COLORS} from '../../utils/Colors';
 import {getAndroidPadding} from '../../utils/Style';
 
-const More = () => {
+const Menu = () => {
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
@@ -35,6 +35,7 @@ const More = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
+    ...getAndroidPadding,
   };
 
   const safeView = {
@@ -62,7 +63,12 @@ const More = () => {
             path={NOTIFICATIONS_PREF_ROUTE}
             borderBottom={true}
           />
-          <FnNavButton text="Logout" onPress={handleLogout} />
+          <FnNavButton
+            text="Using Your Finley Flag"
+            path={NOTIFICATIONS_PREF_ROUTE}
+            borderBottom={true}
+          />
+          <FnNavButton text="Logout" onPress={handleLogout} icon="logout" />
         </View>
       </SafeAreaView>
     </View>
@@ -77,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default More;
+export default Menu;

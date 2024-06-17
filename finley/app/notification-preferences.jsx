@@ -8,7 +8,6 @@ const NotificationPreferences = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const [mailArrives, setMailArrives] = useState(false);
-  const [mailPickedUp, setMailPickedUp] = useState(false);
   const [mailWaiting, setMailWaiting] = useState(false);
 
   const baseStyle = {
@@ -32,12 +31,6 @@ const NotificationPreferences = () => {
           text="Notify me when mail Arrives"
           value={mailArrives}
           onValueChange={() => setMailArrives(!mailArrives)}
-          borderBottom={true}
-        />
-        <FnListSwitch
-          text="Notify me when mail is picked up"
-          value={mailPickedUp}
-          onValueChange={() => setMailPickedUp(!mailPickedUp)}
           borderBottom={true}
         />
         <FnListSwitch

@@ -29,14 +29,14 @@ import PremiumEmail from './finley/premium-email.jsx';
 import Home from './finley/app/home';
 import Mail from './finley/app/mail';
 import SearchMail from './finley/app/search-mail.jsx';
-import More from './finley/app/more';
+import More from './finley/app/menu.jsx';
 import NotificationPreferences from './finley/app/notification-preferences';
 import {
   LOGIN_ROUTE,
   HOME_ROUTE,
   MAIL_ROUTE,
   SEARCH_MAIL_ROUTE,
-  MORE_ROUTE,
+  MENU_ROUTE,
   GETTING_STARTED_ROUTE,
   CONNECT_MAILBOX_ROUTE,
   CONNECTED_MAILBOX_ROUTE,
@@ -45,7 +45,7 @@ import {
   CONNECT_USPS_ROUTE,
   COMPLETED_USPS_ROUTE,
   PREMIUM_EMAIL_ROUTE,
-  SETTINGS_MORE_ROUTE,
+  SETTINGS_MENU_ROUTE,
   NOTIFICATIONS_PREF_ROUTE,
   YOUR_MAIL_ROUTE,
   DEV_OPTIONS_ROUTE,
@@ -65,7 +65,7 @@ function FnTabMenuWrapper(props) {
   return <FnTabMenu {...props} />;
 }
 
-function MoreStackScreen() {
+function MenuStackScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const baseOptions = {
@@ -84,7 +84,7 @@ function MoreStackScreen() {
         headerShadowVisible: false,
       }}>
       <MoreStack.Screen
-        name={SETTINGS_MORE_ROUTE}
+        name={SETTINGS_MENU_ROUTE}
         component={More}
         options={{headerShown: false}}
       />
@@ -339,8 +339,8 @@ export default function Finley() {
                     options={{headerShown: false}}
                   />
                   <Tab.Screen
-                    name={MORE_ROUTE}
-                    component={MoreStackScreen}
+                    name={MENU_ROUTE}
+                    component={MenuStackScreen}
                     options={{headerShown: false}}
                   />
                 </Tab.Navigator>
@@ -365,7 +365,7 @@ export default function Finley() {
                 //     }}
                 //   />
                 //   <Drawer.Screen
-                //     name={MORE_ROUTE}
+                //     name={MENU_ROUTE}
                 //     component={MoreStackScreen}
                 //     options={{
                 //       title: 'Mon, May 27',
