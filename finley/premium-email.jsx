@@ -8,7 +8,6 @@ import {
   useColorScheme,
   ScrollView,
 } from 'react-native';
-import * as Updates from 'expo-updates';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Fs6Icon from 'react-native-vector-icons/FontAwesome6';
 import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
