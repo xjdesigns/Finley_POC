@@ -14,7 +14,7 @@ import Fs6Icon from 'react-native-vector-icons/FontAwesome6';
 import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
 import {useDispatch} from 'react-redux';
-import {setFinishedInitialSetup} from '../store/user';
+import {setFinishedInitialSetup, setUserToken} from '../store/user';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
@@ -44,8 +44,7 @@ const PremiumEmail = () => {
       await AsyncStorage.setItem('token', 'token');
       await AsyncStorage.setItem('finishedInitialSetup', 'true');
       dispatch(setFinishedInitialSetup({finishedInitialSetup: true}));
-      // NOTE: Reload the app so the proper router is mounted
-      Updates.reloadAsync();
+      dispatch(setUserToken({token: 'token'}));
     } catch (e) {
       console.error('Error', e);
     }

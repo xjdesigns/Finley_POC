@@ -233,7 +233,7 @@ export default function Finley() {
         <View style={baseStyle}>
           <NavigationContainer theme={NavTheme}>
             <>
-              {userToken === '' ? (
+              {userToken === '' && (
                 <Stack.Navigator
                   initialRouteName={
                     finishedInitialSetup ? LOGIN_ROUTE : HOME_ROUTE
@@ -321,7 +321,8 @@ export default function Finley() {
                     }}
                   />
                 </Stack.Navigator>
-              ) : (
+              )}
+              {userToken && (
                 <Tab.Navigator tabBar={FnTabMenuWrapper}>
                   {/* // NOTE: Left here in case it comes back, if not can be deleted */}
                   {/* <Tab.Screen
