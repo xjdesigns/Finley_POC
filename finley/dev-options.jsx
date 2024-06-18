@@ -5,6 +5,7 @@ import * as Application from 'expo-application';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {updateEnv} from '../store/user';
 import FnText from '../components/FnText';
+import FnPressable from '../components/FnPressable';
 import FnRadio from '../components/FnRadio';
 import {COLORS} from '../utils/Colors';
 import {ALL_ENVS} from '../constants/env';
@@ -26,6 +27,10 @@ const DevOptions = () => {
       console.error('e', e);
       dispatch(updateEnv({env: val}));
     }
+  };
+
+  const handleResetInitial = async () => {
+    await AsyncStorage.removeItem('finishedInitialSetup');
   };
 
   const baseStyle = {
@@ -54,6 +59,8 @@ const DevOptions = () => {
             value={selectedEnv}
             onChange={handleChange}
           />
+
+          <FnPressable text="Reset Initial Step" onPress={handleResetInitial} />
 
           <View style={styles.appView}>
             <FnText

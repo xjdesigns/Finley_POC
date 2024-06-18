@@ -8,18 +8,20 @@ import {
   useColorScheme,
   ScrollView,
 } from 'react-native';
-import {useNavigation} from '@react-navigation/native';
+import * as Updates from 'expo-updates';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Fs6Icon from 'react-native-vector-icons/FontAwesome6';
 import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
+import {useDispatch} from 'react-redux';
+import {setFinishedInitialSetup} from '../store/user';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
-import {COMPLETED_USPS_ROUTE} from '../constants/routes';
 
 const PremiumEmail = () => {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
@@ -37,8 +39,16 @@ const PremiumEmail = () => {
     flex: 1,
   };
 
-  const handleConnecting = () => {
-    navigation.navigate(COMPLETED_USPS_ROUTE);
+  const handleConnecting = async () => {
+    try {
+      await AsyncStorage.setItem('token', 'token');
+      await AsyncStorage.setItem('finishedInitialSetup', 'true');
+      dispatch(setFinishedInitialSetup({finishedInitialSetup: true}));
+      // NOTE: Reload the app so the proper router is mounted
+      Updates.reloadAsync();
+    } catch (e) {
+      console.error('Error', e);
+    }
   };
 
   const panelIcon = {

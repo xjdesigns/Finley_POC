@@ -1,5 +1,11 @@
 import React from 'react';
-import {Text, Pressable, ActivityIndicator, useColorScheme} from 'react-native';
+import {
+  Text,
+  Pressable,
+  TouchableOpacity,
+  ActivityIndicator,
+  useColorScheme,
+} from 'react-native';
 import {COLORS} from '../utils/Colors';
 
 const FnPressable = ({
@@ -34,13 +40,20 @@ const FnPressable = ({
   };
 
   return (
-    <Pressable style={btnStyle} onPress={onPress} disabled={disabled}>
+    <TouchableOpacity style={btnStyle} onPress={onPress} disabled={disabled}>
       {loading ? (
         <ActivityIndicator style={loadingStyle} />
       ) : (
         <Text style={btnText}>{text}</Text>
       )}
-    </Pressable>
+      {/* <Pressable style={btnStyle} onPress={onPress} disabled={disabled}>
+        {loading ? (
+          <ActivityIndicator style={loadingStyle} />
+        ) : (
+          <Text style={btnText}>{text}</Text>
+        )}
+      </Pressable> */}
+    </TouchableOpacity>
   );
 };
 

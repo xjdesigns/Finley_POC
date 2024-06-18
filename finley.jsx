@@ -3,12 +3,16 @@ import {StatusBar} from 'expo-status-bar';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useColorScheme, View, ActivityIndicator} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {FnTabMenu} from './components/FnTabMenu';
-import {setUserToken, setStatus, updateEnv} from './store/user.js';
+import {
+  setUserToken,
+  setStatus,
+  updateEnv,
+  setFinishedInitialSetup,
+} from './store/user.js';
 import {COLORS} from './utils/Colors';
 import Login from './finley/login';
 import DevOptions from './finley/dev-options';
@@ -59,7 +63,6 @@ const Stack = createNativeStackNavigator();
 const MoreStack = createNativeStackNavigator();
 const MailStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 function FnTabMenuWrapper(props) {
   return <FnTabMenu {...props} />;
@@ -122,7 +125,9 @@ function MailStackScreen() {
 
 export default function Finley() {
   const dispatch = useDispatch();
-  const {userToken, status} = useSelector(state => state.user);
+  const {userToken, status, finishedInitialSetup} = useSelector(
+    state => state.user,
+  );
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
@@ -154,22 +159,31 @@ export default function Finley() {
 
   useEffect(() => {
     if (!userToken) {
-      const getData = async () => {
+      const getLocalUser = async () => {
         try {
-          const value = await AsyncStorage.getItem('token');
-          if (value !== null) {
+          const token = await AsyncStorage.getItem('token');
+          const finishedSetup = await AsyncStorage.getItem(
+            'finishedInitialSetup',
+          );
+          // NOTE: Run this before the token check, status defines showing the routes
+          if (finishedSetup) {
+            dispatch(
+              setFinishedInitialSetup({finishedInitialSetup: finishedSetup}),
+            );
+          }
+          if (token !== null) {
             // Check token is valid or refresh
-            dispatch(setUserToken({token: value}));
+            dispatch(setUserToken({token: token}));
           } else {
             dispatch(setStatus({status: LOADED_STATUS}));
           }
         } catch (e) {
-          // error reading value
+          // error reading token or setup
           dispatch(setStatus({status: LOADED_STATUS}));
         }
         dispatch(setStatus({status: LOADED_STATUS}));
       };
-      getData();
+      getLocalUser();
     }
   }, [userToken, dispatch]);
 
@@ -208,22 +222,6 @@ export default function Finley() {
     headerTintColor: theme.text,
   };
 
-  // const drawerBaseOptions = {
-  //   eaderTitleStyle: {
-  //     fontWeight: 500,
-  //     color: theme.text,
-  //   },
-  //   headerTitleAlign: 'left',
-  //   headerTintColor: theme.text,
-  //   drawerLabelStyle: {
-  //     color: theme.text,
-  //   },
-  //   drawerStyle: {
-  //     backgroundColor: theme.background,
-  //   },
-  //   drawerActiveBackgroundColor: theme.lightBlueBackground,
-  // };
-
   return (
     <>
       {status === LOADING_STATUS && (
@@ -237,6 +235,9 @@ export default function Finley() {
             <>
               {userToken === '' ? (
                 <Stack.Navigator
+                  initialRouteName={
+                    finishedInitialSetup ? LOGIN_ROUTE : HOME_ROUTE
+                  }
                   screenOptions={{
                     headerShadowVisible: false,
                     headerBackTitleVisible: false,
@@ -344,36 +345,6 @@ export default function Finley() {
                     options={{headerShown: false}}
                   />
                 </Tab.Navigator>
-                // NOTE: Added in then figma changed, leave for now in case
-                // <Drawer.Navigator>
-                //   <Drawer.Screen
-                //     name={HOME_ROUTE}
-                //     component={Home}
-                //     options={{
-                //       title: 'Mon, May 27',
-                //       drawerLabel: 'Home',
-                //       ...drawerBaseOptions,
-                //     }}
-                //   />
-                //   <Drawer.Screen
-                //     name={MAIL_ROUTE}
-                //     component={MailStackScreen}
-                //     options={{
-                //       title: 'Mon, May 27',
-                //       drawerLabel: 'Mail',
-                //       ...drawerBaseOptions,
-                //     }}
-                //   />
-                //   <Drawer.Screen
-                //     name={MENU_ROUTE}
-                //     component={MoreStackScreen}
-                //     options={{
-                //       title: 'Mon, May 27',
-                //       drawerLabel: 'More',
-                //       ...drawerBaseOptions,
-                //     }}
-                //   />
-                // </Drawer.Navigator>
               )}
             </>
           </NavigationContainer>
