@@ -1,9 +1,16 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  Image,
+  SafeAreaView,
+  useColorScheme,
+} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
+import {emailNotificationImage} from '../utils/Images';
 import {PREMIUM_EMAIL_ROUTE} from '../constants/routes';
 import {createBottomBarStyles} from '../utils/Style';
 
@@ -23,7 +30,13 @@ const CompletedUSPS = () => {
 
   const innerView = {
     paddingHorizontal: 20,
+  };
+
+  const imageView = {
+    paddingHorizontal: 20,
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   const handleDone = () => {
@@ -38,6 +51,13 @@ const CompletedUSPS = () => {
           <FnText
             text="Next time USPS delivers mail to your Finley Mailbox your mail will show up in your 'Mail' tab."
             fnTextStyles={styles.subText}
+          />
+        </View>
+        <View style={imageView}>
+          <Image
+            src={emailNotificationImage}
+            style={styles.mailNotification}
+            resizeMode="contain"
           />
         </View>
       </SafeAreaView>
@@ -58,6 +78,10 @@ const styles = StyleSheet.create({
   },
   subText: {
     textAlign: 'center',
+  },
+  mailNotification: {
+    width: 88,
+    height: 88,
   },
   bottomBar: createBottomBarStyles(),
 });

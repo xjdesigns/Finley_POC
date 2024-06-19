@@ -7,6 +7,7 @@ export const SEARCH_MAIL_ROUTE = 'Search';
 export const MENU_ROUTE = 'Menu';
 export const SETTINGS_MENU_ROUTE = 'Settings & More';
 export const NOTIFICATIONS_PREF_ROUTE = 'Notification Preferences';
+export const DEV_TESTING_ROUTE = 'Dev Testing';
 
 // Getting Started Routes
 export const GETTING_STARTED_ROUTE = 'Getting Started';

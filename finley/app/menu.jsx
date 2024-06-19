@@ -1,11 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
+import {View, SafeAreaView, useColorScheme} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../../store/user';
-import FnText from '../../components/FnText';
 import FnNavButton from '../../components/FnNavButton';
-import {NOTIFICATIONS_PREF_ROUTE} from '../../constants/routes';
+import {
+  NOTIFICATIONS_PREF_ROUTE,
+  DEV_TESTING_ROUTE,
+} from '../../constants/routes';
 import {COLORS} from '../../utils/Colors';
 import {getAndroidPadding} from '../../utils/Style';
 
@@ -13,6 +15,8 @@ const Menu = () => {
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const appEnv = process.env.EXPO_PUBLIC_ENV;
+  const isDev = appEnv !== 'production';
 
   const handleLogout = async () => {
     try {
@@ -42,11 +46,6 @@ const Menu = () => {
     flex: 1,
   };
 
-  const innerView = {
-    alignItems: 'center',
-    paddingHorizontal: 20,
-  };
-
   const linkView = {
     ...baseInner,
   };
@@ -54,9 +53,6 @@ const Menu = () => {
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
-        <View style={innerView}>
-          <FnText text="Settings & More" fnTextStyles={styles.title} />
-        </View>
         <View style={linkView}>
           <FnNavButton
             text="Notification Preferences"
@@ -68,19 +64,18 @@ const Menu = () => {
             path={NOTIFICATIONS_PREF_ROUTE}
             borderBottom={true}
           />
+          {isDev && (
+            <FnNavButton
+              text="Dev Testing Options"
+              path={DEV_TESTING_ROUTE}
+              borderBottom={true}
+            />
+          )}
           <FnNavButton text="Logout" onPress={handleLogout} icon="logout" />
         </View>
       </SafeAreaView>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 20,
-    fontWeight: 700,
-    marginBottom: 24,
-  },
-});
 
 export default Menu;

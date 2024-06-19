@@ -2,8 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Pressable,
   FlatList,
   SafeAreaView,
   useColorScheme,
@@ -15,7 +13,6 @@ import FnMailCard from '../../components/FnMailCard';
 import {COLORS} from '../../utils/Colors';
 import {getAndroidPadding} from '../../utils/Style';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
-import {MOCK_MAIL} from '../../mock/mock-mail';
 
 const Mail = () => {
   const {status, mail} = useSelector(state => state.mail);
@@ -51,7 +48,7 @@ const Mail = () => {
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
-        {status === CONNECTED_STATUS && mail.length > 0 && (
+        {status === CONNECTED_STATUS && mail.length === 0 && (
           <View style={innerView}>
             <FnText
               text="Nothing to see here, yet."
@@ -68,26 +65,28 @@ const Mail = () => {
             />
             <FnText text="Next time mail is delivered it will show up here." />
             <FnText
-              text="Start your free year of Retriever to view your mail here."
+              text="Start your free year of Finley to view your mail here."
               fnTextStyles={styles.freeYear}
             />
             <FnPressable text="Get Started" />
-            <Pressable>
-              <Text style={styles.learnMore}>Learn More</Text>
-            </Pressable>
+            <FnPressable
+              text="Learn More"
+              fnBtnTextStyles={styles.learnMore}
+              inverted={true}
+            />
           </View>
         )}
-        <View style={hasMailView}>
-          {status === CONNECTED_STATUS && mail.length === 0 && (
+        {status === CONNECTED_STATUS && mail.length > 0 && (
+          <View style={hasMailView}>
             <View style={styles.mailView}>
               <FlatList
-                data={MOCK_MAIL}
+                data={mail}
                 renderItem={({item}) => <FnMailCard data={item} />}
                 keyExtractor={(_, idx) => idx}
               />
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </SafeAreaView>
     </View>
   );
@@ -106,9 +105,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   learnMore: {
-    marginTop: 8,
     color: COLORS.blue,
-    fontWeight: 700,
   },
   mailView: {
     flex: 1,

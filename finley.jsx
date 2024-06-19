@@ -36,12 +36,14 @@ import Mail from './finley/app/mail';
 import SearchMail from './finley/app/search-mail.jsx';
 import More from './finley/app/menu.jsx';
 import NotificationPreferences from './finley/app/notification-preferences';
+import DevTesting from './finley/app/dev-testing.jsx';
 import {
   LOGIN_ROUTE,
   HOME_ROUTE,
   MAIL_ROUTE,
   SEARCH_MAIL_ROUTE,
   MENU_ROUTE,
+  DEV_TESTING_ROUTE,
   GETTING_STARTED_ROUTE,
   CONNECT_MAILBOX_ROUTE,
   CONNECTED_MAILBOX_ROUTE,
@@ -87,14 +89,18 @@ function MenuStackScreen() {
         },
         headerShadowVisible: false,
       }}>
-      <MoreStack.Screen
-        name={SETTINGS_MENU_ROUTE}
-        component={More}
-        options={{headerShown: false}}
-      />
+      <MoreStack.Screen name={SETTINGS_MENU_ROUTE} component={More} />
       <MoreStack.Screen
         name={NOTIFICATIONS_PREF_ROUTE}
         component={NotificationPreferences}
+        options={{
+          headerBackTitleVisible: false,
+          ...baseOptions,
+        }}
+      />
+      <MoreStack.Screen
+        name={DEV_TESTING_ROUTE}
+        component={DevTesting}
         options={{
           headerBackTitleVisible: false,
           ...baseOptions,

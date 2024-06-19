@@ -4,7 +4,7 @@ import {NOT_CONNECTED_STATUS, CONNECTED_STATUS} from '../constants/status';
 const mailSlice = createSlice({
   name: 'mail',
   initialState: {
-    status: CONNECTED_STATUS,
+    status: NOT_CONNECTED_STATUS,
     mail: [],
     isSearching: false,
   },
@@ -12,7 +12,7 @@ const mailSlice = createSlice({
     toggleConnection: state => {
       state.isConnected = !state.isConnected;
     },
-    setStatus: (state, action) => {
+    setMailStatus: (state, action) => {
       const {status} = action.payload;
       state.status = status;
     },
@@ -20,8 +20,13 @@ const mailSlice = createSlice({
       const {isSearching} = action.payload;
       state.isSearching = isSearching;
     },
+    setMail: (state, action) => {
+      const {mail} = action.payload;
+      return {...state, mail};
+    },
   },
 });
 
-export const {toggleConnection, setStatus, setIsSearching} = mailSlice.actions;
+export const {toggleConnection, setMailStatus, setIsSearching, setMail} =
+  mailSlice.actions;
 export default mailSlice.reducer;

@@ -44,21 +44,23 @@ const Login = () => {
     return false;
   }, [email, password]);
 
-  // useEffect(() => {
-  //   if (url) {
-  //     const {path, queryParams} = Linking.parse(url);
-  //     if (
-  //       path &&
-  //       path.includes(LOGIN_ROUTE) &&
-  //       queryParams &&
-  //       queryParams.email &&
-  //       queryParams.password
-  //     ) {
-  //       setEmail(queryParams.email);
-  //       setPassword(queryParams.password);
-  //     }
-  //   }
-  // }, [url]);
+  useEffect(() => {
+    if (url) {
+      const {path, queryParams} = Linking.parse(url);
+      // NOTE: Tyler was getting this to error with a single if check,
+      // broke out into separate checks and need to verify. JJ 6/19
+      if (path && queryParams) {
+        if (
+          path.includes(LOGIN_ROUTE) &&
+          queryParams.email &&
+          queryParams.password
+        ) {
+          setEmail(queryParams.email);
+          setPassword(queryParams.password);
+        }
+      }
+    }
+  }, [url]);
 
   const baseStyle = {
     flex: 1,

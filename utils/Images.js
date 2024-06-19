@@ -9,6 +9,7 @@ import MailboxOpenImage from '../assets/mailbox_open.png';
 import LettersImage from '../assets/letters.png';
 import FinleyFlagImage from '../assets/finley_flag.png';
 import NotificationsImage from '../assets/notifications.png';
+import EmailNotificationImage from '../assets/email_notification.png';
 
 export const logoImage = Image.resolveAssetSource(LogoImage).uri;
 export const logoIconImage = Image.resolveAssetSource(LogoIconImage).uri;
@@ -22,3 +23,6 @@ export const lettersImage = Image.resolveAssetSource(LettersImage).uri;
 export const finleyFlagImage = Image.resolveAssetSource(FinleyFlagImage).uri;
 export const notificationsImage =
   Image.resolveAssetSource(NotificationsImage).uri;
+export const emailNotificationImage = Image.resolveAssetSource(
+  EmailNotificationImage,
+).uri;
