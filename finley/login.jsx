@@ -44,19 +44,21 @@ const Login = () => {
     return false;
   }, [email, password]);
 
-  useEffect(() => {
-    if (url) {
-      const {path, queryParams} = Linking.parse(url);
-      if (
-        path.includes(LOGIN_ROUTE) &&
-        queryParams.email &&
-        queryParams.password
-      ) {
-        setEmail(queryParams.email);
-        setPassword(queryParams.password);
-      }
-    }
-  }, [url]);
+  // useEffect(() => {
+  //   if (url) {
+  //     const {path, queryParams} = Linking.parse(url);
+  //     if (
+  //       path &&
+  //       path.includes(LOGIN_ROUTE) &&
+  //       queryParams &&
+  //       queryParams.email &&
+  //       queryParams.password
+  //     ) {
+  //       setEmail(queryParams.email);
+  //       setPassword(queryParams.password);
+  //     }
+  //   }
+  // }, [url]);
 
   const baseStyle = {
     flex: 1,
