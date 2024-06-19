@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useColorScheme, View, ActivityIndicator} from 'react-native';
+import * as Linking from 'expo-linking';
 import {useSelector, useDispatch} from 'react-redux';
 import {FnTabMenu} from './components/FnTabMenu';
 import {
@@ -123,6 +124,9 @@ function MailStackScreen() {
   );
 }
 
+// NOTE: Required for deep linking
+const prefix = Linking.createURL('/');
+
 export default function Finley() {
   const dispatch = useDispatch();
   const {userToken, status, finishedInitialSetup} = useSelector(
@@ -130,6 +134,9 @@ export default function Finley() {
   );
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const linking = {
+    prefixes: [prefix],
+  };
 
   // useEffect(() => {
   //   const instance = new BleManager();
@@ -231,7 +238,7 @@ export default function Finley() {
       )}
       {status === LOADED_STATUS && (
         <View style={baseStyle}>
-          <NavigationContainer theme={NavTheme}>
+          <NavigationContainer theme={NavTheme} linking={linking}>
             <>
               {userToken === '' && (
                 <Stack.Navigator

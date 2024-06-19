@@ -43,7 +43,14 @@
     "react-native-screens": "^3.29.0",
     "react-native-vector-icons": "^10.0.3",
     "react-native-web": "~0.19.10",
+<<<<<<< HEAD
     "react-redux": "^9.1.2"
+=======
+    "react-redux": "^9.1.2",
+    "expo-location": "~17.0.1",
+    "expo-application": "~5.9.1",
+    "expo-linking": "~6.3.1"
+>>>>>>> Linking
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

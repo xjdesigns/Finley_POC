@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,12 +11,17 @@ import {
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Linking from 'expo-linking';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
 import FnPressable from '../components/FnPressable';
 import {logoIconImage} from '../utils/Images';
-import {GETTING_STARTED_ROUTE, DEV_OPTIONS_ROUTE} from '../constants/routes';
+import {
+  GETTING_STARTED_ROUTE,
+  LOGIN_ROUTE,
+  DEV_OPTIONS_ROUTE,
+} from '../constants/routes';
 import {COLORS} from '../utils/Colors';
 import {useAuthHook} from '../hooks/auth-hook';
 
@@ -25,6 +30,7 @@ const Login = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const url = Linking.useURL();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -37,6 +43,20 @@ const Login = () => {
     }
     return false;
   }, [email, password]);
+
+  useEffect(() => {
+    if (url) {
+      const {path, queryParams} = Linking.parse(url);
+      if (
+        path.includes(LOGIN_ROUTE) &&
+        queryParams.email &&
+        queryParams.password
+      ) {
+        setEmail(queryParams.email);
+        setPassword(queryParams.password);
+      }
+    }
+  }, [url]);
 
   const baseStyle = {
     flex: 1,
