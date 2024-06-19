@@ -8,7 +8,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  Text,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -46,12 +45,6 @@ const Login = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
-  };
-
-  const setupText = {
-    color: theme.text,
-    fontSize: 18,
-    textAlign: 'center',
   };
 
   const handleSubmit = async () => {
@@ -130,9 +123,7 @@ const Login = () => {
               loading={loading}
               disabled={!canLogin}
             />
-            <Pressable style={styles.setupBtn} onPress={handleSetup}>
-              <Text style={setupText}>Setup</Text>
-            </Pressable>
+            <FnPressable text="Setup" onPress={handleSetup} inverted={true} />
           </View>
         </View>
       </SafeAreaView>
@@ -166,10 +157,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 8,
   },
-  setupBtn: {
-    marginTop: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 20,
+  test: {
+    color: COLORS.blue,
   },
 });
 

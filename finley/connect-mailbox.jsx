@@ -4,7 +4,6 @@ import {
   ScrollView,
   View,
   Pressable,
-  Text,
   Image,
   SafeAreaView,
   useColorScheme,
@@ -136,9 +135,13 @@ const ConnectMailbox = () => {
             onPress={handleConnect}
             disableDarkTheme={true}
           />
-          <Pressable style={styles.noMailbox}>
-            <Text style={styles.noMailbox}>This is not my flag</Text>
-          </Pressable>
+          <FnPressable
+            text="This is not my flag"
+            onPress={handleConnect}
+            fnBtnTextStyles={styles.noMailbox}
+            disableDarkTheme={true}
+            inverted={true}
+          />
         </View>
       )}
     </View>
@@ -162,10 +165,6 @@ const styles = StyleSheet.create({
   },
   noMailbox: {
     color: COLORS.blue,
-    fontSize: 18,
-    textAlign: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
   },
   troubleConnecting: {
     fontSize: 18,

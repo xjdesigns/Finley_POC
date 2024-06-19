@@ -2,7 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Pressable,
   SafeAreaView,
   useColorScheme,
   StatusBar,
@@ -44,8 +43,8 @@ const HomePage = () => {
     ...getAndroidPadding,
   };
 
-  const startedAction = {
-    width: '100%',
+  const loginText = {
+    color: theme.text,
   };
 
   return (
@@ -68,11 +67,14 @@ const HomePage = () => {
           text="Get Started"
           onPress={handleGettingStarted}
           disableDarkTheme={true}
-          fnBtnStyles={startedAction}
         />
-        <Pressable style={styles.login} onPress={handleLogin}>
-          <FnText text="Log in" fnTextStyles={styles.loginText} />
-        </Pressable>
+        <FnPressable
+          text="Login"
+          onPress={handleLogin}
+          fnBtnTextStyles={loginText}
+          disableDarkTheme={true}
+          inverted={true}
+        />
       </View>
     </View>
   );

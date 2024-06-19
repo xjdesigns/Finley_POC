@@ -2,8 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Pressable,
-  Text,
   ActivityIndicator,
   SafeAreaView,
   useColorScheme,
@@ -80,9 +78,12 @@ const Notifications = () => {
               onPress={handleConnecting}
               disableDarkTheme={true}
             />
-            <Pressable style={styles.skipForNow}>
-              <Text style={styles.skipForNow}>Skip for now</Text>
-            </Pressable>
+            <FnPressable
+              text="Skip for now"
+              fnBtnTextStyles={styles.skipForNow}
+              disableDarkTheme={true}
+              inverted={true}
+            />
           </View>
         )}
       </View>
@@ -120,10 +121,6 @@ const styles = StyleSheet.create({
   },
   skipForNow: {
     color: COLORS.blue,
-    fontSize: 18,
-    textAlign: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
   },
   bottomBar: createBottomBarStyles({needsMinHeight: true}),
 });

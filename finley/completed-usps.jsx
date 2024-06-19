@@ -23,6 +23,7 @@ const CompletedUSPS = () => {
 
   const innerView = {
     paddingHorizontal: 20,
+    flex: 1,
   };
 
   const handleDone = () => {

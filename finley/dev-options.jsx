@@ -60,7 +60,11 @@ const DevOptions = () => {
             onChange={handleChange}
           />
 
-          <FnPressable text="Reset Initial Step" onPress={handleResetInitial} />
+          <FnPressable
+            text="Reset Initial Step"
+            onPress={handleResetInitial}
+            size="small"
+          />
 
           <View style={styles.appView}>
             <FnText
