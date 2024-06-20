@@ -33,9 +33,16 @@ const conversationSlice = createSlice({
         responses,
       };
     },
+    resetConversation: state => {
+      return {
+        ...state,
+        questions: [],
+        response: [],
+      };
+    },
   },
 });
 
-export const {setQuestion, setResponse, setConversation} =
+export const {setQuestion, setResponse, setConversation, resetConversation} =
   conversationSlice.actions;
 export default conversationSlice.reducer;

@@ -10,9 +10,10 @@ import {
 } from 'react-native';
 import {useHeaderHeight} from '@react-navigation/elements';
 import {useSelector, useDispatch} from 'react-redux';
-import {setConversation} from '../../store/conversation';
+import {setConversation, resetConversation} from '../../store/conversation';
 import FnText from '../../components/FnText';
 import FnSearchInput from '../../components/FnSearchInput';
+import FnConversationActionBar from '../../components/FnConversationActionBar';
 import {COLORS} from '../../utils/Colors';
 import {getAndroidPadding} from '../../utils/Style';
 import {MOCK_QUESTIONS, MOCK_RESPONSES} from '../../mock/mock-conversation';
@@ -46,17 +47,6 @@ const ConversationSearch = () => {
     alignItems: 'center',
   };
 
-  const searchView = {
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.borderGray,
-  };
-
-  const conversationView = {
-    paddingHorizontal: 20,
-    flex: 1,
-  };
-
   const questionView = {
     padding: 8,
     marginBottom: 18,
@@ -66,11 +56,6 @@ const ConversationSearch = () => {
     borderRadius: 18,
   };
 
-  const responseView = {
-    marginBottom: 18,
-    maxWidth: '80%',
-  };
-
   const handleSearch = () => {
     dispatch(
       setConversation({
@@ -78,6 +63,10 @@ const ConversationSearch = () => {
         responses: MOCK_RESPONSES,
       }),
     );
+  };
+
+  const handleReset = () => {
+    dispatch(resetConversation());
   };
 
   return (
@@ -95,7 +84,7 @@ const ConversationSearch = () => {
             </View>
           )}
           {questions.length > 0 && (
-            <View style={conversationView}>
+            <View style={styles.conversationView}>
               {questions.map((c, idx) => {
                 const res = responses[0];
 
@@ -109,7 +98,7 @@ const ConversationSearch = () => {
                     </View>
 
                     {res && (
-                      <View style={responseView}>
+                      <View style={styles.responseView}>
                         <FnText
                           text="It looks like you got a few important items from Happily, Inc. in January, 2023 that could be your W2."
                           fnTextStyles={styles.text}
@@ -119,40 +108,17 @@ const ConversationSearch = () => {
                   </React.Fragment>
                 );
               })}
-              {/* <View style={questionView}>
-                <FnText
-                  text="Did I get my W2 from work last year?"
-                  fnTextStyles={styles.text}
-                />
-              </View>
-
-              <View style={responseView}>
-                <FnText
-                  text="It looks like you got a few important items from Happily, Inc. in January, 2023 that could be your W2."
-                  fnTextStyles={styles.text}
-                />
-              </View>
-
-              <View style={questionView}>
-                <FnText
-                  text="How much mail did I receive from progressive last year?"
-                  fnTextStyles={styles.text}
-                />
-              </View>
-
-              <View style={responseView}>
-                <FnText
-                  text="Last year you received 46 items from Progressive Insurance. 23/46 were important, 23/46 were not."
-                  fnTextStyles={styles.text}
-                />
-              </View> */}
             </View>
           )}
         </ScrollView>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           keyboardVerticalOffset={height}>
-          <View style={searchView}>
+          <View style={styles.searchView}>
+            <FnConversationActionBar
+              fnBarStyles={styles.actionBar}
+              onRefresh={handleReset}
+            />
             <FnSearchInput
               value={search}
               onChangeText={setSearch}
@@ -169,6 +135,22 @@ const ConversationSearch = () => {
 const styles = StyleSheet.create({
   text: {
     fontWeight: 400,
+  },
+  searchView: {
+    padding: 20,
+    borderTopWidth: 1,
+    borderTopColor: COLORS.borderGray,
+  },
+  conversationView: {
+    paddingHorizontal: 20,
+    flex: 1,
+  },
+  responseView: {
+    marginBottom: 18,
+    maxWidth: '80%',
+  },
+  actionBar: {
+    marginBottom: 18,
   },
 });
 
