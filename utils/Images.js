@@ -10,6 +10,7 @@ import LettersImage from '../assets/letters.png';
 import FinleyFlagImage from '../assets/finley_flag.png';
 import NotificationsImage from '../assets/notifications.png';
 import EmailNotificationImage from '../assets/email_notification.png';
+import UpsellStarImage from '../assets/upsell_star.png';
 
 export const logoImage = Image.resolveAssetSource(LogoImage).uri;
 export const logoIconImage = Image.resolveAssetSource(LogoIconImage).uri;
@@ -26,3 +27,4 @@ export const notificationsImage =
 export const emailNotificationImage = Image.resolveAssetSource(
   EmailNotificationImage,
 ).uri;
+export const upsellStarImage = Image.resolveAssetSource(UpsellStarImage).uri;

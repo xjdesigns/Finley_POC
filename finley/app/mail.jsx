@@ -3,6 +3,7 @@ import {
   StyleSheet,
   View,
   FlatList,
+  Image,
   SafeAreaView,
   useColorScheme,
 } from 'react-native';
@@ -10,6 +11,7 @@ import {useSelector} from 'react-redux';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
+import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
 import {getAndroidPadding} from '../../utils/Style';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
@@ -39,15 +41,38 @@ const Mail = () => {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: 20,
   };
 
   const hasMailView = {
     flex: 1,
   };
 
+  const upsellView = {
+    padding: 32,
+    backgroundColor: theme.lightBlueBackground,
+    borderRadius: 24,
+  };
+
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
+        {status === NOT_CONNECTED_STATUS && (
+          <View style={innerView}>
+            <View style={upsellView}>
+              <Image src={upsellStarImage} style={styles.img} />
+              <FnText
+                text="Start your FREE Finley Premium Trial"
+                fnTextStyles={styles.title}
+              />
+              <FnText
+                text="Get notified when important mail arrives."
+                fnTextStyles={styles.subTitle}
+              />
+              <FnPressable text="Learn More" />
+            </View>
+          </View>
+        )}
         {status === CONNECTED_STATUS && mail.length === 0 && (
           <View style={innerView}>
             <FnText
@@ -55,25 +80,6 @@ const Mail = () => {
               fnTextStyles={styles.title}
             />
             <FnText text="Next time mail is delivered it will show up here." />
-          </View>
-        )}
-        {status === NOT_CONNECTED_STATUS && (
-          <View style={innerView}>
-            <FnText
-              text="Nothing to see here, yet."
-              fnTextStyles={styles.title}
-            />
-            <FnText text="Next time mail is delivered it will show up here." />
-            <FnText
-              text="Start your free year of Finley to view your mail here."
-              fnTextStyles={styles.freeYear}
-            />
-            <FnPressable text="Get Started" />
-            <FnPressable
-              text="Learn More"
-              fnBtnTextStyles={styles.learnMore}
-              inverted={true}
-            />
           </View>
         )}
         {status === CONNECTED_STATUS && mail.length > 0 && (
@@ -93,19 +99,27 @@ const Mail = () => {
 };
 
 const styles = StyleSheet.create({
+  img: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 'auto',
+    marginBottom: 18,
+  },
   title: {
     marginBottom: 8,
     fontSize: 28,
     fontWeight: 700,
+    textAlign: 'center',
+  },
+  subTitle: {
+    textAlign: 'center',
+    marginBottom: 18,
   },
   freeYear: {
     marginTop: 36,
     marginBottom: 8,
     paddingHorizontal: 48,
     textAlign: 'center',
-  },
-  learnMore: {
-    color: COLORS.blue,
   },
   mailView: {
     flex: 1,
@@ -145,11 +159,6 @@ const styles = StyleSheet.create({
   },
   subjectText: {
     fontSize: 16,
-  },
-  img: {
-    width: 60,
-    height: 40,
-    backgroundColor: COLORS.mediumgray,
   },
 });
 
