@@ -1,12 +1,13 @@
-import React from 'react';
-import {View, SafeAreaView, useColorScheme} from 'react-native';
-import FnText from '../../components/FnText';
+import React, {useState} from 'react';
+import {View, SafeAreaView, ScrollView, useColorScheme} from 'react-native';
+import FnSearchInput from '../../components/FnSearchInput';
 import {COLORS} from '../../utils/Colors';
 import {getAndroidPadding} from '../../utils/Style';
 
 const SearchMail = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const [search, setSearch] = useState('');
 
   const baseStyle = {
     flex: 1,
@@ -23,17 +24,23 @@ const SearchMail = () => {
   };
 
   const innerView = {
+    paddingHorizontal: 20,
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   };
 
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
-        <View style={innerView}>
-          <FnText text="Coming Soon..." />
-        </View>
+        <ScrollView contentInsetAdjustmentBehavior="automatic">
+          <View style={innerView}>
+            <FnSearchInput
+              value={search}
+              onChangeText={setSearch}
+              onClear={() => setSearch('')}
+            />
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );

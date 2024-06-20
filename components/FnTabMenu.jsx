@@ -48,6 +48,10 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
       return <IonIcon name="search-outline" {...styleProps} />;
     }
 
+    if (name === 'Mai') {
+      return <IonIcon name="chatbubble-outline" {...styleProps} />;
+    }
+
     if (name === 'Menu') {
       return <IonIcon name="menu" {...styleProps} />;
     }

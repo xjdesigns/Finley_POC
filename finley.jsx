@@ -34,6 +34,7 @@ import PremiumEmail from './finley/premium-email.jsx';
 import Home from './finley/app/home';
 import Mail from './finley/app/mail';
 import SearchMail from './finley/app/search-mail.jsx';
+import ConversationSearch from './finley/app/conversation-search.jsx';
 import More from './finley/app/menu.jsx';
 import NotificationPreferences from './finley/app/notification-preferences';
 import DevTesting from './finley/app/dev-testing.jsx';
@@ -42,6 +43,7 @@ import {
   HOME_ROUTE,
   MAIL_ROUTE,
   SEARCH_MAIL_ROUTE,
+  MAI_SEARCH_ROUTE,
   MENU_ROUTE,
   DEV_TESTING_ROUTE,
   GETTING_STARTED_ROUTE,
@@ -226,6 +228,17 @@ export default function Finley() {
     headerTintColor: theme.text,
   };
 
+  const appOptions = {
+    headerStyle: {
+      backgroundColor: theme.background,
+    },
+    headerTintColor: theme.text,
+    headerShadowVisible: false,
+    headerTitleStyle: {
+      fontWeight: 400,
+    },
+  };
+
   const baseBlueOptions = {
     title: '',
     headerBackTitle: '',
@@ -346,12 +359,23 @@ export default function Finley() {
                   <Tab.Screen
                     name={MAIL_ROUTE}
                     component={MailStackScreen}
-                    // options={{headerShown: false}}
+                    options={{
+                      ...appOptions,
+                    }}
                   />
                   <Tab.Screen
                     name={SEARCH_MAIL_ROUTE}
                     component={SearchMail}
-                    options={{headerShown: false}}
+                    options={{
+                      ...appOptions,
+                    }}
+                  />
+                  <Tab.Screen
+                    name={MAI_SEARCH_ROUTE}
+                    component={ConversationSearch}
+                    options={{
+                      ...appOptions,
+                    }}
                   />
                   <Tab.Screen
                     name={MENU_ROUTE}
