@@ -31,14 +31,14 @@ const FnSearchInput = ({
     flex: 1,
     padding: 8,
     paddingLeft: 12,
-    color: COLORS.mediumgray,
+    color: isDarkMode ? theme.text : COLORS.mediumgray,
     fontSize: 16,
   };
 
   const searchIcon = {
     paddingLeft: 8,
     marginRight: 12,
-    color: COLORS.mediumgray,
+    color: isDarkMode ? theme.text : COLORS.mediumgray,
     fontSize: 20,
   };
 

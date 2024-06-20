@@ -37,7 +37,7 @@ const conversationSlice = createSlice({
       return {
         ...state,
         questions: [],
-        response: [],
+        responses: [],
       };
     },
   },

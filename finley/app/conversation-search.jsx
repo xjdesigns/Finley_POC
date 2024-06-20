@@ -1,6 +1,7 @@
 import React, {useState, useRef} from 'react';
 import {
   View,
+  ActivityIndicator,
   StyleSheet,
   SafeAreaView,
   ScrollView,
@@ -10,7 +11,11 @@ import {
 } from 'react-native';
 import {useHeaderHeight} from '@react-navigation/elements';
 import {useSelector, useDispatch} from 'react-redux';
-import {setConversation, resetConversation} from '../../store/conversation';
+import {
+  resetConversation,
+  setQuestion,
+  setResponse,
+} from '../../store/conversation';
 import FnText from '../../components/FnText';
 import FnSearchInput from '../../components/FnSearchInput';
 import FnConversationActionBar from '../../components/FnConversationActionBar';
@@ -26,6 +31,7 @@ const ConversationSearch = () => {
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const height = useHeaderHeight();
   const [search, setSearch] = useState('');
+  const [isSearching, setIsSearching] = useState(false);
 
   const baseStyle = {
     flex: 1,
@@ -57,12 +63,16 @@ const ConversationSearch = () => {
   };
 
   const handleSearch = () => {
-    dispatch(
-      setConversation({
-        questions: MOCK_QUESTIONS,
-        responses: MOCK_RESPONSES,
-      }),
-    );
+    if (isSearching) {
+      return;
+    }
+
+    setIsSearching(true);
+    dispatch(setQuestion({question: MOCK_QUESTIONS[0]}));
+    setTimeout(() => {
+      dispatch(setResponse({response: MOCK_RESPONSES[0]}));
+      setIsSearching(false);
+    }, 2000);
   };
 
   const handleReset = () => {
@@ -91,16 +101,13 @@ const ConversationSearch = () => {
                 return (
                   <React.Fragment key={idx}>
                     <View style={questionView}>
-                      <FnText
-                        text="Did I get my W2 from work last year?"
-                        fnTextStyles={styles.text}
-                      />
+                      <FnText text={c} fnTextStyles={styles.text} />
                     </View>
 
-                    {res && (
+                    {responses[idx] && (
                       <View style={styles.responseView}>
                         <FnText
-                          text="It looks like you got a few important items from Happily, Inc. in January, 2023 that could be your W2."
+                          text={responses[idx]}
                           fnTextStyles={styles.text}
                         />
                       </View>
@@ -108,6 +115,13 @@ const ConversationSearch = () => {
                   </React.Fragment>
                 );
               })}
+
+              {isSearching && (
+                <ActivityIndicator
+                  size="small"
+                  style={styles.loadingResponse}
+                />
+              )}
             </View>
           )}
         </ScrollView>
@@ -151,6 +165,9 @@ const styles = StyleSheet.create({
   },
   actionBar: {
     marginBottom: 18,
+  },
+  loadingResponse: {
+    marginRight: 'auto',
   },
 });
 
