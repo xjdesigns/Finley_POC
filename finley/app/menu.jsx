@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, SafeAreaView, useColorScheme} from 'react-native';
+import {View, SafeAreaView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../../store/user';
@@ -8,13 +8,11 @@ import {
   NOTIFICATIONS_PREF_ROUTE,
   DEV_TESTING_ROUTE,
 } from '../../constants/routes';
-import {COLORS} from '../../utils/Colors';
-import {getAndroidPadding} from '../../utils/Style';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 
 const Menu = () => {
   const dispatch = useDispatch();
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
   const appEnv = process.env.EXPO_PUBLIC_ENV;
   const isDev = appEnv !== 'production';
 
@@ -27,23 +25,9 @@ const Menu = () => {
     }
   };
 
-  const baseStyle = {
-    flex: 1,
-  };
-
   const baseInner = {
     flex: 1,
     alignItems: 'center',
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-    ...getAndroidPadding,
-  };
-
-  const safeView = {
-    flex: 1,
   };
 
   const linkView = {

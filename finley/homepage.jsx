@@ -12,13 +12,18 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {logoImage, lettersImage} from '../utils/Images';
-import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
+import {createBottomBarStyles} from '../utils/Style';
 import {GETTING_STARTED_ROUTE, LOGIN_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const HomePage = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle} = useBaseStyles({
+    altBgColor: theme.lightBlueBackground,
+    useAndroidPadding: true,
+  });
 
   const handleGettingStarted = () => {
     navigation.navigate(GETTING_STARTED_ROUTE);
@@ -33,14 +38,8 @@ const HomePage = () => {
     alignItems: 'center',
   };
 
-  const backgroundStyle = {
-    backgroundColor: theme.lightBlueBackground,
-    ...baseStyle,
-  };
-
   const innerViewStyle = {
     ...baseStyle,
-    ...getAndroidPadding,
   };
 
   const loginText = {

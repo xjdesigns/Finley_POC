@@ -1,27 +1,11 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView, ScrollView, useColorScheme} from 'react-native';
+import {View, SafeAreaView, ScrollView} from 'react-native';
 import FnSearchInput from '../../components/FnSearchInput';
-import {COLORS} from '../../utils/Colors';
-import {getAndroidPadding} from '../../utils/Style';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 
 const SearchMail = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
   const [search, setSearch] = useState('');
-
-  const baseStyle = {
-    flex: 1,
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-    ...getAndroidPadding,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
 
   const innerView = {
     paddingHorizontal: 20,

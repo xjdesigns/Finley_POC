@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, SafeAreaView, useColorScheme, StyleSheet} from 'react-native';
+import {View, SafeAreaView, StyleSheet} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {setMailStatus, setMail} from '../../store/mail';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnRadio from '../../components/FnRadio';
-import {COLORS} from '../../utils/Colors';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 import {MAIL_TESTING_STATUS} from '../../constants/testing';
 import {MOCK_MAIL} from '../../mock/mock-mail';
 
@@ -14,8 +14,7 @@ const RADIO_OPTIONS = MAIL_TESTING_STATUS;
 const DevTesting = () => {
   const dispatch = useDispatch();
   const mailStatus = useSelector(state => state.mail.status);
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const handleChange = async val => {
     dispatch(setMailStatus({status: val}));
@@ -29,22 +28,13 @@ const DevTesting = () => {
     dispatch(setMail({mail: []}));
   };
 
-  const baseStyle = {
-    flex: 1,
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-  };
-
   const innerView = {
     paddingHorizontal: 20,
   };
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText
             text="Set Mail Connection"

@@ -16,20 +16,13 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const PremiumEmail = () => {
   const dispatch = useDispatch();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
     paddingHorizontal: 20,

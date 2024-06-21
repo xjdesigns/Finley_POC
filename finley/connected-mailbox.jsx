@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {setStatus} from '../store/conversation';
+import {setMailStatus} from '../store/mail';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
@@ -17,31 +17,26 @@ import {createBottomBarStyles} from '../utils/Style';
 import {finleyFlagImage} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
 import {NOTIFICATIONS_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const ConnectedMailbox = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {status} = useSelector(state => state.mailbox);
+  const {status} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-
-  const backgroundStyle = {
-    backgroundColor: theme.lightBlueBackground,
-    flex: 1,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
+  const {backgroundStyle, safeView} = useBaseStyles({
+    altBgColor: theme.lightBlueBackground,
+  });
 
   const innerView = {
     paddingHorizontal: 46,
   };
 
   const handleConnecting = () => {
-    dispatch(setStatus({status: LOADING_STATUS}));
+    dispatch(setMailStatus({status: LOADING_STATUS}));
     setTimeout(() => {
-      dispatch(setStatus({status: LOADED_STATUS}));
+      dispatch(setMailStatus({status: LOADED_STATUS}));
       navigation.navigate(NOTIFICATIONS_ROUTE);
     }, 2000);
   };

@@ -1,32 +1,16 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  Image,
-  SafeAreaView,
-  useColorScheme,
-} from 'react-native';
+import {StyleSheet, View, Image, SafeAreaView} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {emailNotificationImage} from '../utils/Images';
 import {PREMIUM_EMAIL_ROUTE} from '../constants/routes';
 import {createBottomBarStyles} from '../utils/Style';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const CompletedUSPS = () => {
   const navigation = useNavigation();
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
     paddingHorizontal: 20,

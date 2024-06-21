@@ -1,28 +1,12 @@
 import React, {useState} from 'react';
-import {View, SafeAreaView, useColorScheme} from 'react-native';
+import {View, SafeAreaView} from 'react-native';
 import FnListSwitch from '../../components/FnListSwtich';
-import {COLORS} from '../../utils/Colors';
-import {getAndroidPadding} from '../../utils/Style';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 
 const NotificationPreferences = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
   const [mailArrives, setMailArrives] = useState(false);
   const [mailWaiting, setMailWaiting] = useState(false);
-
-  const baseStyle = {
-    flex: 1,
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-    ...getAndroidPadding,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
 
   return (
     <View style={backgroundStyle}>

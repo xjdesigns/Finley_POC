@@ -13,29 +13,14 @@ import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
 import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
-import {getAndroidPadding} from '../../utils/Style';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
 
 const Mail = () => {
   const {status, mail} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-
-  const baseStyle = {
-    flex: 1,
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-    ...getAndroidPadding,
-  };
-
-  const safeView = {
-    flex: 1,
-    borderTopWidth: 1,
-    borderTopColor: COLORS.borderGray,
-  };
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
     flex: 1,

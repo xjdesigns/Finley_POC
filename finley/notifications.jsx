@@ -4,44 +4,35 @@ import {
   View,
   ActivityIndicator,
   SafeAreaView,
-  useColorScheme,
   Image,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {setStatus} from '../store/conversation';
+import {setMailStatus} from '../store/mail';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
 import {notificationsImage} from '../utils/Images';
-import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
+import {LOADING_STATUS, CONNECTED_STATUS} from '../constants/status';
 import {CONNECT_USPS_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const Notifications = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {status} = useSelector(state => state.mailbox);
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
+  const {status} = useSelector(state => state.mail);
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
     paddingHorizontal: 46,
   };
 
+  // TODO: Update to handle notifications, using mail status state and a placeholder
   const handleConnecting = () => {
-    dispatch(setStatus({status: LOADING_STATUS}));
+    dispatch(setMailStatus({status: LOADING_STATUS}));
     setTimeout(() => {
-      dispatch(setStatus({status: LOADED_STATUS}));
+      dispatch(setMailStatus({status: CONNECTED_STATUS}));
       navigation.navigate(CONNECT_USPS_ROUTE);
     }, 2000);
   };

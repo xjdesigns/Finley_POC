@@ -1,5 +1,5 @@
-import React, {useState, useRef} from 'react';
-import {View, StyleSheet, useColorScheme, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, useColorScheme, TouchableOpacity} from 'react-native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import FIcon from 'react-native-vector-icons/Feather';
 import {COLORS} from '../utils/Colors';

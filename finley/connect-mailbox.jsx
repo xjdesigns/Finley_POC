@@ -19,6 +19,7 @@ import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
 import {finleyFlagImage} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const ConnectMailbox = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,9 @@ const ConnectMailbox = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles({
+    altBgColor: theme.lightBlueBackground,
+  });
   const [readyToConnect, setReadyToConnect] = useState(false);
 
   useEffect(() => {
@@ -59,15 +63,6 @@ const ConnectMailbox = () => {
       ],
     );
   }, [navigation, dispatch]);
-
-  const backgroundStyle = {
-    backgroundColor: theme.lightBlueBackground,
-    flex: 1,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
 
   const innerView = {
     paddingHorizontal: 20,

@@ -20,7 +20,7 @@ import FnText from '../../components/FnText';
 import FnSearchInput from '../../components/FnSearchInput';
 import FnConversationActionBar from '../../components/FnConversationActionBar';
 import {COLORS} from '../../utils/Colors';
-import {getAndroidPadding} from '../../utils/Style';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 import {MOCK_QUESTIONS, MOCK_RESPONSES} from '../../mock/mock-conversation';
 
 const ConversationSearch = () => {
@@ -30,22 +30,11 @@ const ConversationSearch = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const height = useHeaderHeight();
+  const {backgroundStyle, safeView} = useBaseStyles({
+    useAndroidPadding: false,
+  });
   const [search, setSearch] = useState('');
   const [isSearching, setIsSearching] = useState(false);
-
-  const baseStyle = {
-    flex: 1,
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-    ...getAndroidPadding,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
 
   const innerView = {
     paddingHorizontal: 20,
@@ -96,8 +85,6 @@ const ConversationSearch = () => {
           {questions.length > 0 && (
             <View style={styles.conversationView}>
               {questions.map((c, idx) => {
-                const res = responses[0];
-
                 return (
                   <React.Fragment key={idx}>
                     <View style={questionView}>

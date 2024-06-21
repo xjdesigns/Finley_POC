@@ -5,7 +5,6 @@ import {
   View,
   Text,
   SafeAreaView,
-  useColorScheme,
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
@@ -14,8 +13,9 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnTextInput from '../components/FnTextInput';
 import FnText from '../components/FnText';
-import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
+import {createBottomBarStyles} from '../utils/Style';
 import {CONNECT_MAILBOX_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const GettingStarted = () => {
   const navigation = useNavigation();
@@ -25,16 +25,7 @@ const GettingStarted = () => {
     email: '',
     password: '',
   });
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
-  };
-
-  const safeview = {
-    flex: 1,
-  };
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
     paddingHorizontal: 20,
@@ -58,7 +49,7 @@ const GettingStarted = () => {
     <KeyboardAvoidingView
       style={backgroundStyle}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <SafeAreaView style={safeview}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <ScrollView contentInsetAdjustmentBehavior="automatic">
             <FnText text="Create Your Account" fnTextStyles={styles.title} />

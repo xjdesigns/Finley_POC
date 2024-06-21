@@ -18,22 +18,15 @@ import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
 import {COMPLETED_USPS_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const ConnectUSPS = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
   // TODO: This would come from service call
   const [finleyMailAddress] = useState('mail+238ad40k212@finleybox.com');
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
-  };
-
-  const safeView = {
-    flex: 1,
-  };
 
   const innerView = {
     paddingHorizontal: 20,
