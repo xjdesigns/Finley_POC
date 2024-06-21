@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, FlatList, useColorScheme} from 'react-native';
+import {StyleSheet, View, FlatList, Image, useColorScheme} from 'react-native';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import FnText from './FnText';
 import {COLORS} from '../utils/Colors';
 
 function MailContent({data = {}}) {
-  const {sender, subject, img, mailboxEvent, mailboxTime} = data;
+  const {sender, subject, img, mailboxEvent, mailboxTime, important} = data;
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
@@ -12,14 +13,32 @@ function MailContent({data = {}}) {
     color: COLORS.darkergray,
   };
 
-  const mailboxOuterRing = {
+  const baseRing = {
     width: 20,
     height: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: theme.mailboxLightGreen,
     borderRadius: 50,
     marginRight: 8,
+  };
+
+  const junkOuterRing = {
+    ...baseRing,
+    backgroundColor: COLORS.borderGray,
+  };
+
+  const importantOuterRing = {
+    ...baseRing,
+    backgroundColor: theme.lightBlueBackground,
+  };
+
+  const importantStar = {
+    color: theme.text,
+  };
+
+  const mailboxOuterRing = {
+    ...baseRing,
+    backgroundColor: theme.mailboxLightGreen,
   };
 
   const mailboxInnerBase = {
@@ -52,11 +71,20 @@ function MailContent({data = {}}) {
           />
         </View>
       )}
+      {important && (
+        <View style={importantOuterRing}>
+          <IonIcon name="star" {...importantStar} />
+        </View>
+      )}
+      {!important && !mailboxEvent && <View style={junkOuterRing} />}
       <View style={styles.mailInfo}>
         <FnText text={sender} fnTextStyles={styles.senderText} />
         <FnText text={subject} fnTextStyles={styles.subjectText} />
       </View>
-      {img && <View style={styles.img} />}
+      {/* {img && <View style={styles.img} />} */}
+      {img && (
+        <Image src={img} style={styles.img} resizeMode="contain" />
+      )}
       {mailboxTime && (
         <FnText text={mailboxTime} fnTextStyles={mailboxTimeText} />
       )}
@@ -82,8 +110,12 @@ const FnMailCard = ({data = {}}) => {
   return (
     <>
       <View style={styles.date}>
-        <View style={endBar} />
-        <FnText text={datePrimary} fnTextStyles={styles.dateTextView} />
+        {datePrimary && (
+          <>
+            <View style={endBar} />
+            <FnText text={datePrimary} fnTextStyles={styles.dateTextView} />
+          </>
+        )}
         <View style={middleBar} />
         <FnText text={dateSecondary} fnTextStyles={styles.dateTextView} />
         <View style={endBar} />
@@ -137,7 +169,8 @@ const styles = StyleSheet.create({
   img: {
     width: 60,
     height: 40,
-    backgroundColor: COLORS.mediumgray,
+    borderWidth: 1,
+    borderColor: COLORS.mediumgray,
   },
 });
 

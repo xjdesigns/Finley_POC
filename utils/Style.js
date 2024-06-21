@@ -24,7 +24,7 @@ export function createBottomBarStyles({
     return {
       ...baseStyle,
       ...{
-        minHeight: 155,
+        minHeight: 175,
       },
     };
   } else {

@@ -32,6 +32,8 @@ const ConnectMailbox = () => {
   });
   const [readyToConnect, setReadyToConnect] = useState(false);
 
+  // NOTE: This is all mocks. Use the BLE provider...
+  // Not determined if we separate state and the BleManager, provider used to store the instance
   useEffect(() => {
     if (readyToConnect && !isBluetoothConnected) {
       setTimeout(() => {
