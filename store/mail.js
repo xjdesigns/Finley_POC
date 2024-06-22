@@ -6,6 +6,7 @@ const mailSlice = createSlice({
   initialState: {
     status: NOT_CONNECTED_STATUS,
     mail: [],
+    selectedMail: {},
     isSearching: false,
   },
   reducers: {
@@ -24,9 +25,18 @@ const mailSlice = createSlice({
       const {mail} = action.payload;
       return {...state, mail};
     },
+    setSelectedMail: (state, action) => {
+      const {selectedMail} = action.payload;
+      return {...state, selectedMail};
+    },
   },
 });
 
-export const {toggleConnection, setMailStatus, setIsSearching, setMail} =
-  mailSlice.actions;
+export const {
+  toggleConnection,
+  setMailStatus,
+  setIsSearching,
+  setMail,
+  setSelectedMail,
+} = mailSlice.actions;
 export default mailSlice.reducer;

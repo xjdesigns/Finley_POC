@@ -33,6 +33,7 @@ import PremiumEmail from './finley/premium-email.jsx';
 // Finley App
 import Home from './finley/app/home';
 import Mail from './finley/app/mail';
+import MailDetails from './finley/app/mail-details.jsx';
 import SearchMail from './finley/app/search-mail.jsx';
 import ConversationSearch from './finley/app/conversation-search.jsx';
 import More from './finley/app/menu.jsx';
@@ -42,6 +43,7 @@ import {
   LOGIN_ROUTE,
   HOME_ROUTE,
   MAIL_ROUTE,
+  MAIL_DETAILS_ROUTE,
   SEARCH_MAIL_ROUTE,
   MAI_SEARCH_ROUTE,
   MENU_ROUTE,
@@ -115,6 +117,16 @@ function MenuStackScreen() {
 function MailStackScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  // TODO: I am repeating myself now, add to the base style hook
+  const baseOptions = {
+    headerStyle: {
+      backgroundColor: theme.background,
+    },
+    headerTintColor: theme.text,
+    headerBackTitleVisible: false,
+  };
+
   return (
     <MailStack.Navigator
       screenOptions={{
@@ -126,7 +138,18 @@ function MailStackScreen() {
       <MailStack.Screen
         name={YOUR_MAIL_ROUTE}
         component={Mail}
-        options={{headerShown: false}}
+        options={{
+          ...baseOptions,
+          title: 'Mailbox',
+        }}
+      />
+      <MailStack.Screen
+        name={MAIL_DETAILS_ROUTE}
+        component={MailDetails}
+        options={{
+          ...baseOptions,
+          title: '',
+        }}
       />
     </MailStack.Navigator>
   );
@@ -359,9 +382,7 @@ export default function Finley() {
                   <Tab.Screen
                     name={MAIL_ROUTE}
                     component={MailStackScreen}
-                    options={{
-                      ...appOptions,
-                    }}
+                    options={{headerShown: false}}
                   />
                   <Tab.Screen
                     name={SEARCH_MAIL_ROUTE}

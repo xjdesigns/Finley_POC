@@ -1,13 +1,35 @@
 import React from 'react';
-import {StyleSheet, View, FlatList, Image, useColorScheme} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Image,
+  Pressable,
+  useColorScheme,
+} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import {useDispatch} from 'react-redux';
+import {setSelectedMail} from '../store/mail';
 import FnText from './FnText';
 import {COLORS} from '../utils/Colors';
+import {MAIL_DETAILS_ROUTE} from '../constants/routes';
 
 function MailContent({data = {}}) {
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
   const {sender, subject, img, mailboxEvent, mailboxTime, important} = data;
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  const handleMailDetails = () => {
+    if (mailboxEvent) {
+      return;
+    }
+
+    dispatch(setSelectedMail({selectedMail: data}));
+    navigation.navigate(MAIL_DETAILS_ROUTE);
+  };
 
   const mailboxTimeText = {
     color: COLORS.darkergray,
@@ -59,7 +81,7 @@ function MailContent({data = {}}) {
   };
 
   return (
-    <View style={styles.mailContent}>
+    <Pressable style={styles.mailContent} onPress={handleMailDetails}>
       {mailboxEvent && (
         <View style={mailboxOuterRing}>
           <View
@@ -81,14 +103,11 @@ function MailContent({data = {}}) {
         <FnText text={sender} fnTextStyles={styles.senderText} />
         <FnText text={subject} fnTextStyles={styles.subjectText} />
       </View>
-      {/* {img && <View style={styles.img} />} */}
-      {img && (
-        <Image src={img} style={styles.img} resizeMode="contain" />
-      )}
+      {img && <Image src={img} style={styles.img} resizeMode="contain" />}
       {mailboxTime && (
         <FnText text={mailboxTime} fnTextStyles={mailboxTimeText} />
       )}
-    </View>
+    </Pressable>
   );
 }
 
