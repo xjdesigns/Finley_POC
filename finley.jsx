@@ -34,6 +34,7 @@ import PremiumEmail from './finley/premium-email.jsx';
 import Home from './finley/app/home';
 import Mail from './finley/app/mail';
 import MailDetails from './finley/app/mail-details.jsx';
+import MailViewer from './finley/app/mail-viewer.jsx';
 import SearchMail from './finley/app/search-mail.jsx';
 import ConversationSearch from './finley/app/conversation-search.jsx';
 import More from './finley/app/menu.jsx';
@@ -44,6 +45,7 @@ import {
   HOME_ROUTE,
   MAIL_ROUTE,
   MAIL_DETAILS_ROUTE,
+  MAIL_VIEWER_ROUTE,
   SEARCH_MAIL_ROUTE,
   MAI_SEARCH_ROUTE,
   MENU_ROUTE,
@@ -134,6 +136,9 @@ function MailStackScreen() {
           backgroundColor: theme.background,
         },
         headerShadowVisible: false,
+        headerTitleStyle: {
+          fontWeight: 400,
+        },
       }}>
       <MailStack.Screen
         name={YOUR_MAIL_ROUTE}
@@ -146,6 +151,15 @@ function MailStackScreen() {
       <MailStack.Screen
         name={MAIL_DETAILS_ROUTE}
         component={MailDetails}
+        options={{
+          ...baseOptions,
+          title: '',
+        }}
+      />
+
+      <MailStack.Screen
+        name={MAIL_VIEWER_ROUTE}
+        component={MailViewer}
         options={{
           ...baseOptions,
           title: '',

@@ -2,8 +2,9 @@
 export const LOGIN_ROUTE = 'Login';
 export const HOME_ROUTE = 'Home';
 export const MAIL_ROUTE = 'Mailbox';
-export const MAIL_DETAILS_ROUTE = 'Mail Details';
 export const YOUR_MAIL_ROUTE = 'Your Mail';
+export const MAIL_DETAILS_ROUTE = 'Mail Details';
+export const MAIL_VIEWER_ROUTE = 'Mail Viewer';
 export const SEARCH_MAIL_ROUTE = 'Search';
 export const MAI_SEARCH_ROUTE = 'Mai';
 export const MENU_ROUTE = 'Menu';
