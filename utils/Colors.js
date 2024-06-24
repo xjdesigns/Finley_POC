@@ -1,6 +1,6 @@
 const DARK_GRAY = '#222';
 const LIGHT_GRAY = '#F3F3F3';
-const MEDIUM_GRAY = '#797979';
+const MEDIUM_GRAY = '#8d8d8d';
 
 export const COLORS = {
   white: '#fff',

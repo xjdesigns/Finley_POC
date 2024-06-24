@@ -1,115 +1,8 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  Pressable,
-  useColorScheme,
-} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import IonIcon from 'react-native-vector-icons/Ionicons';
-import {useDispatch} from 'react-redux';
-import {setSelectedMail} from '../store/mail';
+import {StyleSheet, View, FlatList} from 'react-native';
 import FnText from './FnText';
+import FnMailContent from './FnMailContent';
 import {COLORS} from '../utils/Colors';
-import {MAIL_DETAILS_ROUTE} from '../constants/routes';
-
-function MailContent({data = {}}) {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const {sender, subject, img, mailboxEvent, mailboxTime, important} = data;
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-
-  const handleMailDetails = () => {
-    if (mailboxEvent) {
-      return;
-    }
-
-    dispatch(setSelectedMail({selectedMail: data}));
-    navigation.navigate(MAIL_DETAILS_ROUTE);
-  };
-
-  const mailboxTimeText = {
-    color: COLORS.darkergray,
-  };
-
-  const baseRing = {
-    width: 20,
-    height: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 50,
-    marginRight: 8,
-  };
-
-  const junkOuterRing = {
-    ...baseRing,
-    backgroundColor: COLORS.borderGray,
-  };
-
-  const importantOuterRing = {
-    ...baseRing,
-    backgroundColor: theme.lightBlueBackground,
-  };
-
-  const importantStar = {
-    color: theme.text,
-  };
-
-  const mailboxOuterRing = {
-    ...baseRing,
-    backgroundColor: theme.mailboxLightGreen,
-  };
-
-  const mailboxInnerBase = {
-    width: 12,
-    height: 12,
-    borderRadius: 50,
-  };
-
-  const mailboxInnerClosed = {
-    backgroundColor: theme.mailboxDarkGreen,
-    ...mailboxInnerBase,
-  };
-
-  const mailboxInnerOpened = {
-    borderWidth: 1,
-    borderColor: theme.mailboxDarkGreen,
-    ...mailboxInnerBase,
-  };
-
-  return (
-    <Pressable style={styles.mailContent} onPress={handleMailDetails}>
-      {mailboxEvent && (
-        <View style={mailboxOuterRing}>
-          <View
-            style={
-              mailboxEvent === 'opened'
-                ? mailboxInnerOpened
-                : mailboxInnerClosed
-            }
-          />
-        </View>
-      )}
-      {important && (
-        <View style={importantOuterRing}>
-          <IonIcon name="star" {...importantStar} />
-        </View>
-      )}
-      {!important && !mailboxEvent && <View style={junkOuterRing} />}
-      <View style={styles.mailInfo}>
-        <FnText text={sender} fnTextStyles={styles.senderText} />
-        <FnText text={subject} fnTextStyles={styles.subjectText} />
-      </View>
-      {img && <Image src={img} style={styles.img} resizeMode="contain" />}
-      {mailboxTime && (
-        <FnText text={mailboxTime} fnTextStyles={mailboxTimeText} />
-      )}
-    </Pressable>
-  );
-}
 
 const FnMailCard = ({data = {}}) => {
   const {datePrimary, dateSecondary, mail} = data;
@@ -143,7 +36,7 @@ const FnMailCard = ({data = {}}) => {
       {mail && mail.length > 0 && (
         <FlatList
           data={mail}
-          renderItem={({item}) => <MailContent data={item} />}
+          renderItem={({item}) => <FnMailContent data={item} />}
           keyExtractor={(_, idx) => idx}
         />
       )}
@@ -159,37 +52,6 @@ const styles = StyleSheet.create({
   },
   dateTextView: {
     paddingHorizontal: 8,
-  },
-  mailContent: {
-    flexDirection: 'row',
-    marginBottom: 18,
-    paddingHorizontal: 20,
-  },
-  mailIcon: {
-    marginTop: 4,
-    marginRight: 8,
-    width: 8,
-    height: 8,
-    backgroundColor: COLORS.blue,
-    borderRadius: 50,
-  },
-  mailInfo: {
-    flex: 1,
-  },
-  senderText: {
-    fontSize: 18,
-    fontWeight: 700,
-    marginBottom: 8,
-  },
-  subjectText: {
-    fontSize: 16,
-    color: COLORS.darkergray,
-  },
-  img: {
-    width: 60,
-    height: 40,
-    borderWidth: 1,
-    borderColor: COLORS.mediumgray,
   },
 });
 

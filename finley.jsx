@@ -33,21 +33,25 @@ import PremiumEmail from './finley/premium-email.jsx';
 // Finley App
 import Home from './finley/app/home';
 import Mail from './finley/app/mail';
+import Mailbox from './finley/app/mailbox.jsx';
 import MailDetails from './finley/app/mail-details.jsx';
 import MailViewer from './finley/app/mail-viewer.jsx';
-import SearchMail from './finley/app/search-mail.jsx';
-import ConversationSearch from './finley/app/conversation-search.jsx';
+// import SearchMail from './finley/app/search-mail.jsx';
+// import ConversationSearch from './finley/app/conversation-search.jsx';
 import More from './finley/app/menu.jsx';
 import NotificationPreferences from './finley/app/notification-preferences';
 import DevTesting from './finley/app/dev-testing.jsx';
 import {
   LOGIN_ROUTE,
   HOME_ROUTE,
+  MAILBOX_ROUTE,
+  IN_YOUR_MAILBOX_ROUTE,
   MAIL_ROUTE,
+  YOUR_MAIL_ROUTE,
   MAIL_DETAILS_ROUTE,
   MAIL_VIEWER_ROUTE,
-  SEARCH_MAIL_ROUTE,
-  MAI_SEARCH_ROUTE,
+  // SEARCH_MAIL_ROUTE,
+  // MAI_SEARCH_ROUTE,
   MENU_ROUTE,
   DEV_TESTING_ROUTE,
   GETTING_STARTED_ROUTE,
@@ -60,7 +64,6 @@ import {
   PREMIUM_EMAIL_ROUTE,
   SETTINGS_MENU_ROUTE,
   NOTIFICATIONS_PREF_ROUTE,
-  YOUR_MAIL_ROUTE,
   DEV_OPTIONS_ROUTE,
 } from './constants/routes.js';
 
@@ -71,6 +74,7 @@ import {
 const Stack = createNativeStackNavigator();
 const MoreStack = createNativeStackNavigator();
 const MailStack = createNativeStackNavigator();
+const YourMailStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function FnTabMenuWrapper(props) {
@@ -116,6 +120,57 @@ function MenuStackScreen() {
   );
 }
 
+function MailboxStackScreen() {
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  // TODO: I am repeating myself now, add to the base style hook
+  const baseOptions = {
+    headerStyle: {
+      backgroundColor: theme.background,
+    },
+    headerTintColor: theme.text,
+    headerBackTitleVisible: false,
+  };
+
+  return (
+    <YourMailStack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: theme.background,
+        },
+        headerShadowVisible: false,
+        headerTitleStyle: {
+          fontWeight: 400,
+        },
+      }}>
+      <YourMailStack.Screen
+        name={IN_YOUR_MAILBOX_ROUTE}
+        component={Mailbox}
+        options={{
+          ...baseOptions,
+        }}
+      />
+      <YourMailStack.Screen
+        name={MAIL_DETAILS_ROUTE}
+        component={MailDetails}
+        options={{
+          ...baseOptions,
+          title: '',
+        }}
+      />
+      <YourMailStack.Screen
+        name={MAIL_VIEWER_ROUTE}
+        component={MailViewer}
+        options={{
+          ...baseOptions,
+          title: '',
+        }}
+      />
+    </YourMailStack.Navigator>
+  );
+}
+
 function MailStackScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
@@ -145,7 +200,6 @@ function MailStackScreen() {
         component={Mail}
         options={{
           ...baseOptions,
-          title: 'Mailbox',
         }}
       />
       <MailStack.Screen
@@ -156,7 +210,6 @@ function MailStackScreen() {
           title: '',
         }}
       />
-
       <MailStack.Screen
         name={MAIL_VIEWER_ROUTE}
         component={MailViewer}
@@ -263,17 +316,6 @@ export default function Finley() {
       backgroundColor: theme.background,
     },
     headerTintColor: theme.text,
-  };
-
-  const appOptions = {
-    headerStyle: {
-      backgroundColor: theme.background,
-    },
-    headerTintColor: theme.text,
-    headerShadowVisible: false,
-    headerTitleStyle: {
-      fontWeight: 400,
-    },
   };
 
   return (
@@ -385,23 +427,14 @@ export default function Finley() {
                     options={{headerShown: false}}
                   /> */}
                   <Tab.Screen
-                    name={MAIL_ROUTE}
-                    component={MailStackScreen}
+                    name={MAILBOX_ROUTE}
+                    component={MailboxStackScreen}
                     options={{headerShown: false}}
                   />
                   <Tab.Screen
-                    name={SEARCH_MAIL_ROUTE}
-                    component={SearchMail}
-                    options={{
-                      ...appOptions,
-                    }}
-                  />
-                  <Tab.Screen
-                    name={MAI_SEARCH_ROUTE}
-                    component={ConversationSearch}
-                    options={{
-                      ...appOptions,
-                    }}
+                    name={MAIL_ROUTE}
+                    component={MailStackScreen}
+                    options={{headerShown: false}}
                   />
                   <Tab.Screen
                     name={MENU_ROUTE}

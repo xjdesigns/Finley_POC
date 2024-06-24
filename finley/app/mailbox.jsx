@@ -9,16 +9,14 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import FnText from '../../components/FnText';
-import FnPressable from '../../components/FnPressable';
-import FnMailCard from '../../components/FnMailCard';
+import FnMailContent from '../../components/FnMailContent';
 import {mailImageWater} from '../../utils/Images';
-import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
 import {useBaseStyles} from '../../hooks/base-style-hooks';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
 
-const Mail = () => {
-  const {status, mail} = useSelector(state => state.mail);
+const Mailbox = () => {
+  const {status, mailbox} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const {backgroundStyle, safeView} = useBaseStyles({safeViewBorder: true});
@@ -34,34 +32,21 @@ const Mail = () => {
     flex: 1,
   };
 
-  const upsellView = {
-    padding: 32,
+  const notConnectNoMail = {
+    width: 88,
+    height: 88,
+    marginBottom: 28,
     backgroundColor: theme.lightBlueBackground,
-    borderRadius: 24,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
   };
 
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
-        {status === NOT_CONNECTED_STATUS && (
-          <View style={innerView}>
-            <View style={upsellView}>
-              <Image src={upsellStarImage} style={styles.img} />
-              <FnText
-                text="Start your FREE Finley Premium Trial"
-                fnTextStyles={styles.title}
-                disableDarkTheme={true}
-              />
-              <FnText
-                text="Get notified when important mail arrives."
-                fnTextStyles={styles.subTitle}
-                disableDarkTheme={true}
-              />
-              <FnPressable text="Learn More" disableDarkTheme={true} />
-            </View>
-          </View>
-        )}
-        {status === CONNECTED_STATUS && mail.length === 0 && (
+        {status === NOT_CONNECTED_STATUS && mailbox.length === 0 && (
           <View style={innerView}>
             <Image src={mailImageWater} style={styles.mailboxImg} />
             <FnText
@@ -74,12 +59,22 @@ const Mail = () => {
             />
           </View>
         )}
-        {status === CONNECTED_STATUS && mail.length > 0 && (
+        {status === NOT_CONNECTED_STATUS && mailbox.length > 0 && (
+          <View style={innerView}>
+            <View style={notConnectNoMail} />
+            <FnText text="You've got mail." fnTextStyles={styles.title} />
+            <FnText
+              text="Connect Informed Delivery to see what's in your mailbox."
+              fnTextStyles={styles.subTitle}
+            />
+          </View>
+        )}
+        {status === CONNECTED_STATUS && mailbox.length > 0 && (
           <View style={hasMailView}>
             <View style={styles.mailView}>
               <FlatList
-                data={mail}
-                renderItem={({item}) => <FnMailCard data={item} />}
+                data={mailbox}
+                renderItem={({item}) => <FnMailContent data={item} />}
                 keyExtractor={(_, idx) => idx}
               />
             </View>
@@ -126,40 +121,6 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingTop: 18,
   },
-  date: {
-    marginBottom: 12,
-    flexDirection: 'row',
-  },
-  dateDate: {
-    flex: 1,
-  },
-  datePrimary: {
-    color: COLORS.blue,
-  },
-  dateSecondary: {
-    color: COLORS.blue,
-  },
-  mailContent: {
-    flexDirection: 'row',
-  },
-  mailIcon: {
-    marginTop: 4,
-    marginRight: 4,
-    width: 8,
-    height: 8,
-    backgroundColor: COLORS.blue,
-    borderRadius: 50,
-  },
-  mailInfo: {
-    flex: 1,
-  },
-  senderText: {
-    fontSize: 18,
-    fontWeight: 700,
-  },
-  subjectText: {
-    fontSize: 16,
-  },
 });
 
-export default Mail;
+export default Mailbox;

@@ -44,12 +44,8 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
       return <MatCIcon name="mailbox-up-outline" {...styleProps} />;
     }
 
-    if (name === 'Search') {
-      return <IonIcon name="search-outline" {...styleProps} />;
-    }
-
-    if (name === 'Mai') {
-      return <IonIcon name="chatbubble-outline" {...styleProps} />;
+    if (name === 'Mail') {
+      return <IonIcon name="mail-outline" {...styleProps} />;
     }
 
     if (name === 'Menu') {

@@ -1,7 +1,9 @@
 // App Routes
 export const LOGIN_ROUTE = 'Login';
 export const HOME_ROUTE = 'Home';
-export const MAIL_ROUTE = 'Mailbox';
+export const MAILBOX_ROUTE = 'Mailbox';
+export const IN_YOUR_MAILBOX_ROUTE = 'In Your Mailbox';
+export const MAIL_ROUTE = 'Mail';
 export const YOUR_MAIL_ROUTE = 'Your Mail';
 export const MAIL_DETAILS_ROUTE = 'Mail Details';
 export const MAIL_VIEWER_ROUTE = 'Mail Viewer';
