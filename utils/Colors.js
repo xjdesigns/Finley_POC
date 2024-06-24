@@ -11,6 +11,7 @@ export const COLORS = {
   mediumgray: MEDIUM_GRAY,
   darkergray: '#8c8c8c',
   borderGray: '#d8d8d8',
+  success: '#cef987',
   danger: '#fb2625',
   lighttheme: {
     lightgray: '#F3F3F3',
@@ -38,9 +39,10 @@ export const COLORS = {
   darktheme: {
     lightgray: '#F3F3F3',
     darkgray: '#222',
-    background: DARK_GRAY,
+    background: '#303030',
     appBackground: '#443f32',
-    lightBlueBackground: '#495c61',
+    // lightBlueBackground: '#495c61',
+    lightBlueBackground: '#c0f4ff',
     text: '#fff',
     buttonText: '#000',
     buttonBackground: '#fff',

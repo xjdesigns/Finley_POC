@@ -11,6 +11,7 @@ import {useSelector} from 'react-redux';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
+import {mailImageWater} from '../../utils/Images';
 import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
 import {useBaseStyles} from '../../hooks/base-style-hooks';
@@ -20,7 +21,7 @@ const Mail = () => {
   const {status, mail} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const {backgroundStyle, safeView} = useBaseStyles();
+  const {backgroundStyle, safeView} = useBaseStyles({safeViewBorder: true});
 
   const innerView = {
     flex: 1,
@@ -49,22 +50,28 @@ const Mail = () => {
               <FnText
                 text="Start your FREE Finley Premium Trial"
                 fnTextStyles={styles.title}
+                disableDarkTheme={true}
               />
               <FnText
                 text="Get notified when important mail arrives."
                 fnTextStyles={styles.subTitle}
+                disableDarkTheme={true}
               />
-              <FnPressable text="Learn More" />
+              <FnPressable text="Learn More" disableDarkTheme={true} />
             </View>
           </View>
         )}
         {status === CONNECTED_STATUS && mail.length === 0 && (
           <View style={innerView}>
+            <Image src={mailImageWater} style={styles.mailboxImg} />
             <FnText
-              text="Nothing to see here, yet."
+              text="Your mailbox is empty, for now."
               fnTextStyles={styles.title}
             />
-            <FnText text="Next time mail is delivered it will show up here." />
+            <FnText
+              text="When mail is dropped off we'll let you know and you'll be able to view it here."
+              fnTextStyles={styles.subTitle}
+            />
           </View>
         )}
         {status === CONNECTED_STATUS && mail.length > 0 && (
@@ -90,8 +97,15 @@ const styles = StyleSheet.create({
     marginHorizontal: 'auto',
     marginBottom: 18,
   },
+  mailboxImg: {
+    width: 88,
+    height: 88,
+    marginHorizontal: 'auto',
+    marginBottom: 28,
+  },
   title: {
-    marginBottom: 8,
+    marginBottom: 18,
+    maxWidth: '90%',
     fontSize: 28,
     fontWeight: 700,
     textAlign: 'center',

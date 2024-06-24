@@ -17,7 +17,7 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
-import {finleyFlagImage} from '../utils/Images';
+import {flagDiagram} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
 import {useBaseStyles} from '../hooks/base-style-hooks';
 
@@ -27,9 +27,7 @@ const ConnectMailbox = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const {backgroundStyle, safeView} = useBaseStyles({
-    altBgColor: theme.lightBlueBackground,
-  });
+  const {backgroundStyle, safeView} = useBaseStyles();
   const [readyToConnect, setReadyToConnect] = useState(false);
 
   // NOTE: This is all mocks. Use the BLE provider...
@@ -72,7 +70,8 @@ const ConnectMailbox = () => {
 
   const innerFlagImage = {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
+    backgroundColor: theme.lightBlueBackground,
   };
 
   const innerLoadingView = {
@@ -118,7 +117,7 @@ const ConnectMailbox = () => {
           </View>
           <View style={innerFlagImage}>
             <Image
-              src={finleyFlagImage}
+              src={flagDiagram}
               style={styles.finleyFlagImage}
               resizeMode="contain"
             />
@@ -127,18 +126,7 @@ const ConnectMailbox = () => {
       )}
       {(!readyToConnect || isBluetoothConnected) && (
         <View style={styles.bottomBar}>
-          <FnPressable
-            text="Connect"
-            onPress={handleConnect}
-            disableDarkTheme={true}
-          />
-          <FnPressable
-            text="This is not my flag"
-            onPress={handleConnect}
-            fnBtnTextStyles={styles.noMailbox}
-            disableDarkTheme={true}
-            inverted={true}
-          />
+          <FnPressable text="Next" onPress={handleConnect} />
         </View>
       )}
     </View>
@@ -174,7 +162,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({noBackground: true}),
 });
 
 export default ConnectMailbox;

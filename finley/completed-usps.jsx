@@ -46,7 +46,7 @@ const CompletedUSPS = () => {
         </View>
       </SafeAreaView>
       <View style={styles.bottomBar}>
-        <FnPressable text="Done" onPress={handleDone} disableDarkTheme={true} />
+        <FnPressable text="Done" onPress={handleDone} />
       </View>
     </View>
   );
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     width: 88,
     height: 88,
   },
-  bottomBar: createBottomBarStyles(),
+  bottomBar: createBottomBarStyles({noBackground: true}),
 });
 
 export default CompletedUSPS;

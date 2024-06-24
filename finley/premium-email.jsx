@@ -108,18 +108,7 @@ const PremiumEmail = () => {
         </View>
       </SafeAreaView>
       <View style={styles.bottomBar}>
-        <FnPressable
-          text="Claim"
-          onPress={handleConnecting}
-          disableDarkTheme={true}
-        />
-        <FnPressable
-          text="Skip for now"
-          onPress={handleConnecting}
-          fnBtnTextStyles={styles.skipForNow}
-          disableDarkTheme={true}
-          inverted={true}
-        />
+        <FnPressable text="Got it" onPress={handleConnecting} />
       </View>
     </View>
   );
@@ -158,7 +147,7 @@ const styles = StyleSheet.create({
   skipForNow: {
     color: COLORS.blue,
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({noBackground: true}),
 });
 
 export default PremiumEmail;

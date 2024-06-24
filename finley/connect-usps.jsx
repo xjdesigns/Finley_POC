@@ -64,7 +64,7 @@ const ConnectUSPS = () => {
   const linkIcon = {
     marginLeft: 4,
     fontSize: 18,
-    color: theme.text,
+    color: COLORS.black,
   };
 
   const copyPanel = {
@@ -101,7 +101,7 @@ const ConnectUSPS = () => {
                 <View style={styles.textWithAction}>
                   <FnText text="Sign Up on" />
                   <Pressable style={linkAction}>
-                    <FnText text="usps.com" />
+                    <FnText text="usps.com" disableDarkTheme={true} />
                     <IonIcon name="open-outline" style={linkIcon} />
                   </Pressable>
                 </View>
@@ -123,7 +123,7 @@ const ConnectUSPS = () => {
                 <View style={styles.textWithAction}>
                   <FnText text="Go to your USPS" />
                   <Pressable style={linkAction}>
-                    <FnText text="account page" />
+                    <FnText text="account page" disableDarkTheme={true} />
                     <IonIcon name="open-outline" style={linkIcon} />
                   </Pressable>
                 </View>
@@ -158,13 +158,11 @@ const ConnectUSPS = () => {
         <FnPressable
           text="Connect Informed Delivery"
           onPress={handleConnecting}
-          disableDarkTheme={true}
         />
         <FnPressable
           text="Skip for now"
           onPress={handleConnecting}
           fnBtnTextStyles={styles.skipForNow}
-          disableDarkTheme={true}
           inverted={true}
         />
       </View>
@@ -206,7 +204,7 @@ const styles = StyleSheet.create({
   skipForNow: {
     color: COLORS.blue,
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({needsMinHeight: true, noBackground: true}),
 });
 
 export default ConnectUSPS;

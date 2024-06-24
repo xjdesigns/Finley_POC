@@ -5,6 +5,7 @@ import {
   ActivityIndicator,
   SafeAreaView,
   Image,
+  useColorScheme,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
@@ -22,6 +23,8 @@ const Notifications = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const {status} = useSelector(state => state.mail);
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
@@ -59,20 +62,15 @@ const Notifications = () => {
       <View style={styles.bottomBar}>
         {status === LOADING_STATUS ? (
           <View style={styles.loadingView}>
-            <ActivityIndicator size="large" color={COLORS.black} />
+            <ActivityIndicator size="large" color={theme.text} />
             <FnText text="Connecting" fnTextStyles={styles.loadingText} />
           </View>
         ) : (
           <View>
-            <FnPressable
-              text="Allow Notifications"
-              onPress={handleConnecting}
-              disableDarkTheme={true}
-            />
+            <FnPressable text="Next" onPress={handleConnecting} />
             <FnPressable
               text="Skip for now"
               fnBtnTextStyles={styles.skipForNow}
-              disableDarkTheme={true}
               inverted={true}
             />
           </View>
@@ -113,7 +111,7 @@ const styles = StyleSheet.create({
   skipForNow: {
     color: COLORS.blue,
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({needsMinHeight: true, noBackground: true}),
 });
 
 export default Notifications;

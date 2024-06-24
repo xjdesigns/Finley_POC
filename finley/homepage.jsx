@@ -11,7 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {logoImage, lettersImage} from '../utils/Images';
+import {logoImage, logoImageWhite, lettersImage} from '../utils/Images';
 import {createBottomBarStyles} from '../utils/Style';
 import {GETTING_STARTED_ROUTE, LOGIN_ROUTE} from '../constants/routes';
 import {useBaseStyles} from '../hooks/base-style-hooks';
@@ -21,7 +21,6 @@ const HomePage = () => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const {backgroundStyle} = useBaseStyles({
-    altBgColor: theme.lightBlueBackground,
     useAndroidPadding: true,
   });
 
@@ -53,8 +52,12 @@ const HomePage = () => {
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
-        <Image src={logoImage} style={styles.logo} resizeMode="contain" />
-        <FnText text="Deliveries Made Smarter" fnTextStyles={styles.subtext} />
+        <Image
+          src={isDarkMode ? logoImageWhite : logoImage}
+          style={styles.logo}
+          resizeMode="contain"
+        />
+        <FnText text="Mail made smarter" fnTextStyles={styles.subtext} />
         <Image
           src={lettersImage}
           style={styles.mailLetters}
@@ -62,16 +65,11 @@ const HomePage = () => {
         />
       </SafeAreaView>
       <View style={styles.bottomBar}>
+        <FnPressable text="Get Started" onPress={handleGettingStarted} />
         <FnPressable
-          text="Get Started"
-          onPress={handleGettingStarted}
-          disableDarkTheme={true}
-        />
-        <FnPressable
-          text="Login"
+          text="Log in"
           onPress={handleLogin}
           fnBtnTextStyles={loginText}
-          disableDarkTheme={true}
           inverted={true}
         />
       </View>
@@ -97,7 +95,7 @@ const styles = StyleSheet.create({
     width: 273,
     fontSize: 36,
     textAlign: 'center',
-    marginBottom: 30,
+    marginBottom: 8,
   },
   bottomBar: createBottomBarStyles({fullWidth: true, noBackground: true}),
   mailLetters: {

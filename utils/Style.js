@@ -9,7 +9,7 @@ export function createBottomBarStyles({
   let baseStyle = {
     backgroundColor: noBackground ? 'transparent' : COLORS.white,
     paddingTop: 12,
-    paddingBottom: 36,
+    paddingBottom: 32,
     paddingHorizontal: 12,
   };
 
@@ -24,7 +24,7 @@ export function createBottomBarStyles({
     return {
       ...baseStyle,
       ...{
-        minHeight: 175,
+        minHeight: 155,
       },
     };
   } else {

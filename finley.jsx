@@ -276,15 +276,6 @@ export default function Finley() {
     },
   };
 
-  const baseBlueOptions = {
-    title: '',
-    headerBackTitle: '',
-    headerStyle: {
-      backgroundColor: theme.lightBlueBackground,
-    },
-    headerTintColor: theme.text,
-  };
-
   return (
     <>
       {status === LOADING_STATUS && (
@@ -330,14 +321,14 @@ export default function Finley() {
                     name={CONNECT_MAILBOX_ROUTE}
                     component={ConnectMailbox}
                     options={{
-                      ...baseBlueOptions,
+                      ...baseOptions,
                     }}
                   />
                   <Stack.Screen
                     name={CONNECTED_MAILBOX_ROUTE}
                     component={ConnectedMailbox}
                     options={{
-                      ...baseBlueOptions,
+                      ...baseOptions,
                     }}
                   />
                   {/* // NOTE: Leaving in for now, not in flag flow */}

@@ -15,7 +15,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingBottom: 20,
-    borderTopColor: COLORS.borderGray,
+    borderTopColor: COLORS.darkergray,
     borderTopWidth: 1,
   };
 

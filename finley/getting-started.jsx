@@ -99,11 +99,7 @@ const GettingStarted = () => {
         </View>
       </SafeAreaView>
       <View style={styles.bottomBar}>
-        <FnPressable
-          text="Next"
-          onPress={handleSubmit}
-          disableDarkTheme={true}
-        />
+        <FnPressable text="Next" onPress={handleSubmit} />
       </View>
     </KeyboardAvoidingView>
   );
@@ -123,7 +119,7 @@ const styles = StyleSheet.create({
     marginTop: 6,
     color: COLORS.mediumgray,
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: false}),
+  bottomBar: createBottomBarStyles({needsMinHeight: false, noBackground: true}),
 });
 
 export default GettingStarted;

@@ -14,7 +14,7 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
-import {finleyFlagImage} from '../utils/Images';
+import {flagConnected} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
 import {NOTIFICATIONS_ROUTE} from '../constants/routes';
 import {useBaseStyles} from '../hooks/base-style-hooks';
@@ -25,12 +25,14 @@ const ConnectedMailbox = () => {
   const {status} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
-  const {backgroundStyle, safeView} = useBaseStyles({
-    altBgColor: theme.lightBlueBackground,
-  });
+  const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
     paddingHorizontal: 46,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: theme.lightBlueBackground,
   };
 
   const handleConnecting = () => {
@@ -45,12 +47,18 @@ const ConnectedMailbox = () => {
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
         <View style={innerView}>
-          <FnText text="Finley Flag 1.0" fnTextStyles={styles.title} />
-          <FnText text="X1K7B9Z3L6" fnTextStyles={styles.subtext} />
-        </View>
-        <View style={styles.imageView}>
+          <FnText
+            text="Finley Flag 1.0"
+            fnTextStyles={styles.title}
+            disableDarkTheme={true}
+          />
+          <FnText
+            text="X1K7B9Z3L6"
+            fnTextStyles={styles.subtext}
+            disableDarkTheme={true}
+          />
           <Image
-            src={finleyFlagImage}
+            src={flagConnected}
             style={styles.finleyFlagImage}
             resizeMode="contain"
           />
@@ -59,21 +67,16 @@ const ConnectedMailbox = () => {
       <View style={styles.bottomBar}>
         {status === LOADING_STATUS ? (
           <View style={styles.loadingView}>
-            <ActivityIndicator size="large" color={COLORS.black} />
+            <ActivityIndicator size="large" color={theme.text} />
             <FnText text="Connecting" fnTextStyles={styles.loadingText} />
           </View>
         ) : (
           <View>
-            <FnPressable
-              text="Connect"
-              onPress={handleConnecting}
-              disableDarkTheme={true}
-            />
+            <FnPressable text="Next" onPress={handleConnecting} />
             <FnPressable
               text="This is not my mailbox"
               onPress={handleConnecting}
               fnBtnTextStyles={styles.notMailbox}
-              disableDarkTheme={true}
               inverted={true}
             />
           </View>
@@ -86,6 +89,7 @@ const ConnectedMailbox = () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
+    fontWeight: 700,
     textAlign: 'center',
     marginBottom: 6,
   },
@@ -95,8 +99,12 @@ const styles = StyleSheet.create({
   },
   imageView: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  finleyFlagImage: {
+    width: 255,
+    aspectRatio: 1,
   },
   loadingView: {
     flex: 1,
@@ -107,14 +115,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
   },
-  finleyFlagImage: {
-    width: '100%',
-    aspectRatio: 1,
-  },
   notMailbox: {
     color: COLORS.blue,
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({needsMinHeight: true, noBackground: true}),
 });
 
 export default ConnectedMailbox;
