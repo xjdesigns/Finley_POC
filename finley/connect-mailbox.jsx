@@ -17,7 +17,7 @@ import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
-import {flagDiagram} from '../utils/Images';
+import {flagConnected} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
 import {useBaseStyles} from '../hooks/base-style-hooks';
 
@@ -71,7 +71,7 @@ const ConnectMailbox = () => {
   const innerFlagImage = {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: theme.lightBlueBackground,
+    alignItems: 'center',
   };
 
   const innerLoadingView = {
@@ -85,7 +85,7 @@ const ConnectMailbox = () => {
 
   const subText =
     // eslint-disable-next-line quotes
-    `Make sure you're within 50 feet of your mailbox and Bluetooth is enabled on your phone before continuing to the next step.`;
+    `Let's make sure your device is connected and updated before installing it on your mailbox.`;
 
   return (
     <View style={backgroundStyle}>
@@ -117,7 +117,7 @@ const ConnectMailbox = () => {
           </View>
           <View style={innerFlagImage}>
             <Image
-              src={flagDiagram}
+              src={flagConnected}
               style={styles.finleyFlagImage}
               resizeMode="contain"
             />
@@ -142,10 +142,11 @@ const styles = StyleSheet.create({
   },
   subtext: {
     textAlign: 'center',
+    color: COLORS.mediumgray,
     marginBottom: 28,
   },
   finleyFlagImage: {
-    width: '100%',
+    width: '70%',
     aspectRatio: 1,
   },
   noMailbox: {

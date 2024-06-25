@@ -1,5 +1,6 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {CommonActions} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -48,6 +49,10 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
       return <IonIcon name="mail-outline" {...styleProps} />;
     }
 
+    if (name === 'Scan') {
+      return <IonIcon name="scan-outline" {...styleProps} />;
+    }
+
     if (name === 'Menu') {
       return <IonIcon name="menu" {...styleProps} />;
     }
@@ -71,7 +76,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             : options.title !== undefined
             ? options.title
             : route.name;
-        // const tabBarBadge = options?.tabBarBadge;
+        const tabBarBadge = options?.tabBarBadge;
 
         const isFocused = state.index === index;
 
@@ -83,7 +88,18 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
+            // NOTE: Mailbox and Mail both use common routes for details and image viewer
+            // Reset the navigation state...
+            if (route.name === 'Mailbox' || route.name === 'Mail') {
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{key: route.key, name: route.name}],
+                }),
+              );
+            } else {
+              navigation.navigate(route.name, route.params);
+            }
           }
         };
 
@@ -110,11 +126,11 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
             <View style={navIcon}>
               {icon}
 
-              {/* {tabBarBadge && (
+              {tabBarBadge && (
                 <View style={styles.indicator}>
                   <Text style={styles.indicatorText}>{tabBarBadge}</Text>
                 </View>
-              )} */}
+              )}
             </View>
             <Text style={navText}>{label}</Text>
           </TouchableOpacity>
@@ -126,7 +142,6 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
 
 const styles = StyleSheet.create({
   navAction: {
-    // flex: 1,
     textAlign: 'center',
     padding: 10,
   },

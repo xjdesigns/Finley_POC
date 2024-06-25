@@ -83,11 +83,13 @@ const Notifications = () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
+    fontWeight: 700,
     textAlign: 'center',
     marginBottom: 6,
   },
   subtext: {
     textAlign: 'center',
+    color: COLORS.mediumgray,
     marginBottom: 48,
   },
   imageView: {

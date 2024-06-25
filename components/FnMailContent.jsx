@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Image,
-  Pressable,
-  useColorScheme,
-} from 'react-native';
+import {StyleSheet, View, Image, Pressable, useColorScheme} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';

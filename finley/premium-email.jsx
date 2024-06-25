@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-  SafeAreaView,
-  useColorScheme,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, View, SafeAreaView, ScrollView} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Fs6Icon from 'react-native-vector-icons/FontAwesome6';
 import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -20,8 +14,6 @@ import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const PremiumEmail = () => {
   const dispatch = useDispatch();
-  const isDarkMode = useColorScheme() === 'dark';
-  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const {backgroundStyle, safeView} = useBaseStyles();
 
   const innerView = {
@@ -42,7 +34,7 @@ const PremiumEmail = () => {
 
   const panelIcon = {
     size: 28,
-    color: theme.text,
+    color: COLORS.mediumgray,
     marginRight: 18,
   };
 
@@ -67,7 +59,10 @@ const PremiumEmail = () => {
                   text="A More Informed Delivery"
                   fnTextStyles={styles.infoPanelTitle}
                 />
-                <FnText text="The same Informed Delivery you know and love, just a bit more organized." />
+                <FnText
+                  text="The same Informed Delivery you know and love, just a bit more organized."
+                  fnTextStyles={styles.infoText}
+                />
               </View>
             </View>
 
@@ -78,7 +73,10 @@ const PremiumEmail = () => {
                   text="Smart Sorting"
                   fnTextStyles={styles.infoPanelTitle}
                 />
-                <FnText text="Know what mail is arriving, who it's for, and how important it might be." />
+                <FnText
+                  text="Know what mail is arriving, who it's for, and how important it might be."
+                  fnTextStyles={styles.infoText}
+                />
               </View>
             </View>
 
@@ -86,7 +84,10 @@ const PremiumEmail = () => {
               <Fs6Icon name="box-archive" {...panelIcon} />
               <View style={styles.infoTextView}>
                 <FnText text="History" fnTextStyles={styles.infoPanelTitle} />
-                <FnText text="Store your digital mail history for days, weeks, months, or years." />
+                <FnText
+                  text="Store your digital mail history for days, weeks, months, or years."
+                  fnTextStyles={styles.infoText}
+                />
                 <FnText
                   text="USPS stores your mail history ~ 15 days"
                   fnTextStyles={styles.infoPanelHelperText}
@@ -101,7 +102,10 @@ const PremiumEmail = () => {
                   text="Searchability"
                   fnTextStyles={styles.infoPanelTitle}
                 />
-                <FnText text="With a rich history comes powerful search results. Search by sender, recipient, date sent, etc." />
+                <FnText
+                  text="With a rich history comes powerful search results. Search by sender, recipient, date sent, etc."
+                  fnTextStyles={styles.infoText}
+                />
               </View>
             </View>
           </ScrollView>
@@ -124,12 +128,16 @@ const styles = StyleSheet.create({
   },
   subText: {
     textAlign: 'center',
+    color: COLORS.mediumgray,
     marginBottom: 36,
   },
   infoPanel: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 18,
+  },
+  infoText: {
+    color: COLORS.mediumgray,
   },
   infoTextView: {
     flex: 1,
@@ -142,6 +150,7 @@ const styles = StyleSheet.create({
   infoPanelHelperText: {
     fontSize: 12,
     fontStyle: 'italic',
+    color: COLORS.mediumgray,
     marginTop: 2,
   },
   skipForNow: {

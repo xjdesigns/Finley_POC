@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
@@ -11,17 +11,18 @@ import {useSelector} from 'react-redux';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
-import {mailImageWater} from '../../utils/Images';
+import FnSearchInput from '../../components/FnSearchInput';
 import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
 import {useBaseStyles} from '../../hooks/base-style-hooks';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
 
 const Mail = () => {
-  const {status, mail} = useSelector(state => state.mail);
+  const {status, mail, isSearching} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const {backgroundStyle, safeView} = useBaseStyles({safeViewBorder: true});
+  const [search, setSearch] = useState('');
 
   const innerView = {
     flex: 1,
@@ -63,20 +64,25 @@ const Mail = () => {
         )}
         {status === CONNECTED_STATUS && mail.length === 0 && (
           <View style={innerView}>
-            <Image src={mailImageWater} style={styles.mailboxImg} />
             <FnText
-              text="Your mailbox is empty, for now."
+              text="You have no mail history."
               fnTextStyles={styles.title}
-            />
-            <FnText
-              text="When mail is dropped off we'll let you know and you'll be able to view it here."
-              fnTextStyles={styles.subTitle}
             />
           </View>
         )}
         {status === CONNECTED_STATUS && mail.length > 0 && (
           <View style={hasMailView}>
             <View style={styles.mailView}>
+              {isSearching && (
+                <View style={styles.searchView}>
+                  <FnSearchInput
+                    value={search}
+                    onChangeText={setSearch}
+                    onClear={() => setSearch('')}
+                  />
+                </View>
+              )}
+
               <FlatList
                 data={mail}
                 renderItem={({item}) => <FnMailCard data={item} />}
@@ -123,42 +129,11 @@ const styles = StyleSheet.create({
   },
   mailView: {
     flex: 1,
-    width: '100%',
     paddingTop: 18,
   },
-  date: {
-    marginBottom: 12,
-    flexDirection: 'row',
-  },
-  dateDate: {
-    flex: 1,
-  },
-  datePrimary: {
-    color: COLORS.blue,
-  },
-  dateSecondary: {
-    color: COLORS.blue,
-  },
-  mailContent: {
-    flexDirection: 'row',
-  },
-  mailIcon: {
-    marginTop: 4,
-    marginRight: 4,
-    width: 8,
-    height: 8,
-    backgroundColor: COLORS.blue,
-    borderRadius: 50,
-  },
-  mailInfo: {
-    flex: 1,
-  },
-  senderText: {
-    fontSize: 18,
-    fontWeight: 700,
-  },
-  subjectText: {
-    fontSize: 16,
+  searchView: {
+    marginBottom: 18,
+    paddingHorizontal: 20,
   },
 });
 

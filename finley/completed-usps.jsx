@@ -6,6 +6,7 @@ import FnText from '../components/FnText';
 import {emailNotificationImage} from '../utils/Images';
 import {PREMIUM_EMAIL_ROUTE} from '../constants/routes';
 import {createBottomBarStyles} from '../utils/Style';
+import {COLORS} from '../utils/Colors';
 import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const CompletedUSPS = () => {
@@ -14,12 +15,7 @@ const CompletedUSPS = () => {
 
   const innerView = {
     paddingHorizontal: 20,
-  };
-
-  const imageView = {
-    paddingHorizontal: 20,
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
   };
 
@@ -31,17 +27,15 @@ const CompletedUSPS = () => {
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
         <View style={innerView}>
-          <FnText text="You're all set" fnTextStyles={styles.title} />
-          <FnText
-            text="Next time USPS delivers mail to your Finley Mailbox your mail will show up in your 'Mail' tab."
-            fnTextStyles={styles.subText}
-          />
-        </View>
-        <View style={imageView}>
           <Image
             src={emailNotificationImage}
             style={styles.mailNotification}
             resizeMode="contain"
+          />
+          <FnText text="You're all set" fnTextStyles={styles.title} />
+          <FnText
+            text="Next time USPS delivers mail to your Finley Mailbox your mail will show up in your 'Mail' tab."
+            fnTextStyles={styles.subText}
           />
         </View>
       </SafeAreaView>
@@ -62,10 +56,12 @@ const styles = StyleSheet.create({
   },
   subText: {
     textAlign: 'center',
+    color: COLORS.mediumgray,
   },
   mailNotification: {
     width: 88,
     height: 88,
+    marginBottom: 18,
   },
   bottomBar: createBottomBarStyles({noBackground: true}),
 });

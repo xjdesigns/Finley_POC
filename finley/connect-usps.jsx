@@ -71,7 +71,7 @@ const ConnectUSPS = () => {
     marginTop: 8,
     padding: 12,
     flexDirection: 'row',
-    backgroundColor: COLORS.borderGray,
+    backgroundColor: COLORS.mediumgray,
     borderRadius: 4,
   };
 

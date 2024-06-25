@@ -32,7 +32,6 @@ const ConnectedMailbox = () => {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.lightBlueBackground,
   };
 
   const handleConnecting = () => {
@@ -47,16 +46,8 @@ const ConnectedMailbox = () => {
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
         <View style={innerView}>
-          <FnText
-            text="Finley Flag 1.0"
-            fnTextStyles={styles.title}
-            disableDarkTheme={true}
-          />
-          <FnText
-            text="X1K7B9Z3L6"
-            fnTextStyles={styles.subtext}
-            disableDarkTheme={true}
-          />
+          <FnText text="Finley Flag 1.0" fnTextStyles={styles.title} />
+          <FnText text="X1K7B9Z3L6" fnTextStyles={styles.subtext} />
           <Image
             src={flagConnected}
             style={styles.finleyFlagImage}
@@ -74,7 +65,7 @@ const ConnectedMailbox = () => {
           <View>
             <FnPressable text="Next" onPress={handleConnecting} />
             <FnPressable
-              text="This is not my mailbox"
+              text="This is not my flag"
               onPress={handleConnecting}
               fnBtnTextStyles={styles.notMailbox}
               inverted={true}
@@ -95,6 +86,7 @@ const styles = StyleSheet.create({
   },
   subtext: {
     textAlign: 'center',
+    color: COLORS.mediumgray,
     marginBottom: 64,
   },
   imageView: {

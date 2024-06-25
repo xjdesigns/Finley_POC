@@ -8,6 +8,7 @@ import {
   useColorScheme,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import FnText from '../../components/FnText';
 import FnMailContent from '../../components/FnMailContent';
 import {mailImageWater} from '../../utils/Images';
@@ -33,6 +34,8 @@ const Mailbox = () => {
   };
 
   const notConnectNoMail = {
+    justifyContent: 'center',
+    alignItems: 'center',
     width: 88,
     height: 88,
     marginBottom: 28,
@@ -43,25 +46,33 @@ const Mailbox = () => {
     borderBottomRightRadius: 8,
   };
 
+  const notConnectedIcon = {
+    marginTop: 14,
+    fontSize: 48,
+  };
+
   return (
     <View style={backgroundStyle}>
       <SafeAreaView style={safeView}>
-        {status === NOT_CONNECTED_STATUS && mailbox.length === 0 && (
-          <View style={innerView}>
-            <Image src={mailImageWater} style={styles.mailboxImg} />
-            <FnText
-              text="Your mailbox is empty, for now."
-              fnTextStyles={styles.title}
-            />
-            <FnText
-              text="When mail is dropped off we'll let you know and you'll be able to view it here."
-              fnTextStyles={styles.subTitle}
-            />
-          </View>
-        )}
+        {(status === NOT_CONNECTED_STATUS || status === CONNECTED_STATUS) &&
+          mailbox.length === 0 && (
+            <View style={innerView}>
+              <Image src={mailImageWater} style={styles.mailboxImg} />
+              <FnText
+                text="Your mailbox is empty, for now."
+                fnTextStyles={styles.title}
+              />
+              <FnText
+                text="When mail is dropped off we'll let you know and you'll be able to view it here."
+                fnTextStyles={styles.subTitle}
+              />
+            </View>
+          )}
         {status === NOT_CONNECTED_STATUS && mailbox.length > 0 && (
           <View style={innerView}>
-            <View style={notConnectNoMail} />
+            <View style={notConnectNoMail}>
+              <IonIcon name="mail-outline" style={notConnectedIcon} />
+            </View>
             <FnText text="You've got mail." fnTextStyles={styles.title} />
             <FnText
               text="Connect Informed Delivery to see what's in your mailbox."

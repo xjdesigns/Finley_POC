@@ -34,9 +34,6 @@ const mailSlice = createSlice({
       const {selectedMail} = action.payload;
       return {...state, selectedMail};
     },
-    ressetSelectedMail: state => {
-      return {...state, selectedMail: null};
-    },
   },
 });
 
@@ -47,6 +44,5 @@ export const {
   setMail,
   setMailbox,
   setSelectedMail,
-  ressetSelectedMail,
 } = mailSlice.actions;
 export default mailSlice.reducer;

@@ -37,6 +37,7 @@ const MailDetails = () => {
 
   const subTitle = {
     color: COLORS.mediumgray,
+    fontSize: 14,
   };
 
   return (
@@ -46,11 +47,7 @@ const MailDetails = () => {
           {selectedMail ? (
             <View style={innerView}>
               <Pressable onPress={handleShowViewer}>
-                <Image
-                  src={selectedMail.img}
-                  style={imgView}
-                  // resizeMode="contain"
-                />
+                <Image src={selectedMail.img} style={imgView} />
               </Pressable>
 
               <View style={contentsView}>
@@ -61,11 +58,13 @@ const MailDetails = () => {
               <View style={contentsView}>
                 <FnText text="Sender" fnTextStyles={subTitle} />
                 <FnText text={selectedMail.sender} />
+                <FnText text={selectedMail.address1} />
+                <FnText text={selectedMail.address2} />
               </View>
 
               <View style={contentsView}>
                 <FnText text="Delivered" fnTextStyles={subTitle} />
-                <FnText text="Saturday, May 25th" />
+                <FnText text={selectedMail?.deliveredDate} />
               </View>
 
               <View style={contentsView}>

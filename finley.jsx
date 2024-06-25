@@ -4,7 +4,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useColorScheme, View, ActivityIndicator} from 'react-native';
+import {useColorScheme, View, ActivityIndicator, Pressable} from 'react-native';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import * as Linking from 'expo-linking';
 import {useSelector, useDispatch} from 'react-redux';
 import {FnTabMenu} from './components/FnTabMenu';
@@ -14,6 +15,7 @@ import {
   updateEnv,
   setFinishedInitialSetup,
 } from './store/user.js';
+import {setIsSearching} from './store/mail.js';
 import {COLORS} from './utils/Colors';
 import Login from './finley/login';
 import DevOptions from './finley/dev-options';
@@ -24,19 +26,19 @@ import HomePage from './finley/homepage';
 import GettingStarted from './finley/getting-started';
 import ConnectMailbox from './finley/connect-mailbox';
 import ConnectedMailbox from './finley/connected-mailbox';
-import CreatePinCode from './finley/create-pin-code';
+// import CreatePinCode from './finley/create-pin-code';
 import Notifications from './finley/notifications.jsx';
 import ConnectUSPS from './finley/connect-usps.jsx';
 import CompletedUSPS from './finley/completed-usps.jsx';
 import PremiumEmail from './finley/premium-email.jsx';
 
 // Finley App
-import Home from './finley/app/home';
+// import Home from './finley/app/home';
 import Mail from './finley/app/mail';
 import Mailbox from './finley/app/mailbox.jsx';
 import MailDetails from './finley/app/mail-details.jsx';
 import MailViewer from './finley/app/mail-viewer.jsx';
-// import SearchMail from './finley/app/search-mail.jsx';
+import ScanMail from './finley/app/scan-mail.jsx';
 // import ConversationSearch from './finley/app/conversation-search.jsx';
 import More from './finley/app/menu.jsx';
 import NotificationPreferences from './finley/app/notification-preferences';
@@ -50,14 +52,14 @@ import {
   YOUR_MAIL_ROUTE,
   MAIL_DETAILS_ROUTE,
   MAIL_VIEWER_ROUTE,
-  // SEARCH_MAIL_ROUTE,
+  SCAN_MAIL_ROUTE,
   // MAI_SEARCH_ROUTE,
   MENU_ROUTE,
   DEV_TESTING_ROUTE,
   GETTING_STARTED_ROUTE,
   CONNECT_MAILBOX_ROUTE,
   CONNECTED_MAILBOX_ROUTE,
-  CREATE_PIN_CODE_ROUTE,
+  // CREATE_PIN_CODE_ROUTE,
   NOTIFICATIONS_ROUTE,
   CONNECT_USPS_ROUTE,
   COMPLETED_USPS_ROUTE,
@@ -171,11 +173,32 @@ function MailboxStackScreen() {
   );
 }
 
+function MailSearch() {
+  const dispatch = useDispatch();
+  const isSearching = useSelector(state => state.mail.isSearching);
+  const isDarkMode = useColorScheme() === 'dark';
+  const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+
+  const handleSearch = () => {
+    dispatch(setIsSearching({isSearching: !isSearching}));
+  };
+
+  const searchIcon = {
+    color: theme.text,
+    fontSize: 18,
+  };
+
+  return (
+    <Pressable onPress={handleSearch}>
+      <IonIcon name="search-outline" style={searchIcon} />
+    </Pressable>
+  );
+}
+
 function MailStackScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
 
-  // TODO: I am repeating myself now, add to the base style hook
   const baseOptions = {
     headerStyle: {
       backgroundColor: theme.background,
@@ -200,6 +223,7 @@ function MailStackScreen() {
         component={Mail}
         options={{
           ...baseOptions,
+          headerRight: MailSearch,
         }}
       />
       <MailStack.Screen
@@ -374,13 +398,13 @@ export default function Finley() {
                     }}
                   />
                   {/* // NOTE: Leaving in for now, not in flag flow */}
-                  <Stack.Screen
+                  {/* <Stack.Screen
                     name={CREATE_PIN_CODE_ROUTE}
                     component={CreatePinCode}
                     options={{
                       ...baseOptions,
                     }}
-                  />
+                  /> */}
                   <Stack.Screen
                     name={NOTIFICATIONS_ROUTE}
                     component={Notifications}
@@ -435,6 +459,14 @@ export default function Finley() {
                     name={MAIL_ROUTE}
                     component={MailStackScreen}
                     options={{headerShown: false}}
+                  />
+                  <Tab.Screen
+                    name={SCAN_MAIL_ROUTE}
+                    component={ScanMail}
+                    options={{
+                      ...baseOptions,
+                      title: 'Scan',
+                    }}
                   />
                   <Tab.Screen
                     name={MENU_ROUTE}
