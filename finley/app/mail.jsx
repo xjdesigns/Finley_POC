@@ -8,10 +8,12 @@ import {
   useColorScheme,
 } from 'react-native';
 import {useSelector} from 'react-redux';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
 import FnSearchInput from '../../components/FnSearchInput';
+import FnIconBadge from '../../components/FnIconBadge';
 import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
 import {useBaseStyles} from '../../hooks/base-style-hooks';
@@ -64,9 +66,16 @@ const Mail = () => {
         )}
         {status === CONNECTED_STATUS && mail.length === 0 && (
           <View style={innerView}>
+            <FnIconBadge>
+              <IonIcon name="mail-outline" style={styles.noMailIcon} />
+            </FnIconBadge>
             <FnText
-              text="You have no mail history."
+              text="Waiting is the hardest part."
               fnTextStyles={styles.title}
+            />
+            <FnText
+              text="You'll be able to view your mail here the next time mail is expected or delivered."
+              fnTextStyles={styles.subTitle}
             />
           </View>
         )}
@@ -134,6 +143,10 @@ const styles = StyleSheet.create({
   searchView: {
     marginBottom: 18,
     paddingHorizontal: 20,
+  },
+  noMailIcon: {
+    marginTop: 14,
+    fontSize: 54,
   },
 });
 

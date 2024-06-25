@@ -16,7 +16,7 @@ import FnText from '../components/FnText';
 import {createBottomBarStyles} from '../utils/Style';
 import {flagConnected} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
-import {NOTIFICATIONS_ROUTE} from '../constants/routes';
+import {FIRMWARE_ROUTE} from '../constants/routes';
 import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const ConnectedMailbox = () => {
@@ -38,7 +38,7 @@ const ConnectedMailbox = () => {
     dispatch(setMailStatus({status: LOADING_STATUS}));
     setTimeout(() => {
       dispatch(setMailStatus({status: LOADED_STATUS}));
-      navigation.navigate(NOTIFICATIONS_ROUTE);
+      navigation.navigate(FIRMWARE_ROUTE);
     }, 2000);
   };
 

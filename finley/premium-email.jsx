@@ -4,6 +4,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Fs6Icon from 'react-native-vector-icons/FontAwesome6';
 import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import MatIcon from 'react-native-vector-icons/MaterialIcons';
+import FdIcon from 'react-native-vector-icons/Foundation';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import {useDispatch} from 'react-redux';
 import {setFinishedInitialSetup, setUserToken} from '../store/user';
 import {COLORS} from '../utils/Colors';
@@ -81,6 +83,20 @@ const PremiumEmail = () => {
             </View>
 
             <View style={styles.infoPanel}>
+              <IonIcon name="scan-outline" {...panelIcon} />
+              <View style={styles.infoTextView}>
+                <FnText
+                  text="Mail Scanning"
+                  fnTextStyles={styles.infoPanelTitle}
+                />
+                <FnText
+                  text="Scan the contents of important mail and we'll keep it organized so you can find it when you need it."
+                  fnTextStyles={styles.infoText}
+                />
+              </View>
+            </View>
+
+            <View style={styles.infoPanel}>
               <Fs6Icon name="box-archive" {...panelIcon} />
               <View style={styles.infoTextView}>
                 <FnText text="History" fnTextStyles={styles.infoPanelTitle} />
@@ -104,6 +120,20 @@ const PremiumEmail = () => {
                 />
                 <FnText
                   text="With a rich history comes powerful search results. Search by sender, recipient, date sent, etc."
+                  fnTextStyles={styles.infoText}
+                />
+              </View>
+            </View>
+
+            <View style={styles.infoPanel}>
+              <FdIcon name="prohibited" {...panelIcon} />
+              <View style={styles.infoTextView}>
+                <FnText
+                  text="Get Less Junk Mail"
+                  fnTextStyles={styles.infoPanelTitle}
+                />
+                <FnText
+                  text="Identify and eliminate bad actors and unnecessary waste from showing up to your mailbox."
                   fnTextStyles={styles.infoText}
                 />
               </View>

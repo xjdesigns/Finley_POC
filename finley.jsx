@@ -26,7 +26,6 @@ import HomePage from './finley/homepage';
 import GettingStarted from './finley/getting-started';
 import ConnectMailbox from './finley/connect-mailbox';
 import ConnectedMailbox from './finley/connected-mailbox';
-// import CreatePinCode from './finley/create-pin-code';
 import Notifications from './finley/notifications.jsx';
 import ConnectUSPS from './finley/connect-usps.jsx';
 import CompletedUSPS from './finley/completed-usps.jsx';
@@ -42,6 +41,7 @@ import ScanMail from './finley/app/scan-mail.jsx';
 // import ConversationSearch from './finley/app/conversation-search.jsx';
 import More from './finley/app/menu.jsx';
 import NotificationPreferences from './finley/app/notification-preferences';
+import Firmware from './finley/app/firmware.jsx';
 import DevTesting from './finley/app/dev-testing.jsx';
 import {
   LOGIN_ROUTE,
@@ -53,13 +53,12 @@ import {
   MAIL_DETAILS_ROUTE,
   MAIL_VIEWER_ROUTE,
   SCAN_MAIL_ROUTE,
-  // MAI_SEARCH_ROUTE,
+  FIRMWARE_ROUTE,
   MENU_ROUTE,
   DEV_TESTING_ROUTE,
   GETTING_STARTED_ROUTE,
   CONNECT_MAILBOX_ROUTE,
   CONNECTED_MAILBOX_ROUTE,
-  // CREATE_PIN_CODE_ROUTE,
   NOTIFICATIONS_ROUTE,
   CONNECT_USPS_ROUTE,
   COMPLETED_USPS_ROUTE,
@@ -397,14 +396,13 @@ export default function Finley() {
                       ...baseOptions,
                     }}
                   />
-                  {/* // NOTE: Leaving in for now, not in flag flow */}
-                  {/* <Stack.Screen
-                    name={CREATE_PIN_CODE_ROUTE}
-                    component={CreatePinCode}
+                  <Stack.Screen
+                    name={FIRMWARE_ROUTE}
+                    component={Firmware}
                     options={{
                       ...baseOptions,
                     }}
-                  /> */}
+                  />
                   <Stack.Screen
                     name={NOTIFICATIONS_ROUTE}
                     component={Notifications}
