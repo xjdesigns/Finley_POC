@@ -30,6 +30,7 @@ import Notifications from './finley/notifications.jsx';
 import ConnectUSPS from './finley/connect-usps.jsx';
 import CompletedUSPS from './finley/completed-usps.jsx';
 import PremiumEmail from './finley/premium-email.jsx';
+import FlagInstall from './finley/flag-install.jsx';
 
 // Finley App
 // import Home from './finley/app/home';
@@ -54,6 +55,7 @@ import {
   MAIL_VIEWER_ROUTE,
   SCAN_MAIL_ROUTE,
   FIRMWARE_ROUTE,
+  FLAG_INSTALL_ROUTE,
   MENU_ROUTE,
   DEV_TESTING_ROUTE,
   GETTING_STARTED_ROUTE,
@@ -406,6 +408,13 @@ export default function Finley() {
                   <Stack.Screen
                     name={NOTIFICATIONS_ROUTE}
                     component={Notifications}
+                    options={{
+                      ...baseOptions,
+                    }}
+                  />
+                  <Stack.Screen
+                    name={FLAG_INSTALL_ROUTE}
+                    component={FlagInstall}
                     options={{
                       ...baseOptions,
                     }}

@@ -13,6 +13,9 @@ export const MENU_ROUTE = 'Menu';
 export const SETTINGS_MENU_ROUTE = 'Settings & More';
 export const NOTIFICATIONS_PREF_ROUTE = 'Notification Preferences';
 export const DEV_TESTING_ROUTE = 'Dev Testing';
+export const FLAG_INSTALL_ROUTE = 'Flag Install';
+
+// Global Routes
 export const FIRMWARE_ROUTE = 'Firmware Update';
 
 // Getting Started Routes

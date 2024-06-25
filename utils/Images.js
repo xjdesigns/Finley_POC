@@ -10,6 +10,7 @@ import EmailNotificationImage from '../assets/email_notification.png';
 import UpsellStarImage from '../assets/upsell_star.png';
 import FlagDiagram from '../assets/flag_diagram.png';
 import FlagConnected from '../assets/flag_connected.png';
+import FlagBox from '../assets/flag_box.png';
 import MailImageWater from '../assets/mail_image_water.png';
 
 export const logoImage = Image.resolveAssetSource(LogoImage).uri;
@@ -27,4 +28,5 @@ export const emailNotificationImage = Image.resolveAssetSource(
 export const upsellStarImage = Image.resolveAssetSource(UpsellStarImage).uri;
 export const flagDiagram = Image.resolveAssetSource(FlagDiagram).uri;
 export const flagConnected = Image.resolveAssetSource(FlagConnected).uri;
+export const flagBox = Image.resolveAssetSource(FlagBox).uri;
 export const mailImageWater = Image.resolveAssetSource(MailImageWater).uri;
