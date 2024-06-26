@@ -23,7 +23,7 @@ import {LOADING_STATUS, LOADED_STATUS} from './constants/status.js';
 
 // Finley Gettting Started
 import HomePage from './finley/homepage';
-import GettingStarted from './finley/getting-started';
+import CreateAccount from './finley/create-account.jsx';
 import ConnectMailbox from './finley/connect-mailbox';
 import ConnectedMailbox from './finley/connected-mailbox';
 import Notifications from './finley/notifications.jsx';
@@ -58,7 +58,7 @@ import {
   FLAG_INSTALL_ROUTE,
   MENU_ROUTE,
   DEV_TESTING_ROUTE,
-  GETTING_STARTED_ROUTE,
+  CREATE_ACCOUNT_ROUTE,
   CONNECT_MAILBOX_ROUTE,
   CONNECTED_MAILBOX_ROUTE,
   NOTIFICATIONS_ROUTE,
@@ -248,7 +248,8 @@ function MailStackScreen() {
 }
 
 // NOTE: Required for deep linking
-const prefix = Linking.createURL('/');
+const expoPrefix = Linking.createURL('exp://');
+const appPrefix = Linking.createURL('finley://');
 
 export default function Finley() {
   const dispatch = useDispatch();
@@ -258,7 +259,7 @@ export default function Finley() {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
   const linking = {
-    prefixes: [prefix],
+    prefixes: [expoPrefix, appPrefix],
   };
 
   // useEffect(() => {
@@ -378,8 +379,8 @@ export default function Finley() {
                     }}
                   />
                   <Stack.Screen
-                    name={GETTING_STARTED_ROUTE}
-                    component={GettingStarted}
+                    name={CREATE_ACCOUNT_ROUTE}
+                    component={CreateAccount}
                     options={{
                       ...baseOptions,
                     }}

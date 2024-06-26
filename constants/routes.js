@@ -19,7 +19,7 @@ export const FLAG_INSTALL_ROUTE = 'Flag Install';
 export const FIRMWARE_ROUTE = 'Firmware Update';
 
 // Getting Started Routes
-export const GETTING_STARTED_ROUTE = 'Getting Started';
+export const CREATE_ACCOUNT_ROUTE = 'CreateAccount';
 export const CONNECT_MAILBOX_ROUTE = 'Connect Your Mailbox';
 export const CONNECTED_MAILBOX_ROUTE = 'Connected Mailbox';
 export const CREATE_PIN_CODE_ROUTE = 'Create Pin Code';

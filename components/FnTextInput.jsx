@@ -11,6 +11,7 @@ const FnTextInput = ({
   secureTextEntry = false,
   editable = true,
   fnStyles = {},
+  ...delegate
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
@@ -45,6 +46,7 @@ const FnTextInput = ({
         editable={editable}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        {...delegate}
       />
     </>
   );

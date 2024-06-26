@@ -42,3 +42,7 @@ If running Expo Go you can start the app in the command link like so to open the
 ```
 npx uri-scheme open exp://192.168.1.201:8081/--/Login\?email=Jason\&password=Password --ios
 ```
+
+```
+npx uri-scheme open exp://192.168.1.201:8081/--/CreateAccount\?firstName=Jason\&lastName=Jacobson\&email=jason\@finley.com --ios
+```

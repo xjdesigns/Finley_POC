@@ -13,7 +13,7 @@ import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import {logoImage, logoImageWhite, lettersImage} from '../utils/Images';
 import {createBottomBarStyles} from '../utils/Style';
-import {GETTING_STARTED_ROUTE, LOGIN_ROUTE} from '../constants/routes';
+import {CREATE_ACCOUNT_ROUTE, LOGIN_ROUTE} from '../constants/routes';
 import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const HomePage = () => {
@@ -25,7 +25,7 @@ const HomePage = () => {
   });
 
   const handleGettingStarted = () => {
-    navigation.navigate(GETTING_STARTED_ROUTE);
+    navigation.navigate(CREATE_ACCOUNT_ROUTE);
   };
 
   const handleLogin = () => {
