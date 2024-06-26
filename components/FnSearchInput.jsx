@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import {useColorScheme, View, TextInput} from 'react-native';
-import FIcon5 from 'react-native-vector-icons/FontAwesome5';
+import {useColorScheme, View, TextInput, Pressable} from 'react-native';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import {COLORS} from '../utils/Colors';
 
 const FnSearchInput = ({
@@ -8,6 +8,8 @@ const FnSearchInput = ({
   placeholder = '',
   value = '',
   onChangeText = () => {},
+  onClear = () => {},
+  onSubmit = null,
   editable = true,
   fnStyles = {},
 }) => {
@@ -26,21 +28,22 @@ const FnSearchInput = ({
   };
 
   const searchInput = {
-    width: '100%',
+    flex: 1,
     padding: 8,
-    color: COLORS.mediumgray,
+    paddingLeft: 12,
+    color: isDarkMode ? theme.text : COLORS.mediumgray,
     fontSize: 16,
   };
 
   const searchIcon = {
     paddingLeft: 8,
-    marginRight: 4,
-    color: COLORS.mediumgray,
+    marginRight: 12,
+    color: isDarkMode ? theme.text : COLORS.mediumgray,
+    fontSize: 20,
   };
 
   return (
     <View style={searchView}>
-      <FIcon5 name="search" style={searchIcon} />
       <TextInput
         style={searchInput}
         value={value}
@@ -50,6 +53,17 @@ const FnSearchInput = ({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
       />
+      {value && !onSubmit && (
+        <Pressable onPress={onClear}>
+          <IonIcon name="close-outline" style={searchIcon} />
+        </Pressable>
+      )}
+      {value && onSubmit && (
+        <Pressable onPress={onSubmit}>
+          <IonIcon name="arrow-up-circle" style={searchIcon} />
+        </Pressable>
+      )}
+      {!value && <IonIcon name="search" style={searchIcon} />}
     </View>
   );
 };

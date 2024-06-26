@@ -2,8 +2,6 @@ import React from 'react';
 import {
   StyleSheet,
   View,
-  Pressable,
-  Text,
   ActivityIndicator,
   SafeAreaView,
   useColorScheme,
@@ -11,50 +9,48 @@ import {
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
-import {setStatus} from '../store/mailbox';
+import {setMailStatus} from '../store/mail';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
-import {mailboxesImage} from '../utils/Images';
+import {createBottomBarStyles} from '../utils/Style';
+import {flagConnected} from '../utils/Images';
 import {LOADING_STATUS, LOADED_STATUS} from '../constants/status';
-import {CREATE_PIN_CODE_ROUTE} from '../constants/routes';
+import {FIRMWARE_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const ConnectedMailbox = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
-  const {status} = useSelector(state => state.mailbox);
+  const {status} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
 
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
-  };
   const innerView = {
-    padding: 20,
     paddingHorizontal: 46,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   const handleConnecting = () => {
-    dispatch(setStatus({status: LOADING_STATUS}));
+    dispatch(setMailStatus({status: LOADING_STATUS}));
     setTimeout(() => {
-      dispatch(setStatus({status: LOADED_STATUS}));
-      navigation.navigate(CREATE_PIN_CODE_ROUTE);
+      dispatch(setMailStatus({status: LOADED_STATUS}));
+      navigation.navigate(FIRMWARE_ROUTE);
     }, 2000);
   };
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
-          <FnText text="Finley Box 1.0" fnTextStyles={styles.title} />
+          <FnText text="Finley Flag 1.0" fnTextStyles={styles.title} />
           <FnText text="X1K7B9Z3L6" fnTextStyles={styles.subtext} />
-        </View>
-        <View style={styles.imageView}>
           <Image
-            src={mailboxesImage}
-            style={styles.mailboxesImage}
+            src={flagConnected}
+            style={styles.finleyFlagImage}
             resizeMode="contain"
           />
         </View>
@@ -62,19 +58,18 @@ const ConnectedMailbox = () => {
       <View style={styles.bottomBar}>
         {status === LOADING_STATUS ? (
           <View style={styles.loadingView}>
-            <ActivityIndicator size="large" color={COLORS.black} />
+            <ActivityIndicator size="large" color={theme.text} />
             <FnText text="Connecting" fnTextStyles={styles.loadingText} />
           </View>
         ) : (
           <View>
+            <FnPressable text="Next" onPress={handleConnecting} />
             <FnPressable
-              text="Connect"
+              text="This is not my flag"
               onPress={handleConnecting}
-              disableDarkTheme={true}
+              fnBtnTextStyles={styles.notMailbox}
+              inverted={true}
             />
-            <Pressable style={styles.notMailbox}>
-              <Text style={styles.notMailbox}>This is not my mailbox</Text>
-            </Pressable>
           </View>
         )}
       </View>
@@ -85,17 +80,23 @@ const ConnectedMailbox = () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
+    fontWeight: 700,
     textAlign: 'center',
     marginBottom: 6,
   },
   subtext: {
     textAlign: 'center',
+    color: COLORS.mediumgray,
     marginBottom: 64,
   },
   imageView: {
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
     alignItems: 'center',
+  },
+  finleyFlagImage: {
+    width: 255,
+    aspectRatio: 1,
   },
   loadingView: {
     flex: 1,
@@ -106,19 +107,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 8,
   },
-  mailboxesImage: {
-    width: 300,
-    height: 500,
-    padding: 20,
-  },
   notMailbox: {
     color: COLORS.blue,
-    fontSize: 18,
-    textAlign: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({needsMinHeight: true, noBackground: true}),
 });
 
 export default ConnectedMailbox;

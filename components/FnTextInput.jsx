@@ -11,6 +11,7 @@ const FnTextInput = ({
   secureTextEntry = false,
   editable = true,
   fnStyles = {},
+  ...delegate
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
@@ -20,16 +21,15 @@ const FnTextInput = ({
     textAlign: 'left',
     fontSize: 14,
     marginBottom: 3,
-    color: theme.inputText,
+    color: COLORS.mediumgray,
   };
 
   const inputStyles = {
     padding: 16,
-    backgroundColor: theme.inputBackground,
     borderWidth: 1,
-    borderColor: isFocused ? theme.inputBorderFocus : 'transparent',
+    borderColor: isFocused ? theme.inputBorderFocus : COLORS.mediumgray,
     borderRadius: 8,
-    color: theme.inputText,
+    color: isFocused ? theme.inputText : COLORS.mediumgray,
     ...fnStyles,
   };
 
@@ -46,6 +46,7 @@ const FnTextInput = ({
         editable={editable}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
+        {...delegate}
       />
     </>
   );

@@ -6,6 +6,7 @@ const userSlice = createSlice({
   initialState: {
     status: LOADING_STATUS,
     isLoggedIn: false,
+    finishedInitialSetup: false,
     userToken: '',
     user: {
       firstName: '',
@@ -31,9 +32,18 @@ const userSlice = createSlice({
       const {env} = action.payload;
       return {...state, env};
     },
+    setFinishedInitialSetup: (state, action) => {
+      const {finishedInitialSetup} = action.payload;
+      return {...state, finishedInitialSetup};
+    },
   },
 });
 
-export const {initializeUser, setUserToken, setStatus, updateEnv} =
-  userSlice.actions;
+export const {
+  initializeUser,
+  setUserToken,
+  setStatus,
+  updateEnv,
+  setFinishedInitialSetup,
+} = userSlice.actions;
 export default userSlice.reducer;

@@ -4,7 +4,7 @@ import {
   ScrollView,
   View,
   Pressable,
-  Text,
+  Image,
   SafeAreaView,
   useColorScheme,
   ActivityIndicator,
@@ -16,8 +16,10 @@ import {setConnection} from '../store/bluetooth';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles} from '../utils/Style';
+import {flagConnected} from '../utils/Images';
 import {CONNECTED_MAILBOX_ROUTE} from '../constants/routes';
+import {useBaseStyles} from '../hooks/base-style-hooks';
 
 const ConnectMailbox = () => {
   const dispatch = useDispatch();
@@ -25,8 +27,11 @@ const ConnectMailbox = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles();
   const [readyToConnect, setReadyToConnect] = useState(false);
 
+  // NOTE: This is all mocks. Use the BLE provider...
+  // Not determined if we separate state and the BleManager, provider used to store the instance
   useEffect(() => {
     if (readyToConnect && !isBluetoothConnected) {
       setTimeout(() => {
@@ -59,14 +64,14 @@ const ConnectMailbox = () => {
     );
   }, [navigation, dispatch]);
 
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    flex: 1,
+  const innerView = {
+    paddingHorizontal: 20,
   };
 
-  const innerView = {
-    padding: 20,
+  const innerFlagImage = {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   };
 
   const innerLoadingView = {
@@ -80,16 +85,16 @@ const ConnectMailbox = () => {
 
   const subText =
     // eslint-disable-next-line quotes
-    `Make sure you're within 50 feet of your mailbox and Bluetooth is enabled on your phone before continuing to the next step.`;
+    `Let's make sure your device is connected and updated before installing it on your mailbox.`;
 
   return (
     <View style={backgroundStyle}>
       {readyToConnect && !isBluetoothConnected ? (
-        <SafeAreaView style={backgroundStyle}>
+        <SafeAreaView style={safeView}>
           <View style={innerLoadingView}>
             <ScrollView contentInsetAdjustmentBehavior="automatic">
               <FnText
-                text="Searching for your mailbox..."
+                text="Searching for your device..."
                 fnTextStyles={styles.title}
               />
             </ScrollView>
@@ -98,29 +103,30 @@ const ConnectMailbox = () => {
             <ActivityIndicator size="large" color={theme.text} />
           </View>
           <Pressable style={styles.troubleConnecting}>
-            <Text style={styles.troubleConnecting}>Trouble connecting?</Text>
+            <FnText
+              text="Trouble connecting?"
+              fnTextStyles={styles.troubleConnecting}
+            />
           </Pressable>
         </SafeAreaView>
       ) : (
-        <SafeAreaView style={backgroundStyle}>
+        <SafeAreaView style={safeView}>
           <View style={innerView}>
-            <ScrollView contentInsetAdjustmentBehavior="automatic">
-              <FnText text="Connect Your Mailbox" fnTextStyles={styles.title} />
-              <FnText text={subText} fnTextStyles={styles.subtext} />
-            </ScrollView>
+            <FnText text="Connect Your Flag" fnTextStyles={styles.title} />
+            <FnText text={subText} fnTextStyles={styles.subtext} />
+          </View>
+          <View style={innerFlagImage}>
+            <Image
+              src={flagConnected}
+              style={styles.finleyFlagImage}
+              resizeMode="contain"
+            />
           </View>
         </SafeAreaView>
       )}
       {(!readyToConnect || isBluetoothConnected) && (
         <View style={styles.bottomBar}>
-          <FnPressable
-            text="Connect Mailbox"
-            onPress={handleConnect}
-            disableDarkTheme={true}
-          />
-          <Pressable style={styles.noMailbox}>
-            <Text style={styles.noMailbox}>Don't have a mailbox?</Text>
-          </Pressable>
+          <FnPressable text="Next" onPress={handleConnect} />
         </View>
       )}
     </View>
@@ -130,22 +136,23 @@ const ConnectMailbox = () => {
 const styles = StyleSheet.create({
   title: {
     fontSize: 28,
+    fontWeight: 700,
     textAlign: 'center',
-    marginBottom: 24,
+    marginBottom: 16,
   },
   subtext: {
     textAlign: 'center',
-    marginBottom: 24,
+    color: COLORS.mediumgray,
+    marginBottom: 28,
+  },
+  finleyFlagImage: {
+    width: '70%',
+    aspectRatio: 1,
   },
   noMailbox: {
     color: COLORS.blue,
-    fontSize: 18,
-    textAlign: 'center',
-    paddingVertical: 8,
-    paddingHorizontal: 20,
   },
   troubleConnecting: {
-    color: COLORS.black,
     fontSize: 18,
     textAlign: 'center',
     paddingVertical: 8,
@@ -156,7 +163,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  bottomBar: createBottomBarStyles({needsMinHeight: true}),
+  bottomBar: createBottomBarStyles({noBackground: true}),
 });
 
 export default ConnectMailbox;

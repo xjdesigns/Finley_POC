@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from 'react';
+import React, {useState, useMemo, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -8,16 +8,20 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  Text,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Linking from 'expo-linking';
 import {useDispatch} from 'react-redux';
 import {setUserToken} from '../store/user';
 import FnTextInput from '../components/FnTextInput';
 import FnPressable from '../components/FnPressable';
 import {logoIconImage} from '../utils/Images';
-import {GETTING_STARTED_ROUTE, DEV_OPTIONS_ROUTE} from '../constants/routes';
+import {
+  GETTING_STARTED_ROUTE,
+  LOGIN_ROUTE,
+  DEV_OPTIONS_ROUTE,
+} from '../constants/routes';
 import {COLORS} from '../utils/Colors';
 import {useAuthHook} from '../hooks/auth-hook';
 
@@ -26,6 +30,7 @@ const Login = () => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const url = Linking.useURL();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -39,6 +44,24 @@ const Login = () => {
     return false;
   }, [email, password]);
 
+  useEffect(() => {
+    if (url) {
+      const {path, queryParams} = Linking.parse(url);
+      // NOTE: Tyler was getting this to error with a single if check,
+      // broke out into separate checks and need to verify. JJ 6/19
+      if (path && queryParams) {
+        if (
+          path.includes(LOGIN_ROUTE) &&
+          queryParams.email &&
+          queryParams.password
+        ) {
+          setEmail(queryParams.email);
+          setPassword(queryParams.password);
+        }
+      }
+    }
+  }, [url]);
+
   const baseStyle = {
     flex: 1,
   };
@@ -46,12 +69,6 @@ const Login = () => {
   const backgroundStyle = {
     backgroundColor: theme.background,
     ...baseStyle,
-  };
-
-  const setupText = {
-    color: theme.text,
-    fontSize: 18,
-    textAlign: 'center',
   };
 
   const handleSubmit = async () => {
@@ -115,6 +132,7 @@ const Login = () => {
               fnStyles={styles.inputStyle}
               value={email}
               onChangeText={val => setEmail(val)}
+              inputMode="email"
             />
             <FnTextInput
               label="Password"
@@ -129,9 +147,7 @@ const Login = () => {
               loading={loading}
               disabled={!canLogin}
             />
-            <Pressable style={styles.setupBtn} onPress={handleSetup}>
-              <Text style={setupText}>Setup</Text>
-            </Pressable>
+            <FnPressable text="Setup" onPress={handleSetup} inverted={true} />
           </View>
         </View>
       </SafeAreaView>
@@ -165,10 +181,8 @@ const styles = StyleSheet.create({
     backgroundColor: COLORS.white,
     borderRadius: 8,
   },
-  setupBtn: {
-    marginTop: 8,
-    paddingVertical: 8,
-    paddingHorizontal: 20,
+  test: {
+    color: COLORS.blue,
   },
 });
 

@@ -7,6 +7,7 @@ const FnRadio = ({
   value = '',
   onChange = () => {},
   disabled = false,
+  fnRadioStyles,
 }) => {
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
@@ -22,6 +23,10 @@ const FnRadio = ({
       borderColor: isSelected ? theme.radioColorActive : theme.radioColor,
       borderRadius: 50,
     };
+  };
+
+  const radioStyles = {
+    ...fnRadioStyles,
   };
 
   const radioView = {
@@ -43,7 +48,7 @@ const FnRadio = ({
   };
 
   return (
-    <View>
+    <View style={radioStyles}>
       {options.map((opt, idx) => {
         return (
           <Pressable

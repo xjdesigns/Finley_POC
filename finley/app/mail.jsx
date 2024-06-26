@@ -2,132 +2,133 @@ import React, {useState} from 'react';
 import {
   StyleSheet,
   View,
-  Text,
-  Pressable,
   FlatList,
+  Image,
   SafeAreaView,
   useColorScheme,
 } from 'react-native';
-import FIcon5 from 'react-native-vector-icons/FontAwesome5';
-import {useSelector, useDispatch} from 'react-redux';
-import {setIsSearching} from '../../store/mail';
+import {useSelector} from 'react-redux';
+import IonIcon from 'react-native-vector-icons/Ionicons';
 import FnText from '../../components/FnText';
 import FnPressable from '../../components/FnPressable';
 import FnMailCard from '../../components/FnMailCard';
 import FnSearchInput from '../../components/FnSearchInput';
+import FnIconBadge from '../../components/FnIconBadge';
+import {upsellStarImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
+import {useBaseStyles} from '../../hooks/base-style-hooks';
 import {CONNECTED_STATUS, NOT_CONNECTED_STATUS} from '../../constants/status';
-import {MOCK_MAIL} from '../../mock/mock-mail';
 
 const Mail = () => {
-  const dispatch = useDispatch();
   const {status, mail, isSearching} = useSelector(state => state.mail);
   const isDarkMode = useColorScheme() === 'dark';
   const theme = isDarkMode ? COLORS.darktheme : COLORS.lighttheme;
+  const {backgroundStyle, safeView} = useBaseStyles({safeViewBorder: true});
   const [search, setSearch] = useState('');
-
-  const handleSearchToggle = () => {
-    if (isSearching) {
-      setSearch('');
-    }
-    dispatch(setIsSearching({isSearching: !isSearching}));
-  };
-
-  const baseStyle = {
-    flex: 1,
-  };
-
-  const backgroundStyle = {
-    backgroundColor: theme.background,
-    ...baseStyle,
-  };
 
   const innerView = {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    paddingHorizontal: 20,
   };
 
   const hasMailView = {
     flex: 1,
   };
 
-  const actionView = {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  };
-
-  const searchView = {
-    width: '70%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
+  const upsellView = {
+    padding: 32,
+    backgroundColor: theme.lightBlueBackground,
+    borderRadius: 24,
   };
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
-        <View style={actionView}>
-          <Pressable onPress={handleSearchToggle}>
-            <FIcon5 name="search" size="18" color={theme.text} />
-          </Pressable>
-        </View>
-        {isSearching && (
-          <View style={searchView}>
-            <FnSearchInput
-              value={search}
-              onChangeText={val => setSearch(val)}
+      <SafeAreaView style={safeView}>
+        {status === NOT_CONNECTED_STATUS && (
+          <View style={innerView}>
+            <View style={upsellView}>
+              <Image src={upsellStarImage} style={styles.img} />
+              <FnText
+                text="Start your FREE Finley Premium Trial"
+                fnTextStyles={styles.title}
+                disableDarkTheme={true}
+              />
+              <FnText
+                text="Get notified when important mail arrives."
+                fnTextStyles={styles.subTitle}
+                disableDarkTheme={true}
+              />
+              <FnPressable text="Learn More" disableDarkTheme={true} />
+            </View>
+          </View>
+        )}
+        {status === CONNECTED_STATUS && mail.length === 0 && (
+          <View style={innerView}>
+            <FnIconBadge>
+              <IonIcon name="mail-outline" style={styles.noMailIcon} />
+            </FnIconBadge>
+            <FnText
+              text="Waiting is the hardest part."
+              fnTextStyles={styles.title}
+            />
+            <FnText
+              text="You'll be able to view your mail here the next time mail is expected or delivered."
+              fnTextStyles={styles.subTitle}
             />
           </View>
         )}
         {status === CONNECTED_STATUS && mail.length > 0 && (
-          <View style={innerView}>
-            <FnText
-              text="Nothing to see here, yet."
-              fnTextStyles={styles.title}
-            />
-            <FnText text="Next time mail is delivered it will show up here." />
-          </View>
-        )}
-        {status === NOT_CONNECTED_STATUS && (
-          <View style={innerView}>
-            <FnText
-              text="Nothing to see here, yet."
-              fnTextStyles={styles.title}
-            />
-            <FnText text="Next time mail is delivered it will show up here." />
-            <FnText
-              text="Start your free year of Retriever to view your mail here."
-              fnTextStyles={styles.freeYear}
-            />
-            <FnPressable text="Get Started" />
-            <Pressable>
-              <Text style={styles.learnMore}>Learn More</Text>
-            </Pressable>
-          </View>
-        )}
-        <View style={hasMailView}>
-          {status === CONNECTED_STATUS && mail.length === 0 && (
+          <View style={hasMailView}>
             <View style={styles.mailView}>
+              {isSearching && (
+                <View style={styles.searchView}>
+                  <FnSearchInput
+                    value={search}
+                    onChangeText={setSearch}
+                    onClear={() => setSearch('')}
+                  />
+                </View>
+              )}
+
               <FlatList
-                data={MOCK_MAIL}
+                data={mail}
                 renderItem={({item}) => <FnMailCard data={item} />}
                 keyExtractor={(_, idx) => idx}
               />
             </View>
-          )}
-        </View>
+          </View>
+        )}
       </SafeAreaView>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  img: {
+    width: 40,
+    height: 40,
+    marginHorizontal: 'auto',
+    marginBottom: 18,
+  },
+  mailboxImg: {
+    width: 88,
+    height: 88,
+    marginHorizontal: 'auto',
+    marginBottom: 28,
+  },
   title: {
-    marginBottom: 8,
+    marginBottom: 18,
+    maxWidth: '90%',
     fontSize: 28,
     fontWeight: 700,
+    textAlign: 'center',
+  },
+  subTitle: {
+    textAlign: 'center',
+    color: COLORS.mediumgray,
+    marginBottom: 18,
   },
   freeYear: {
     marginTop: 36,
@@ -135,54 +136,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 48,
     textAlign: 'center',
   },
-  learnMore: {
-    marginTop: 8,
-    color: COLORS.blue,
-    fontWeight: 700,
-  },
   mailView: {
     flex: 1,
-    width: '100%',
-    padding: 12,
+    paddingTop: 18,
   },
-  date: {
-    marginBottom: 12,
-    flexDirection: 'row',
+  searchView: {
+    marginBottom: 18,
+    paddingHorizontal: 20,
   },
-  dateDate: {
-    flex: 1,
-  },
-  datePrimary: {
-    color: COLORS.blue,
-  },
-  dateSecondary: {
-    color: COLORS.blue,
-  },
-  mailContent: {
-    flexDirection: 'row',
-  },
-  mailIcon: {
-    marginTop: 4,
-    marginRight: 4,
-    width: 8,
-    height: 8,
-    backgroundColor: COLORS.blue,
-    borderRadius: 50,
-  },
-  mailInfo: {
-    flex: 1,
-  },
-  senderText: {
-    fontSize: 18,
-    fontWeight: 700,
-  },
-  subjectText: {
-    fontSize: 16,
-  },
-  img: {
-    width: 60,
-    height: 40,
-    backgroundColor: COLORS.mediumgray,
+  noMailIcon: {
+    marginTop: 14,
+    fontSize: 54,
   },
 });
 

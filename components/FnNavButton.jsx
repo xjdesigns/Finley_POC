@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Pressable, StyleSheet, useColorScheme} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import FIcon5 from 'react-native-vector-icons/FontAwesome5';
-import MCIIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MatIcon from 'react-native-vector-icons/MaterialIcons';
 import FnText from './FnText';
 import {COLORS} from '../utils/Colors';
 
@@ -12,6 +12,7 @@ const FnNavButton = ({
   onPress = () => {},
   borderTop = false,
   borderBottom = false,
+  icon = null,
 }) => {
   const navigation = useNavigation();
   const isDarkMode = useColorScheme() === 'dark';
@@ -20,17 +21,13 @@ const FnNavButton = ({
   const navBtnStyle = {
     backgroundColor: theme.background,
     padding: 18,
+    paddingVertical: 24,
     flexDirection: 'row',
     alignItems: 'center',
     borderTopColor: borderTop ? COLORS.borderGray : '',
     borderTopWidth: borderTop ? 1 : 0,
     borderBottomColor: borderBottom ? COLORS.borderGray : '',
     borderBottomWidth: borderBottom ? 1 : 0,
-  };
-
-  const navIcon = {
-    fontSize: 24,
-    color: theme.text,
   };
 
   const navArrow = {
@@ -50,14 +47,17 @@ const FnNavButton = ({
 
   return (
     <Pressable style={navBtnStyle} onPress={handleNavigation}>
-      <View style={styles.navBtnIcon}>
-        <MCIIcon name="mailbox" style={navIcon} />
-      </View>
       <View style={styles.navText}>
         <FnText text={text} />
       </View>
       <View>
-        <FIcon5 name="chevron-right" style={navArrow} />
+        {icon ? (
+          // TODO: Make this dynamic, tough when each requires a specific library
+          // Logout is the default but I pass whatever...
+          <MatIcon name={icon} style={navArrow} />
+        ) : (
+          <FIcon5 name="chevron-right" style={navArrow} />
+        )}
       </View>
     </Pressable>
   );
@@ -66,9 +66,6 @@ const FnNavButton = ({
 const styles = StyleSheet.create({
   navBtn: {
     padding: 12,
-  },
-  navBtnIcon: {
-    marginRight: 8,
   },
   navText: {
     flex: 1,

@@ -13,7 +13,6 @@ import FnNavButton from '../../components/FnNavButton';
 import {mailboxesImage} from '../../utils/Images';
 import {COLORS} from '../../utils/Colors';
 import {NOT_CONNECTED_STATUS} from '../../constants/status';
-// import Menu from '../../components/Menu';
 
 const Home = () => {
   const {status} = useSelector(state => state.mail);
@@ -45,6 +44,10 @@ const Home = () => {
     ...baseStyle,
   };
 
+  const safeView = {
+    flex: 1,
+  };
+
   const mainStyle = {
     flex: 1,
     alignItems: 'center',
@@ -69,7 +72,7 @@ const Home = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={mainStyle}>
           <FnText text="Connected" fnTextStyles={styles.connected} />
           <FnText text="Monday, May 27" fnTextStyles={styles.date} />
@@ -91,6 +94,7 @@ const Home = () => {
             />
           </View>
         </View>
+        {/* // Image moves up when this is added, maybe these use absolute position to overlay */}
         {status === NOT_CONNECTED_STATUS && (
           <FnNavButton
             text="Set up your Digital Mailbox"
@@ -99,7 +103,6 @@ const Home = () => {
           />
         )}
       </SafeAreaView>
-      {/* <Menu /> */}
     </View>
   );
 };
@@ -126,9 +129,10 @@ const styles = StyleSheet.create({
   },
   mailbox: {
     width: 300,
-    height: 500,
+    height: 460,
     padding: 20,
     marginTop: 48,
+    overflow: 'hidden',
   },
 });
 

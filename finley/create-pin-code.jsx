@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import {StyleSheet, View, SafeAreaView, useColorScheme} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
-import {toggleConnection, setStatus} from '../store/mailbox';
+import {toggleConnection, setStatus} from '../store/conversation';
 import {COLORS} from '../utils/Colors';
 import FnPressable from '../components/FnPressable';
 import FnText from '../components/FnText';
 import FnNumPad from '../components/FnNumPad';
 import FnValueDisplay from '../components/FnValueDisplay';
-import {createBottomBarStyles} from '../utils/BottomBar';
+import {createBottomBarStyles, getAndroidPadding} from '../utils/Style';
 
 const CreatePinCode = () => {
   const dispatch = useDispatch();
@@ -19,8 +19,11 @@ const CreatePinCode = () => {
     flex: 1,
   };
 
+  const safeView = {
+    flex: 1,
+  };
+
   const innerView = {
-    padding: 20,
     paddingHorizontal: 12,
   };
 
@@ -48,7 +51,7 @@ const CreatePinCode = () => {
 
   return (
     <View style={backgroundStyle}>
-      <SafeAreaView style={backgroundStyle}>
+      <SafeAreaView style={safeView}>
         <View style={innerView}>
           <FnText
             text="Create A Pin Code for Your Mailbox"

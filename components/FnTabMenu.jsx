@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {CommonActions} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import IonIcon from 'react-native-vector-icons/Ionicons';
+import MatCIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {COLORS} from '../utils/Colors';
 import {useTheme} from '@react-navigation/native';
 
@@ -14,7 +16,7 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
     flexDirection: 'row',
     justifyContent: 'space-around',
     paddingBottom: 20,
-    borderTopColor: COLORS.borderGray,
+    borderTopColor: COLORS.darkergray,
     borderTopWidth: 1,
   };
 
@@ -39,12 +41,20 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
       return <Icon name="home" {...styleProps} />;
     }
 
-    if (name === 'Mail') {
-      return <IonIcon name="mail" {...styleProps} />;
+    if (name === 'Mailbox') {
+      return <MatCIcon name="mailbox-up-outline" {...styleProps} />;
     }
 
-    if (name === 'More') {
-      return <Icon name="ellipsis-h" {...styleProps} />;
+    if (name === 'Mail') {
+      return <IonIcon name="mail-outline" {...styleProps} />;
+    }
+
+    if (name === 'Scan') {
+      return <IonIcon name="scan-outline" {...styleProps} />;
+    }
+
+    if (name === 'Menu') {
+      return <IonIcon name="menu" {...styleProps} />;
     }
   };
 
@@ -78,7 +88,18 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            navigation.navigate(route.name, route.params);
+            // NOTE: Mailbox and Mail both use common routes for details and image viewer
+            // Reset the navigation state...
+            if (route.name === 'Mailbox' || route.name === 'Mail') {
+              navigation.dispatch(
+                CommonActions.reset({
+                  index: 0,
+                  routes: [{key: route.key, name: route.name}],
+                }),
+              );
+            } else {
+              navigation.navigate(route.name, route.params);
+            }
           }
         };
 
@@ -121,7 +142,6 @@ export const FnTabMenu = ({state, descriptors, navigation}) => {
 
 const styles = StyleSheet.create({
   navAction: {
-    // flex: 1,
     textAlign: 'center',
     padding: 10,
   },

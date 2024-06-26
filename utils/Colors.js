@@ -1,6 +1,6 @@
 const DARK_GRAY = '#222';
 const LIGHT_GRAY = '#F3F3F3';
-const MEDIUM_GRAY = '#797979';
+const MEDIUM_GRAY = '#8d8d8d';
 
 export const COLORS = {
   white: '#fff',
@@ -9,19 +9,22 @@ export const COLORS = {
   secondary: '#ffedbd',
   blue: '#007aff',
   mediumgray: MEDIUM_GRAY,
+  darkergray: '#8c8c8c',
   borderGray: '#d8d8d8',
+  success: '#cef987',
   danger: '#fb2625',
   lighttheme: {
     lightgray: '#F3F3F3',
     darkgray: '#222',
     background: LIGHT_GRAY,
     appBackground: '#ffedbd',
+    lightBlueBackground: '#c0f4ff',
     text: '#000',
     buttonText: '#fff',
     buttonBackground: '#000',
     inputText: '#000',
     inputBackground: '#fff',
-    inputBorderFocus: '#4fa2ee',
+    inputBorderFocus: '#c0f4ff',
     numBtnBackground: '#c5c5c5',
     numText: '#5d5d5d',
     switchTrackActive: '#47673b',
@@ -29,18 +32,23 @@ export const COLORS = {
     switchThumb: '#000',
     radioColor: MEDIUM_GRAY,
     radioColorActive: '#007aff',
+    numberBackground: '#fff0a2',
+    mailboxDarkGreen: '#759f31',
+    mailboxLightGreen: '#e1ffb1',
   },
   darktheme: {
     lightgray: '#F3F3F3',
     darkgray: '#222',
-    background: DARK_GRAY,
+    background: '#303030',
     appBackground: '#443f32',
+    // lightBlueBackground: '#495c61',
+    lightBlueBackground: '#c0f4ff',
     text: '#fff',
     buttonText: '#000',
     buttonBackground: '#fff',
     inputText: '#fff',
     inputBackground: '#000',
-    inputBorderFocus: '#4fa2ee',
+    inputBorderFocus: '#c0f4ff',
     numBtnBackground: '#5d5d5d',
     numText: '#c5c5c5',
     switchTrackActive: '#6ab150',
@@ -48,5 +56,8 @@ export const COLORS = {
     switchThumb: '#000',
     radioColor: '#fff',
     radioColorActive: '#007aff',
+    numberBackground: '#fff0a2',
+    mailboxDarkGreen: '#759f31',
+    mailboxLightGreen: '#e1ffb1',
   },
 };
