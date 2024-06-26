@@ -1,6 +1,12 @@
-# Finley POC
+# Finley React Native
 
 ## Getting Started
+App requires Node ^18.18.
+
+It is best to setup NVM to handle node versioning.
+
+[NVM Install](https://github.com/nvm-sh/nvm)
+
 Clone the repo and run `npm i` then `npm start`.
 
 Follow the prompts to start the application. For development its best to start the expo server before launching inside of a simulator.
@@ -29,19 +35,33 @@ The following frameworks/tools are being used to create the POC experience.
 
 [BLE](https://github.com/dotintent/react-native-ble-plx)
 
+## Build
+To build the applications out you will first want to run the `prebuild` command. From a barebones Expo app it creates the
+android and ios directories. From there you can run the following commands to create individual builds. These will build and create the proper files for each native device.
+
+> NOTE: Production build steps are TBD but should be able to build from the respective native IDEs.
+
+Build iOS
+
+```
+npm run ios
+```
+
+Build Android
+
+```
+npm run android
+```
+
+
 ## Linking
 This is currently a work in progress. I have it handling for Expo Go App but would need to be tested on native.
-We would also want to figure out what path this would take, Figma shows to setup someone with Bio Auth. That feature has not been built out.
 
 Uses the Expo Linking feature.
 
-If running Expo Go you can start the app in the command link like so to open the Login page with queryParams.
+If running Expo Go you can start the app in the command link like to open the Login page with queryParams.
 
-> NOTE: Query params special characters have to be escaped and not documented.
-
-```
-npx uri-scheme open exp://192.168.1.201:8081/--/Login\?email=Jason\&password=Password --ios
-```
+> NOTE: Query params special characters have to be escaped and not documented when using `npx uri-scheme`.
 
 ```
 npx uri-scheme open exp://192.168.1.201:8081/--/CreateAccount\?firstName=Jason\&lastName=Jacobson\&email=jason\@finley.com --ios

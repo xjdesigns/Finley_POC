@@ -56,6 +56,7 @@ const ConnectMailbox = () => {
           text: 'Allow',
           onPress: () => {
             navigation.navigate(CONNECTED_MAILBOX_ROUTE);
+            // TODO: Once BLE is working replace with the BLE provider
             dispatch(setConnection({isBluetoothConnected: true}));
           },
           style: 'default',
@@ -79,6 +80,7 @@ const ConnectMailbox = () => {
   };
 
   const handleConnect = () => {
+    // TODO: Once BLE is working replace with the BLE provider
     dispatch(setConnection({isBluetoothConnected: false}));
     setReadyToConnect(true);
   };
