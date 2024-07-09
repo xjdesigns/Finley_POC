@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.1.0](https://github.com/xjdesigns/Finley_POC/compare/v1.0.0...v1.1.0) (2024-07-09)
+
+
+### Features
+
+* **App:** Testing release ([4179add](https://github.com/xjdesigns/Finley_POC/commit/4179add5448dae887ad4b61fe5f5c8be62c32901))
+
 ## 1.0.0 (2024-07-09)
 
 
