@@ -5,6 +5,8 @@ App requires Node ^18.18.
 
 It is best to setup NVM to handle node versioning.
 
+TEST TEST TES
+
 [NVM Install](https://github.com/nvm-sh/nvm)
 
 Clone the repo and run `npm i` then `npm start`.
