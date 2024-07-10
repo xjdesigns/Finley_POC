@@ -1,6 +1,6 @@
 {
   "name": "finley_react_native",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "expo/AppEntry.js",
   "engines": {
     "node": ">=18"
@@ -16,7 +16,7 @@
     "build:ios:dev": "npx expo run:ios",
     "build:android:dev": "npx expo run:android",
     "build:ios": "expo build:ios",
-    "release": "standard-version && git push --follow-tags"
+    "release": "npx expo prebuild --clean && standard-version && git push --follow-tags"
   },
   "dependencies": {
     "@expo/metro-runtime": "~3.2.1",
