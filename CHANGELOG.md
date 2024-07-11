@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.2](https://github.com/xjdesigns/Finley_POC/compare/v1.1.0...v1.1.2) (2024-07-11)
+
+
+### Bug Fixes
+
+* **Test:** Testing again, no follow ([838c7fd](https://github.com/xjdesigns/Finley_POC/commit/838c7fdd54d616dae1c13bf7d6e6cb39c9d45b63))
+* **Test:** Testing release command ([b3f6277](https://github.com/xjdesigns/Finley_POC/commit/b3f62770288346fe4428e5fcfd2bc34d88728e81))
+
 ### [1.1.1](https://github.com/xjdesigns/Finley_POC/compare/v1.1.0...v1.1.1) (2024-07-11)
 
 
