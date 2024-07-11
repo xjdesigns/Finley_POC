@@ -68,3 +68,6 @@ If running Expo Go you can start the app in the command link like to open the Lo
 ```
 npx uri-scheme open exp://192.168.1.201:8081/--/CreateAccount\?firstName=Jason\&lastName=Jacobson\&email=jason\@finley.com --ios
 ```
+
+#### Testing Tags
+Let me test
